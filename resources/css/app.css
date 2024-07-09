@@ -1,3 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.none-scrollbar {
+    scrollbar-width: none;
+}
+
+.none-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.blinking-cursor {
+    font-weight: 400;
+    font-size: 36px;
+    color: white;
+    -webkit-animation: blink 1s infinite;
+    -moz-animation: blink 1s infinite;
+    -ms-animation: blink 1s infinite;
+    -o-animation: blink 1s infinite;
+    animation: blink 1s infinite;
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+instagram {
+    background: -moz-linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+    );
+    background: -webkit-linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+    );
+    background: linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+    );
+}
+
+.shadow-top-right-bottom {
+    box-shadow: -3px 4px 15px -3px rgba(100, 100, 100, 100.75);
+}
+
+.accordion-item {
+    @apply border-b border-white my-2;
+}
+
+.accordion-header {
+    @apply flex justify-between items-center py-4 px-6 w-full bg-[#3B2389] text-white rounded-t-lg focus:outline-none;
+}
+
+.accordion-content {
+    @apply px-6 py-4 bg-[#5A3EA3] text-white rounded-b-lg;
+}
+
+@keyframes marquee-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes marquee-right {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.marquee-left {
+    white-space: nowrap;
+    will-change: transform;
+    animation-name: marquee-left;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.marquee-right {
+    white-space: nowrap;
+    will-change: transform;
+    animation-name: marquee-right;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@media (max-width: 1280px) {
+    .item:nth-child(n + 4) {
+        display: none;
+    }
+}
+
+/* @media (max-width: 1280px) {
+    .item:nth-child(n + 4) {
+        display: none;
+    }
+} */
