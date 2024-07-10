@@ -172,8 +172,8 @@ instagram {
     }
 }
 
-/* @media (max-width: 1280px) {
-    .item:nth-child(n + 4) {
+@media (max-width: 1280px) {
+    .merchandise:nth-child(n + 3) {
         display: none;
     }
-} */
+}

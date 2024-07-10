@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png";
 
 export default function Merchandise() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [itemsToShow, setItemsToShow] = useState(2);
-
+    const itemsToShow = window.innerWidth >= 1280 ? 4 : 2;
     const images = [
         lombaGalangMobile,
         lombaGalangMobile,
@@ -20,21 +19,6 @@ export default function Merchandise() {
         "Merchandise 4",
         "Merchandise 5",
     ];
-
-    useEffect(() => {
-        const updateItemsToShow = () => {
-            if (window.innerWidth >= 1024) {
-                setItemsToShow(4);
-            } else {
-                setItemsToShow(2);
-            }
-        };
-
-        updateItemsToShow();
-        window.addEventListener("resize", updateItemsToShow);
-
-        return () => window.removeEventListener("resize", updateItemsToShow);
-    }, []);
 
     const handlePrev = () => {
         if (currentIndex > 0) {
@@ -64,27 +48,23 @@ export default function Merchandise() {
                     &lt;
                 </button>
                 <div className="flex gap-5">
-                    {currentIndex <= images.length - itemsToShow && (
-                        <div className="flex gap-4">
-                            {[...Array(itemsToShow)].map((_, offset) => (
-                                <div
-                                    key={currentIndex + offset}
-                                    className="bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary px-2 py-1"
-                                >
-                                    <div className="size-32 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
-                                        <img
-                                            className="size-full object-cover hover:scale-125 transition-transform duration-200 ease-in cursor-zoom-in"
-                                            src={images[currentIndex + offset]}
-                                            alt=""
-                                        />
-                                    </div>
-                                    <p className="xl:text-2xl xl:font-semibold">
-                                        {text[currentIndex + offset]}
-                                    </p>
-                                </div>
-                            ))}
+                    {Array.from({ length: itemsToShow }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="merchandise bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary px-2 py-1"
+                        >
+                            <div className="size-32 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
+                                <img
+                                    className="size-full object-cover hover:scale-125 transition-transform duration-200 ease-in cursor-zoom-in"
+                                    src={images[currentIndex + index]}
+                                    alt=""
+                                />
+                            </div>
+                            <p className="xl:text-2xl xl:font-semibold">
+                                {text[currentIndex + index]}
+                            </p>
                         </div>
-                    )}
+                    ))}
                 </div>
                 <button
                     onClick={handleNext}
