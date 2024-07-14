@@ -1,7 +1,18 @@
+import React, { useState, useEffect } from 'react';
 import NavbarAmbalan from "@/Components/Partial/NavbarAmbalan";
 import { City, Envelope, InstagramLogo } from "@phosphor-icons/react";
 
 export default function KontakPage() {
+    // State for CSRF Token
+    const [csrfToken, setCsrfToken] = useState('');
+
+    // useEffect Hook to retrieve CSRF token
+    useEffect(() => {
+        // Retrieve the CSRF token from the meta tag
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        setCsrfToken(token);
+    }, []);
+
     return (
         <>
             <NavbarAmbalan />
@@ -15,7 +26,9 @@ export default function KontakPage() {
                             Hubungi kami apabila terdapat pertanyaan dan
                             tanggapan lebih lanjut dengan isi form dibawah ini!
                         </p>
-                        <form className="w-full max-w-lg mx-auto mt-5">
+                        <form className="w-full max-w-lg mx-auto mt-5" action='/contact/mail' method='post' encType='multipart/form-data'>
+                            {/* Hidden input field for CSRF token */}
+                            <input type="hidden" name="_token" value={csrfToken} />
                             <div className="relative z-0 mb-6 w-full group">
                                 <input
                                     type="text"
