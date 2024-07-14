@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class tes extends Mailable
+class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class tes extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Message',
+            subject: 'no reply!',
         );
     }
 

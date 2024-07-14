@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\tes;
+use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Validator;
 
 class MailController
@@ -24,7 +24,7 @@ class MailController
         }
     
 
-        if (Mail::to('akagaminoshanks1722@gmail.com')->send(new tes($request->input('name'), $request->input('email'), $request->input('message')))) {
+        if (Mail::to('officialbakuls@gmail.com')->send(new ContactMail($request->input('name'), $request->input('email'), $request->input('message')))) {
             // Email sent successfully
             // return response()->json(['message' => 'Form submitted successfully'], 200);
             return redirect()->route('contact')->with('success', 'Message sent successfully!');

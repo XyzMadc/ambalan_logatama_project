@@ -1,17 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import NavbarAmbalan from "@/Components/Partial/NavbarAmbalan";
 import { City, Envelope, InstagramLogo } from "@phosphor-icons/react";
+import axios from 'axios';
 
 export default function KontakPage() {
     // State for CSRF Token
     const [csrfToken, setCsrfToken] = useState('');
 
+    // State for form data and errors
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [errors, setErrors] = useState({});
+
     // useEffect Hook to retrieve CSRF token
     useEffect(() => {
-        // Retrieve the CSRF token from the meta tag
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         setCsrfToken(token);
     }, []);
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('/contact/mail', formData, {
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+            }
+        })
+        .then(response => {
+            // Handle success response
+            console.log('Form submitted successfully', response);
+            // Clear form data and errors
+            setFormData({ name: '', email: '', message: '' });
+            setErrors({});
+        })
+        .catch(error => {
+            if (error.response && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            }
+        });
+    };
 
     return (
         <>
@@ -26,8 +62,7 @@ export default function KontakPage() {
                             Hubungi kami apabila terdapat pertanyaan dan
                             tanggapan lebih lanjut dengan isi form dibawah ini!
                         </p>
-                        <form className="w-full max-w-lg mx-auto mt-5" action='/contact/mail' method='post' encType='multipart/form-data'>
-                            {/* Hidden input field for CSRF token */}
+                        <form className="w-full max-w-lg mx-auto mt-5" onSubmit={handleSubmit}>
                             <input type="hidden" name="_token" value={csrfToken} />
                             <div className="relative z-0 mb-6 w-full group">
                                 <input
@@ -36,7 +71,8 @@ export default function KontakPage() {
                                     id="name"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    required
+                                    value={formData.name}
+                                    onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="name"
@@ -44,6 +80,7 @@ export default function KontakPage() {
                                 >
                                     Nama
                                 </label>
+                                {errors.name && <p className="text-red-600 text-sm">{errors.name[0]}</p>}
                             </div>
                             <div className="relative z-0 mb-6 w-full group">
                                 <input
@@ -52,7 +89,8 @@ export default function KontakPage() {
                                     id="email"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    required
+                                    value={formData.email}
+                                    onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="email"
@@ -60,6 +98,7 @@ export default function KontakPage() {
                                 >
                                     Email
                                 </label>
+                                {errors.email && <p className="text-red-600 text-sm">{errors.email[0]}</p>}
                             </div>
                             <div className="relative z-0 mb-6 w-full group">
                                 <textarea
@@ -68,7 +107,8 @@ export default function KontakPage() {
                                     rows="4"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    required
+                                    value={formData.message}
+                                    onChange={handleChange}
                                 ></textarea>
                                 <label
                                     htmlFor="message"
@@ -76,6 +116,7 @@ export default function KontakPage() {
                                 >
                                     Pesan
                                 </label>
+                                {errors.message && <p className="text-red-600 text-sm">{errors.message[0]}</p>}
                             </div>
                             <button
                                 type="submit"
