@@ -26,5 +26,8 @@ Route::get('/guide', function () {
 Route::get('/announcement', function () {
     return Inertia::render('Pengumuman/index');
 });
+Route::get('/login-soal', function () {
+    return Inertia::render('loginSoal/index');
+});
 
 require __DIR__ . '/auth.php';
