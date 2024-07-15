@@ -37,7 +37,6 @@ export default function KontakPage() {
                     description: "Terjadi kesalahan, silahkan coba lagi.",
                     status: "error",
                 });
-                reset();
             },
         });
     };

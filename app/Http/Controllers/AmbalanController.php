@@ -33,22 +33,7 @@ class AmbalanController
 
     public function email(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255',
-        //     'message' => 'required|string|max:500',
-        // ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json(['errors' => $validator->errors()], 422);
-        // }
-
-
-        // if (Mail::to('officialbakuls@gmail.com')->send(new ContactMail($request->input('name'), $request->input('email'), $request->input('message')))) {
-        //     return redirect()->route('kontak')->with('success', 'Message sent successfully!');
-        // } else {
-        //     return redirect()->route('kontak')->with('error', 'Failed to send email.');
-        // }
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -64,9 +49,7 @@ class AmbalanController
                 'email' => $email,
                 'message' => $message,
             ];
-            echo json_encode(['message' => 'Form berhasil dikirim', 'data' => $response]);
-        } else {
-            echo json_encode(['message' => 'Failed to send email!']);
+            Mail::to('officialbakuls@gmail.com')->send(new ContactMail($response['name'], $response['email'], $response['message']));
         }
     }
 }
