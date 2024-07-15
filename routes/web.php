@@ -10,23 +10,24 @@ use App\Http\Controllers\LogatamaController;
 
 Route::controller(AmbalanController::class)
     ->prefix('/')
-    ->name('beranda')
     ->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('beranda');
         Route::get('/tentang', 'tentang');
         Route::get('/kegiatan', 'kegiatan');
-        Route::get('/kontak', 'kontak');
+        Route::get('/kontak', 'kontak')->name('kontak');
+        Route::post('/kontak/mail', 'email')->name('contactMail');
     });
 
 
 Route::controller(LogatamaController::class)
     ->prefix('/')
-    ->name('logatama')
     ->group(function () {
-        Route::get('/logatama', 'index');
+        Route::get('/logatama', 'index')->name('logatama');
         Route::get('/panduan', 'tentang');
         Route::get('/pengumuman', 'kegiatan');
         Route::get('/login-soal', 'soal');
     });
 
 require __DIR__ . '/auth.php';
+
+
