@@ -24,7 +24,7 @@ class MailController
         }
     
 
-        if (Mail::to('officialbakuls@gmail.com')->send(new ContactMail($request->input('name'), $request->input('email'), $request->input('message')))) {
+        if (Mail::to(env('MAIL_TO'))->send(new ContactMail($request->input('name'), $request->input('email'), $request->input('message')))) {
             // Email sent successfully
             // return response()->json(['message' => 'Form submitted successfully'], 200);
             return redirect()->route('contact')->with('success', 'Message sent successfully!');
