@@ -21,7 +21,7 @@ export default function NavigationBarLogatama() {
                         <List path="/logatama" label="Beranda" />
                         <List path="/tentang" label="Tentang" />
                         <List path="/panduan" label="Panduan" />
-                        <List path="/pengumuman" label="Pengumuman" />
+                        <List path="/announcement" label="Pengumuman" />
                         <li className="bg-gradient-to-r from-navbar_primary via-navbar_secondary to-navbar_tertiary px-4 py-2 xl:px-5 xl:py-1 rounded-full">
                             <a className="font-semibold" href="#">
                                 DAFTAR
