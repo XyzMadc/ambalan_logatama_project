@@ -1,56 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import NavbarAmbalan from "@/Components/Partial/NavbarAmbalan";
 import { City, Envelope, InstagramLogo } from "@phosphor-icons/react";
-import axios from 'axios';
+import { Head, useForm } from "@inertiajs/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 
 export default function KontakPage() {
-    // State for CSRF Token
-    const [csrfToken, setCsrfToken] = useState('');
-
-    // State for form data and errors
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
+    const [isLoading, setIsLoading] = useState(false);
+    const { data, setData, errors, post, reset } = useForm({
+        name: "",
+        email: "",
+        message: "",
     });
-    const [errors, setErrors] = useState({});
-
-    // useEffect Hook to retrieve CSRF token
-    useEffect(() => {
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        setCsrfToken(token);
-    }, []);
+    const toast = useToast();
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setData(e.target.name, e.target.value);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('/kontak/mail', formData, {
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-            }
-        })
-        .then(response => {
-            // Handle success response
-            console.log('Form submitted successfully', response);
-            // Clear form data and errors
-            setFormData({ name: '', email: '', message: '' });
-            setErrors({});
-        })
-        .catch(error => {
-            if (error.response && error.response.data.errors) {
-                setErrors(error.response.data.errors);
-            }
+        setIsLoading(true);
+        post("/kontak/mail", {
+            onSuccess: () => {
+                setIsLoading(false);
+                toast({
+                    title: "Pesan Terkirim",
+                    description: "Terima kasih telah menghubungi kami!",
+                    status: "success",
+                });
+                reset();
+            },
+            onError: () => {
+                setIsLoading(false);
+                toast({
+                    title: "Pesan Gagal Terkirim",
+                    description: "Terjadi kesalahan, silahkan coba lagi.",
+                    status: "error",
+                });
+                reset();
+            },
         });
     };
 
     return (
         <>
+            <Head title="Kontak" />
             <NavbarAmbalan />
             <section className="min-h-[110vh] xl:min-h-screen px-5 xl:px-[120px] py-28 xl:py-0 xl:pt-[100px] bg-secondary">
                 <div className="relative xl:flex xl:bg-white">
@@ -62,8 +56,10 @@ export default function KontakPage() {
                             Hubungi kami apabila terdapat pertanyaan dan
                             tanggapan lebih lanjut dengan isi form dibawah ini!
                         </p>
-                        <form className="w-full max-w-lg mx-auto mt-5" onSubmit={handleSubmit}>
-                            <input type="hidden" name="_token" value={csrfToken} />
+                        <form
+                            className="w-full max-w-lg mx-auto mt-5"
+                            onSubmit={handleSubmit}
+                        >
                             <div className="relative z-0 mb-6 w-full group">
                                 <input
                                     type="text"
@@ -71,7 +67,7 @@ export default function KontakPage() {
                                     id="name"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    value={formData.name}
+                                    value={data.name}
                                     onChange={handleChange}
                                 />
                                 <label
@@ -80,7 +76,11 @@ export default function KontakPage() {
                                 >
                                     Nama
                                 </label>
-                                {errors.name && <p className="text-red-600 text-sm">{errors.name[0]}</p>}
+                                {errors.name && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.name}
+                                    </p>
+                                )}
                             </div>
                             <div className="relative z-0 mb-6 w-full group">
                                 <input
@@ -89,7 +89,7 @@ export default function KontakPage() {
                                     id="email"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    value={formData.email}
+                                    value={data.email}
                                     onChange={handleChange}
                                 />
                                 <label
@@ -98,7 +98,11 @@ export default function KontakPage() {
                                 >
                                     Email
                                 </label>
-                                {errors.email && <p className="text-red-600 text-sm">{errors.email[0]}</p>}
+                                {errors.email && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.email}
+                                    </p>
+                                )}
                             </div>
                             <div className="relative z-0 mb-6 w-full group">
                                 <textarea
@@ -107,7 +111,7 @@ export default function KontakPage() {
                                     rows="4"
                                     className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
-                                    value={formData.message}
+                                    value={data.message}
                                     onChange={handleChange}
                                 ></textarea>
                                 <label
@@ -116,13 +120,21 @@ export default function KontakPage() {
                                 >
                                     Pesan
                                 </label>
-                                {errors.message && <p className="text-red-600 text-sm">{errors.message[0]}</p>}
+                                {errors.message && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.message}
+                                    </p>
+                                )}
                             </div>
                             <button
                                 type="submit"
-                                className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+                                className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
                             >
-                                Kirim
+                                {isLoading ? (
+                                    <Spinner />
+                                ) : (
+                                    <p className="text-sm">Kirim</p>
+                                )}
                             </button>
                         </form>
                     </div>
