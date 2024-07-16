@@ -23,10 +23,11 @@ class PesertaFactory extends Factory
      */
     public function definition(): array
     {
+        $school = rand(1, 50);
         return [
             'team_id' => Str::uuid(),
-            'pangkalan' => 'SMP '. rand(1, 50) .' Semarang',
-            'username' => fake()->name,
+            'pangkalan' => "SMP $school Semarang",
+            'username' => "smp_" . $school . "_semarang",
             'role' => 'peserta',
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
