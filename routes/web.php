@@ -49,6 +49,8 @@ Route::controller(AdminLogatamaController::class)
         Route::get('/dashboard', 'index');
         Route::get('/pengumuman', 'pengumuman');
         Route::get('/rekap-juara', 'rekap');
+        Route::get('/login', 'login');
+        Route::post('/login', 'auth');
 //         Route::get('/', '');
     });
 
@@ -59,6 +61,9 @@ Route::controller(AdminLctpController::class)
         Route::get('/dashboard', 'index');
 //         Route::get('/', '');
     });
+
+
+    //login-admin-tes
 
 require __DIR__ . '/auth.php';
 
