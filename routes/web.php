@@ -63,7 +63,15 @@ Route::prefix('/admin-logatama')
 Route::controller(AdminLctpController::class)
     ->prefix('/admin-lctp')
     ->group(function () {
-        Route::get('/dashboard', 'index');
+        
+        Route::post('/login', 'auth');
+        Route::middleware('admin.guest')->group(function () {
+            Route::get('/login', 'login')->name('admin.login');
+        });
+        Route::middleware('admin.auth')->group(function () {
+            Route::get('/logout', 'logout')->name('logout');
+            Route::get('/dashboard', 'index');
+        });
         //         Route::get('/', '');
     });
 

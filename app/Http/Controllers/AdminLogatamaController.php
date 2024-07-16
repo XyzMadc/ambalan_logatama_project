@@ -18,7 +18,7 @@ class AdminLogatamaController
     function login()
     {
         //login-view
-        return view('tes.LoginAdminLogatama');
+        return view('tes.LoginAdmin');
     }
     function logout()
     {
