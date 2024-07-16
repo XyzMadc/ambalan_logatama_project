@@ -70,7 +70,8 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\Peserta::class,
+            'username'=>'username'
         ],
 
         // 'users' => [

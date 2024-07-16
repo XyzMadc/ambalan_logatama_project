@@ -4,7 +4,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
-
 use App\Http\Controllers\AmbalanController;
 use App\Http\Controllers\LogatamaController;
 use App\Http\Controllers\LctpController;
@@ -43,15 +42,21 @@ Route::controller(LctpController::class)
     });
 
 //ini tambahin middleware admin
-Route::controller(AdminLogatamaController::class)
-    ->prefix('/admin-logatama')
+Route::prefix('/admin-logatama')
+    ->controller(AdminLogatamaController::class)
     ->group(function () {
-        Route::get('/dashboard', 'index');
-        Route::get('/pengumuman', 'pengumuman');
-        Route::get('/rekap-juara', 'rekap');
-        Route::get('/login', 'login');
+        Route::middleware('admin.auth')->group(function () {
+            Route::get('/dashboard', 'index');
+            Route::get('/pengumuman', 'pengumuman');
+            Route::get('/rekap-juara', 'rekap');
+            Route::get('/logout', 'logout')->name('logout');
+        });
+
+        Route::middleware('admin.guest')->group(function () {
+            Route::get('/login', 'login')->name('admin.login');
+        });
+
         Route::post('/login', 'auth');
-//         Route::get('/', '');
     });
 
 // //ini tambahin middleware admin
@@ -59,12 +64,9 @@ Route::controller(AdminLctpController::class)
     ->prefix('/admin-lctp')
     ->group(function () {
         Route::get('/dashboard', 'index');
-//         Route::get('/', '');
+        //         Route::get('/', '');
     });
 
-
-    //login-admin-tes
+//login-admin-tes
 
 require __DIR__ . '/auth.php';
-
-

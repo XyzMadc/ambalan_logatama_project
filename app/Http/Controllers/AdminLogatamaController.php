@@ -4,21 +4,30 @@ namespace App\Http\Controllers;
 // namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use App\Models\Peserta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminLogatamaController
 {
-    function index()
-    {
-        return 'halaman admin logatama dashboard';
+    function index(){
+        $peserta =Peserta::where('role','peserta')->get();
+        // return "halaman admin logatama dashboard " . $peserta;
+        return response("halaman admin logatama dashboard \n\n\n".$peserta, 200)->header('Content-Type', 'text/plain');
     }
     function login()
     {
+        //login-view
         return view('tes.LoginAdminLogatama');
+    }
+    function logout()
+    {
+        Auth::guard('admins')->logout();
+        return redirect('admin-logatama/login');
     }
     function auth(Request $request)
     {
+        //authenticate
         $request->validate(
             [
                 'username' => 'required',
@@ -32,12 +41,13 @@ class AdminLogatamaController
         );
         $credential = [
             'username' => $request->username,
-            'password' => Hash::make($request->password)
+            'password' => $request->password
         ];
-        // return $credential;
+        
         if (Auth::guard('admins')->attempt($credential)) {
-            return 'sukses';
-            return redirect()->intended('admin/dashboard');
+            
+            // return 'sukses';
+            return redirect()->intended('admin-logatama/dashboard');
         }
 
         return back()
