@@ -19,4 +19,7 @@ class LogatamaController
     function soal() {
         return Inertia::render('loginSoal/index');
     }
+    function admin() {
+        return 'halaman login admin logatama';
+    }
 }
