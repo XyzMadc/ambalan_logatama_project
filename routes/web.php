@@ -49,7 +49,7 @@ Route::controller(AdminLogatamaController::class)
         Route::get('/dashboard', 'index');
         Route::get('/pengumuman', 'pengumuman');
         Route::get('/rekap-juara', 'rekap');
-//         Route::get('/', '');
+        Route::post('/pengumuman', 'createPengumuman');
     });
 
 // //ini tambahin middleware admin
