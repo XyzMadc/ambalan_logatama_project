@@ -10,9 +10,9 @@ export default function Sejarah() {
         threshold: 0.5,
     });
     return (
-        <section ref={ref} className="min-h-screen relative">
-            <div className="bg-secondary h-[25%] xl:h-1/2 w-full bottom-0 xl:top-0 absolute" />
-            <div className="absolute inset-0 px-16 py-10 flex flex-col xl:flex-row justify-center items-center gap-6 xl:gap-40">
+        <section ref={ref} className="min-h-screen md:min-h-[35rem] xl:min-h-screen relative">
+            <div className="bg-secondary h-[25%] md:h-1/2 w-full bottom-0 md:top-0 absolute" />
+            <div className="absolute inset-0 px-16 py-10 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-20 xl:gap-40">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={

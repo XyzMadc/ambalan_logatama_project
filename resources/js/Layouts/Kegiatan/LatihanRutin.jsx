@@ -10,10 +10,10 @@ export default function LatihanRutin() {
         threshold: 0.5,
     });
     return (
-        <section ref={ref} className="h-[95vh] bg-secondary relative -top-px">
-            <div className="px-10 xl:px-0 xl:flex">
+        <section ref={ref} className="h-[95vh] md:h-[50vh] xl:h-[95vh] bg-secondary relative -top-px">
+            <div className="px-10 md:px-0 md:flex">
                 <motion.div
-                    className="relative flex justify-end items-center bottom-10 pt-10 order-2 xl:w-1/2"
+                    className="relative flex justify-end items-center bottom-10 pt-10 order-2 md:w-1/2 xl:w-1/2"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
@@ -22,18 +22,18 @@ export default function LatihanRutin() {
                 >
                     <ImageSection
                         src={pasukan14}
-                        className="left-24 -bottom-16 xl:bottom-[-105px] xl:left-40 border-secondary"
+                        className="left-24 -bottom-16 md:left-0 md:size-56 xl:bottom-[-105px] xl:left-40 border-secondary"
                     />
                 </motion.div>
                 <motion.div
-                    className="text-white order-1 xl:w-1/2 xl:pl-40"
+                    className="text-white order-1 md:w-1/2 md:px-10 md:pt-20 xl:w-1/2 xl:pl-40"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }
                     }
                     transition={{ duration: 0.5 }}
                 >
-                    <TextSection title="LATIHAN RUTIN" line="white">
+                    <TextSection title="LATIHAN RUTIN" line="white" className="md:w-60 xl:w-full">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud

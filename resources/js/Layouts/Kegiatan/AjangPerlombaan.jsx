@@ -27,9 +27,9 @@ export default function AjangPerlombaan() {
     };
     return (
         <section ref={ref} className="p-10 pb-20">
-            <div className="space-y-3 xl:flex">
+            <div className="space-y-3 md:flex">
                 <motion.div
-                    className="xl:w-2/5 flex items-center order-2 gap-2"
+                    className="md:w-2/5 flex items-center order-2 gap-2"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
@@ -65,7 +65,7 @@ export default function AjangPerlombaan() {
                     </button>
                 </motion.div>
                 <motion.div
-                    className="xl:w-3/5 text-secondary flex items-center order-1 xl:px-20 xl:pb-32"
+                    className="md:w-3/5 text-secondary flex items-center order-1 xl:px-20 xl:pb-32"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }

@@ -20,8 +20,8 @@ export default function Pjs() {
     };
     return (
         <section className="p-10">
-            <div className="space-y-3 xl:flex">
-                <div className="xl:w-2/5 flex items-center order-2">
+            <div className="space-y-3 md:flex">
+                <div className="md:w-2/5 flex items-center order-2">
                     <button
                         onClick={handlePrev}
                         disabled={currentIndex === 0}
@@ -42,7 +42,7 @@ export default function Pjs() {
                         <CaretRight size={36} />
                     </button>
                 </div>
-                <div className="xl:w-3/5 text-secondary flex items-center order-1 xl:px-20">
+                <div className="md:w-3/5 text-secondary flex items-center order-1 xl:px-20">
                     <TextSection
                         title="Perkemahan Jum'at Sabtu"
                         className="w-full xl:w-4/5 border-secondary"

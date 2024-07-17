@@ -9,25 +9,25 @@ export default function Pembantaran() {
         threshold: 0.5,
     });
     return (
-        <section ref={ref} className="xl:min-h-screen">
-            <div className="p-10 space-y-10 xl:flex">
+        <section ref={ref} className="md:h-[40vh] xl:min-h-screen">
+            <div className="p-10 space-y-10 md:flex">
                 <motion.div
-                    className="xl:w-[45%] order-2 xl:p-20"
+                    className="md:w-[45%] xl:w-[45%] order-2 xl:p-20"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
                     }
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="h-[45vh] w-[65vw] xl:w-[30vw] xl:h-[70vh] bg-secondary mx-auto">
+                    <div className="h-[45vh] w-[65vw] md:w-[30vw] md:h-[30vh] xl:w-[30vw] xl:h-[70vh] bg-secondary mx-auto">
                         <div className="relative h-2/3 flex justify-center items-center">
                             <img
-                                className="absolute w-[40vw] xl:w-[18vw] -rotate-[25deg] mr-10"
+                                className="absolute w-[40vw] md:w-40 xl:w-[18vw] -rotate-[25deg] mr-10"
                                 src={bantaraSoekma}
                                 alt=""
                             />
                             <img
-                                className="absolute w-[40vw] xl:w-[18vw] ml-10 bottom-0"
+                                className="absolute w-[40vw] md:w-40 xl:w-[18vw] ml-10 bottom-0"
                                 src={bantaraSoekma}
                                 alt=""
                             />
@@ -40,7 +40,7 @@ export default function Pembantaran() {
                     </div>
                 </motion.div>
                 <motion.div
-                    className="text-secondary order-1 xl:w-[55%] xl:px-[65px]"
+                    className="text-secondary order-1 md:w-[55%] xl:w-[55%] xl:px-[65px]"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }

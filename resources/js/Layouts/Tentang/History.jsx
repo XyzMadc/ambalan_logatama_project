@@ -12,28 +12,28 @@ export default function History() {
     return (
         <section
             ref={ref}
-            className="bg-primary xl:bg-white xl:min-h-screen xl:h-0 relative -top-px px-10 pb-10 xl:p-0"
+            className="bg-primary md:bg-white xl:min-h-screen xl:h-0 relative -top-px px-10 pb-10 md:p-0"
         >
             <motion.div
-                className="space-y-4 xl:flex xl:py-20"
+                className="space-y-4 md:flex md:py-20"
                 initial={{ opacity: 0, y: 100 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="order-2 xl:w-[45%] xl:flex justify-end xl:relative">
+                <div className="order-2 md:w-1/2 xl:w-[45%] md:flex justify-end md:relative">
                     <ImageSection
                         src={sejarah}
-                        className="left-[114px] bottom-[-58px] border-white size-[290px]"
+                        className="md:left-6 md:top-48 xl:left-[114px] xl:bottom-[-58px] border-white xl:size-[290px] md:size-56"
                     />
                 </div>
-                <div className="text-white xl:text-secondary order-1 xl:w-[55%] xl:px-20 xl:flex items-center">
+                <div className="text-white md:text-secondary order-1 md:w-1/2 xl:w-[55%] md:px-5 xl:px-20 md:flex items-center">
                     <TextSection
                         title={
                             <>
                                 SEJARAH AMBALAN <br /> Ir. SOEKARNO - FATMAWATI{" "}
                             </>
                         }
-                        className="w-full border-white xl:border-secondary"
+                        className="w-full border-white md:border-secondary"
                     >
                         Kegiatan pramuka di SMK Negeri 7 Semarang di mulai dari
                         tahun 1975. Kegiatan awalnya dahulu tidak memiliki
