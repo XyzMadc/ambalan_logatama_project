@@ -8,12 +8,12 @@ export default function BhaktiSoekma() {
     threshold: 0.5,
   });
   return (
-    <section ref={ref} className="h-[105vh] relative">
+    <section ref={ref} className="h-[105vh] md:h-[50vh] xl:h-[105vh] relative">
       <div className="absolute bottom-0 left-0 right-0 h-4/5 bg-secondary" />
       <div className="absolute inset-0 p-10">
-        <div className="space-y-3 text-white xl:flex">
+        <div className="space-y-3 text-white md:flex md:gap-10">
           <motion.div
-            className="xl:w-1/2 xl:flex justify-center"
+            className="md:w-1/2 xl:flex justify-center"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
@@ -21,7 +21,7 @@ export default function BhaktiSoekma() {
             <img className="w-[500px]" src={PJS} alt="" />
           </motion.div>
           <motion.div
-            className="xl:w-1/2 xl:pr-[95px]"
+            className="md:w-1/2 xl:pr-[95px] md:pt-28"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
             transition={{ duration: 0.5 }}

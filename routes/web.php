@@ -60,7 +60,7 @@ Route::prefix('/admin-logatama')
         });
 
         Route::post('/login', 'auth');
-        
+         Route::post('/pengumuman', 'createPengumuman');
     });
 
 // //ini tambahin middleware admin

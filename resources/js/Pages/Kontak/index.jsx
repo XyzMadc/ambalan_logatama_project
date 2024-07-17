@@ -45,18 +45,18 @@ export default function KontakPage() {
         <>
             <Head title="Kontak" />
             <NavbarAmbalan />
-            <section className="min-h-[110vh] xl:min-h-screen px-5 xl:px-[120px] py-28 xl:py-0 xl:pt-[100px] bg-secondary">
+            <section className="min-h-[110vh] md:min-h-screen px-5 xl:px-[120px] py-28 xl:py-0 xl:pt-[100px] bg-secondary">
                 <div className="relative xl:flex xl:bg-white">
                     <div className="bg-white p-8 pb-20 space-y-3 xl:w-1/2">
-                        <h1 className="text-secondary font-bold text-lg xl:text-3xl">
+                        <h1 className="text-secondary font-bold text-lg md:text-xl xl:text-3xl">
                             Kontak Kami
                         </h1>
-                        <p className="text-secondary font-medium text-[13px] xl:text-lg">
+                        <p className="text-secondary font-medium text-[13px] md:text-base xl:text-lg">
                             Hubungi kami apabila terdapat pertanyaan dan
                             tanggapan lebih lanjut dengan isi form dibawah ini!
                         </p>
                         <form
-                            className="w-full max-w-lg mx-auto mt-5"
+                            className="w-full max-w-lg md:max-w-2xl xl:max-w-lg mx-auto mt-5"
                             onSubmit={handleSubmit}
                         >
                             <div className="relative z-0 mb-6 w-full group">
@@ -64,7 +64,7 @@ export default function KontakPage() {
                                     type="text"
                                     name="name"
                                     id="name"
-                                    className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+                                    className="block py-2.5 px-0 w-full text-sm md:text-base xl:text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
                                     value={data.name}
                                     onChange={handleChange}
@@ -86,7 +86,7 @@ export default function KontakPage() {
                                     type="email"
                                     name="email"
                                     id="email"
-                                    className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+                                    className="block py-2.5 px-0 w-full text-sm md:text-base xl:text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
                                     value={data.email}
                                     onChange={handleChange}
@@ -108,7 +108,7 @@ export default function KontakPage() {
                                     name="message"
                                     id="message"
                                     rows="4"
-                                    className="block py-2.5 px-0 w-full text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+                                    className="block py-2.5 px-0 w-full text-sm md:text-base xl:text-sm text-secondary bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                                     placeholder=" "
                                     value={data.message}
                                     onChange={handleChange}
@@ -139,10 +139,10 @@ export default function KontakPage() {
                     </div>
                     <div className="absolute xl:relative bottom-[-180px] xl:bottom-0 w-full px-5 xl:w-1/2 xl:flex items-center">
                         <div className="bg-secondary xl:bg-indigo-800 w-full text-white border xl:border-0 border-white px-2 py-5 xl:px-10 xl:py-20 space-y-5 xl:space-y-10 xl:absolute xl:-right-10">
-                            <h1 className="text-base xl:text-xl font-medium ml-2">
+                            <h1 className="text-base md:text-lg xl:text-xl font-medium ml-2">
                                 Informasi
                             </h1>
-                            <div className="text-xs xl:text-base space-y-3 xl:space-y-10">
+                            <div className="text-xs md:text-sm xl:text-base space-y-3 xl:space-y-10">
                                 <div className="flex gap-2 items-center">
                                     <span>
                                         <Envelope size={30} />

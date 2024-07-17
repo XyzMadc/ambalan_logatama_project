@@ -22,7 +22,7 @@ export default function HeroSection() {
             </div>
             <div className="flex flex-col items-center justify-center absolute inset-0">
                 <motion.h1
-                    className="text-white text-lg xl:text-3xl font-bold text-center tracking-wide"
+                    className="text-white text-lg md:text-2xl xl:text-3xl font-bold text-center tracking-wide"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }

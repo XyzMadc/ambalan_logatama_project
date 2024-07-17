@@ -11,8 +11,8 @@ export default function Recruitment() {
     return (
         <section ref={ref} className="relative h-[90] bg-secondary pb-10">
             <div className="h-[10vh] xl:h-[20vh] bg-white" />
-            <div className="h-[80vh] xl:h-[70vh]" />
-            <div className="absolute top-0 right-0 left-0 bottom-20 flex flex-col xl:flex-row items-end px-10 xl:px-20 text-white gap-4 xl:gap-20">
+            <div className="h-[80vh] md:h-[50vh] xl:h-[70vh]" />
+            <div className="absolute top-0 right-0 left-0 bottom-20 flex flex-col md:flex-row items-end px-10 xl:px-20 text-white gap-4 md:gap-10 xl:gap-20">
                 <div className="">
                     <motion.img
                         initial={{ opacity: 0 }}
@@ -22,13 +22,13 @@ export default function Recruitment() {
                                 : { opacity: 0, x: -100 }
                         }
                         transition={{ duration: 0.5 }}
-                        className="xl:w-[25rem]"
+                        className="md:w-[30rem] xl:w-[25rem]"
                         src={openRecruitment}
                         alt="open-recruitmen"
                     />
                 </div>
                 <motion.div
-                    className="xl:w-1/2 xl:pr-20 self-center"
+                    className="md:w-1/2 xl:w-1/2 xl:pr-20 self-center md:mt-40"
                     initial={{ opacity: 0 }}
                     animate={
                         inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }
@@ -37,7 +37,7 @@ export default function Recruitment() {
                 >
                     <TextSection
                         title="Open Recruitment"
-                        className="w-full border-white"
+                        className="w-full md:w-72 xl:w-full border-white"
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
