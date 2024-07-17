@@ -41,7 +41,7 @@ class LogatamaController
             'password' => $request->password,
         ];
 
-        if (Auth::guard('admins')->attempt($credential)) {
+        if (Auth::guard('peserta')->attempt($credential)) {
             // return 'sukses';
             return redirect()->intended('/lctp/dashboard-soal');
         }
@@ -54,8 +54,8 @@ class LogatamaController
     }
      function logout()
     {
-        if (Auth::guard('admins')->check()) {
-            Auth::guard('admins')->logout();
+        if (Auth::guard('peserta')->check()) {
+            Auth::guard('peserta')->logout();
             return redirect('/login-soal');
         }
         return redirect()->back();

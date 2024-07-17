@@ -9,13 +9,13 @@ class AdminAuthenticated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admins')->check()) {
+        if (Auth::guard('peserta')->check()) {
             //cek afakah user role nya admin
-            if(Auth::guard('admins')->user()->role=='admin'){
+            if(Auth::guard('peserta')->user()->role=='admin'){
                 return $next($request);
             }
             //klo bukan admin tidak boleh
-             Auth::guard('admins')->logout();
+             Auth::guard('peserta')->logout();
              return redirect('admin-logatama/login')->with('error', 'Unauthorized access. Only Admin!');
         }
 

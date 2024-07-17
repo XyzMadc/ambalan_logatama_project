@@ -24,8 +24,8 @@ class AdminLogatamaController
     }
     function logout()
     {
-        if (Auth::guard('admins')->check()) {
-            Auth::guard('admins')->logout();
+        if (Auth::guard('peserta')->check()) {
+            Auth::guard('peserta')->logout();
             return redirect('admin-logatama/login');
         }
         return redirect()->back();
@@ -49,7 +49,7 @@ class AdminLogatamaController
             'password' => $request->password,
         ];
 
-        if (Auth::guard('admins')->attempt($credential)) {
+        if (Auth::guard('peserta')->attempt($credential)) {
             // return 'sukses';
             return redirect()->intended('admin-logatama/dashboard');
         }

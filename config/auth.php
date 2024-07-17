@@ -39,7 +39,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admins' => [
+        'peserta' => [
             'driver' => 'session',
             'provider' => 'admins', // Uses the Admin model
         ],

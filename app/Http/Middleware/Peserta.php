@@ -9,13 +9,13 @@ class Peserta
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admins')->check()) {
+        if (Auth::guard('peserta')->check()) {
             //cek afakah user role nya peserta
-            if(Auth::guard('admins')->user()->role=='peserta'){
+            if(Auth::guard('peserta')->user()->role=='peserta'){
                 return $next($request);
             }
             //klo bukan admin tidak boleh
-             Auth::guard('admins')->logout();
+             Auth::guard('peserta')->logout();
              return redirect('/login-soal')->with('error', 'Unauthorized access. Only Peserta!');
         }
 

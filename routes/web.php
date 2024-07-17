@@ -28,7 +28,7 @@ Route::controller(LogatamaController::class)
         Route::get('/logatama', 'index')->name('logatama');
         Route::get('/panduan', 'panduan');
         Route::get('/pengumuman', 'pengumuman');
-        Route::get('/login-soal', 'soal');
+        Route::get('/login-soal', 'soal')->middleware('guest');
         Route::get('/logout-soal', 'logout');
         Route::post('/login-soal', 'auth');
         Route::get('/login-admin', 'admin');
@@ -55,7 +55,7 @@ Route::prefix('/admin-logatama')
             Route::get('/rekap-juara', 'rekap');
             Route::get('/logout', 'logout')->name('logout');
         });
-        Route::middleware('admin.guest')->group(function () {
+        Route::middleware('guest')->group(function () {
             Route::get('/login', 'login')->name('admin.login');
         });
 

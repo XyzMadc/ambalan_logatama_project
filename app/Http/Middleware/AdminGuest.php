@@ -9,7 +9,7 @@ class AdminGuest
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::guard('admins')->check()) {
+        if (!Auth::guard('peserta')->check()) {
             return $next($request);    
         }
 
