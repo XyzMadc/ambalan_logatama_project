@@ -26,8 +26,8 @@ Route::controller(LogatamaController::class)
     ->prefix('/')
     ->group(function () {
         Route::get('/logatama', 'index')->name('logatama');
-        Route::get('/panduan', 'tentang');
-        Route::get('/pengumuman', 'kegiatan');
+        Route::get('/panduan', 'panduan');
+        Route::get('/pengumuman', 'pengumuman');
         Route::get('/login-soal', 'soal');
         Route::get('/logout-soal', 'logout');
         Route::post('/login-soal', 'auth');
@@ -51,7 +51,7 @@ Route::prefix('/admin-logatama')
     ->group(function () {
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
-            Route::get('/pengumuman', 'pengumuman');
+            // Route::get('/pengumuman', 'pengumuman');
             Route::get('/rekap-juara', 'rekap');
             Route::get('/logout', 'logout')->name('logout');
         });
@@ -60,7 +60,7 @@ Route::prefix('/admin-logatama')
         });
 
         Route::post('/login', 'auth');
-         Route::post('/pengumuman', 'createPengumuman');
+         Route::get('/pengumuman', 'createPengumuman');
     });
 
 // //ini tambahin middleware admin

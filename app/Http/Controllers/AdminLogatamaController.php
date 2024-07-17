@@ -69,13 +69,13 @@ class AdminLogatamaController
         $validated = $request->validate([
             'judul' => 'required|string|max:300',
             'deskripsi' => 'required|string|max:1000',
-            'tanggal' => 'required|string|max:50',
+            // 'tanggal' => 'required|string|max:50',
         ]);
 
         if ($validated){
             Pengumuman::create([
-                'judul' => $request->input('judul'),
-                'deskripsi' => $request->input('deskripsi'),
+                'judul' => $request->query('judul'),
+                'deskripsi' => $request->query('deskripsi'),
             ]);
             return Pengumuman::all();
         }

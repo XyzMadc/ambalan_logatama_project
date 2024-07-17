@@ -1,10 +1,23 @@
+import { usePage } from '@inertiajs/react';
 import { CaretDown } from "@phosphor-icons/react";
 import asetPutra from "../../../assets/pengumuman/aset-pramuka-putra-vr.png";
 import asetPutri from "../../../assets/pengumuman/aset-pramuka-putri-vr.png";
 import Background from "../../../assets/pengumuman/bg-beranda.png";
-import announcements from "../../Services/pengumuman.json";
+// import announcements from "../../Services/pengumuman.json";
 
 export default function PengumumanLayout() {
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // getUTCMonth() returns month from 0-11
+        const year = date.getUTCFullYear();
+
+        return `${day}/${month}/${year}`;
+      };
+
+    const { props } = usePage();
+    const { announcements } = props;
+
     return (
         <section className="h-[115vh] xl:h-[150vh] bg-gradient-to-b from-[#0E062A] via-[#2B1577] to-[#775DD1] flex flex-col overflow-hidden w-full">
             <div className="h-3/5 xl:h-[100vh] flex items-end text-white relative justify-center">
@@ -37,7 +50,7 @@ export default function PengumumanLayout() {
                     </div>
                 </div>
             </div>
-            <div className="h-2/5 p-10 xl:p-20 flex gap-5 xl:gap-10 snap-mandatory snap-x overflow-x-auto relative">
+            <div className="h-2/5 p-10 xl:p-20 flex gap-5 xl:gap-10 snap-mandatory snap-x overflow-x-auto overflow-y-hidden relative">
                 {announcements.map((announce, index) => (
                     <div
                         key={index}
@@ -45,14 +58,14 @@ export default function PengumumanLayout() {
                     >
                         <div className="text-white rounded-lg bg-secondary px-2 py-1 max-w-fit">
                             <h5 className="text-xs font-semibold">
-                                {announce.tanggal}
+                                {formatDate(announce.created_at)}
                             </h5>
                         </div>
                         <h3 className="font-bold text-xl uppercase">
                             {announce.judul}
                         </h3>
                         <p className="text-sm text-slate-400 capitalize">
-                            informasi {announce.judul}
+                            {announce.deskripsi}
                         </p>
                     </div>
                 ))}

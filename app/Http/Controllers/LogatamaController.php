@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pengumuman;
 
 class LogatamaController
 {
@@ -18,7 +19,8 @@ class LogatamaController
     }
     function pengumuman()
     {
-        return Inertia::render('Pengumuman/index');
+        $announcements =Pengumuman::all();
+        return Inertia::render('Pengumuman/index',['announcements'=>$announcements]);
     }
     function auth(Request $request)
     {
