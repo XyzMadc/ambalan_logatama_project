@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Pengumuman;
 
 class LogatamaController
 {
@@ -14,7 +15,8 @@ class LogatamaController
         return Inertia::render('Panduan/index');
     }
     function pengumuman() {
-        return Inertia::render('Pengumuman/index');
+        $announcements =Pengumuman::all();
+        return Inertia::render('Pengumuman/index',['announcements'=>$announcements]);
     }
     function soal() {
         return Inertia::render('loginSoal/index');
