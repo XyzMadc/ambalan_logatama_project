@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AmbalanController;
 use App\Http\Controllers\LogatamaController;
+use App\Http\Controllers\LctpController;
+use App\Http\Controllers\AdminLogatamaController;
+use App\Http\Controllers\AdminLctpController;
 
+// ini middleware guest sembarang mau dikasi apa ga
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
@@ -18,7 +22,7 @@ Route::controller(AmbalanController::class)
         Route::post('/kontak/mail', 'email')->name('contactMail');
     });
 
-
+// ini middleware guest sembarang mau dikasi apa ga
 Route::controller(LogatamaController::class)
     ->prefix('/')
     ->group(function () {
@@ -26,6 +30,34 @@ Route::controller(LogatamaController::class)
         Route::get('/panduan', 'tentang');
         Route::get('/pengumuman', 'kegiatan');
         Route::get('/login-soal', 'soal');
+        Route::get('/login-admin', 'admin');
+    });
+
+// ini tambahin middleware peserta
+Route::controller(LctpController::class)
+    ->prefix('/lctp')
+    ->group(function () {
+        Route::get('/dashboard-soal', 'index');
+        Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
+        // Route::get('/', '');
+    });
+
+//ini tambahin middleware admin
+Route::controller(AdminLogatamaController::class)
+    ->prefix('/admin-logatama')
+    ->group(function () {
+        Route::get('/dashboard', 'index');
+        Route::get('/pengumuman', 'pengumuman');
+        Route::get('/rekap-juara', 'rekap');
+        Route::post('/pengumuman', 'createPengumuman');
+    });
+
+// //ini tambahin middleware admin
+Route::controller(AdminLctpController::class)
+    ->prefix('/admin-lctp')
+    ->group(function () {
+        Route::get('/dashboard', 'index');
+//         Route::get('/', '');
     });
 
 require __DIR__ . '/auth.php';
