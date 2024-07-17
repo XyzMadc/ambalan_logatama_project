@@ -13,7 +13,11 @@
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/admin-logatama/login" method="POST">
             @csrf
             <div class="mb-4">
-
+                @if (session('error'))
+                    <div class="text-red-500">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                     Username
                 </label>
@@ -28,7 +32,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                     Password
                 </label>
-                   @error('password')
+                @error('password')
                     <div class="text-red-500">{{ $message }}</div>
                 @enderror
                 <input

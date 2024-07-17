@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminLogatamaController
 {
-    function index(){
-        $peserta =Peserta::where('role','peserta')->get();
+    function index()
+    {
+        $peserta = Peserta::where('role', 'peserta')->get();
         // return "halaman admin logatama dashboard " . $peserta;
-        return response("halaman admin logatama dashboard \n\n\n".$peserta, 200)->header('Content-Type', 'text/plain');
+        return response("halaman admin logatama dashboard \n\n\n" . $peserta, 200)->header('Content-Type', 'text/plain');
     }
     function login()
     {
@@ -22,8 +23,11 @@ class AdminLogatamaController
     }
     function logout()
     {
-        Auth::guard('admins')->logout();
-        return redirect('admin-logatama/login');
+        if (Auth::guard('admins')->check()) {
+            Auth::guard('admins')->logout();
+            return redirect('admin-logatama/login');
+        }
+        return redirect()->back();
     }
     function auth(Request $request)
     {
@@ -41,11 +45,10 @@ class AdminLogatamaController
         );
         $credential = [
             'username' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
         ];
-        
+
         if (Auth::guard('admins')->attempt($credential)) {
-            
             // return 'sukses';
             return redirect()->intended('admin-logatama/dashboard');
         }
@@ -55,9 +58,6 @@ class AdminLogatamaController
                 'username' => 'Username/password salah!',
             ])
             ->onlyInput('username');
-
-
-
     }
     function pengumuman()
     {

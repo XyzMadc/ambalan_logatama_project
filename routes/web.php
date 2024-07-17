@@ -29,6 +29,8 @@ Route::controller(LogatamaController::class)
         Route::get('/panduan', 'tentang');
         Route::get('/pengumuman', 'kegiatan');
         Route::get('/login-soal', 'soal');
+        Route::get('/logout-soal', 'logout');
+        Route::post('/login-soal', 'auth');
         Route::get('/login-admin', 'admin');
     });
 
@@ -36,8 +38,10 @@ Route::controller(LogatamaController::class)
 Route::controller(LctpController::class)
     ->prefix('/lctp')
     ->group(function () {
-        Route::get('/dashboard-soal', 'index');
-        Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
+         Route::middleware('peserta.auth')->group(function () {
+             Route::get('/dashboard-soal', 'index');
+             Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
+        });
         // Route::get('/', '');
     });
 
@@ -51,30 +55,21 @@ Route::prefix('/admin-logatama')
             Route::get('/rekap-juara', 'rekap');
             Route::get('/logout', 'logout')->name('logout');
         });
-
         Route::middleware('admin.guest')->group(function () {
             Route::get('/login', 'login')->name('admin.login');
         });
 
         Route::post('/login', 'auth');
+        
     });
 
 // //ini tambahin middleware admin
 Route::controller(AdminLctpController::class)
     ->prefix('/admin-lctp')
     ->group(function () {
-        
-        Route::post('/login', 'auth');
-        Route::middleware('admin.guest')->group(function () {
-            Route::get('/login', 'login')->name('admin.login');
-        });
         Route::middleware('admin.auth')->group(function () {
-            Route::get('/logout', 'logout')->name('logout');
             Route::get('/dashboard', 'index');
         });
-        //         Route::get('/', '');
     });
-
-//login-admin-tes
 
 require __DIR__ . '/auth.php';

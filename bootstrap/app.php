@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Peserta;
 use App\Http\Middleware\AdminGuest;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\AdminAuthenticated;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin.guest' => AdminGuest::class,
             'admin.auth' => AdminAuthenticated::class,
+            'peserta.auth' => Peserta::class,
         ]);
         //
     })
