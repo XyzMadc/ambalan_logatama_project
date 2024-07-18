@@ -38,7 +38,7 @@ export default function GalerySection() {
   return (
     <section ref={ref} className="overflow-hidden xl:h-[150vh] text-white">
       <div className="xl:h-[70vh] h-[20vh] relative">
-        <div className="xl:h-[50vh] h-[12vh] relative">
+        <div className="md:h-[19vh] xl:h-[50vh] h-[15vh] relative">
           <img className="absolute xl:-bottom-2 bottom-0" src={lengkungungu2} alt="" />
           <img
             className="absolute xl:-bottom-5 -bottom-2 rotate-[-.3deg] w-[102vw] -left-[1px]"

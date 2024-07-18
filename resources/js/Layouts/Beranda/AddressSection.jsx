@@ -7,7 +7,7 @@ export default function AddressSection() {
     threshold: 0.5,
   });
   return (
-    <section ref={ref} className="h-[55vh] md:h-auto xl:h-[70vh] relative md:-top-px">
+    <section ref={ref} className="xl:h-[70vh] relative md:-top-px">
       <div className="px-10 space-y-4 py-10 md:flex md:py-32 xl:p-20 md:items-center">
         <motion.div
           className="text-center text-violet-900 space-y-5 xl:w-1/2 xl:space-y-12 xl:px-10"

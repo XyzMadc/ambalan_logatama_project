@@ -46,6 +46,7 @@ export default function HamburgerNavbarAmbalan() {
                 finalFocusRef={btnRef}
                 isOpen={isDrawerOpen}
                 onClose={onDrawerClose}
+                onToggle={onToggle}
             />
         </>
     );

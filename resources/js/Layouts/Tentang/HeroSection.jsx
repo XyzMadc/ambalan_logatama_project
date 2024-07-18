@@ -25,7 +25,7 @@ export default function HeroSection() {
                 <img className="w-screen md:hidden" src={galaxymobile} alt="" />
             </div>
             <div className="absolute inset-0 pt-[120px] pb-16">
-                <div className="flex flex-col md:flex-row h-full justify-between md:justify-center">
+                <div className="md:flex h-full md:justify-center">
                     <motion.div
                         className="relative h-[40vh] md:w-[45%] md:h-[25rem] xl:w-[25%] xl:h-[360px]"
                         initial={{ opacity: 0 }}
@@ -53,7 +53,7 @@ export default function HeroSection() {
                         />
                     </motion.div>
                     <motion.div
-                        className="text-white px-10 md:w-[50%] md:h-[25rem] xl:w-[55%] xl:h-[360px] md:pt-28 xl:pt-24"
+                        className="text-white px-10 md:w-[50%] md:h-[25rem] xl:w-[55%] xl:h-[360px] pt-32 md:pt-28 xl:pt-24"
                         initial={{ opacity: 0 }}
                         animate={
                             inView

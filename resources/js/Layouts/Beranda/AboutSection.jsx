@@ -21,17 +21,17 @@ export default function AboutSection() {
     return (
         <section
             ref={ref}
-            className="overflow-hidden xl:h-[82vh] md:h-[32vh] h-[85vh] md:flex xl:px-20 xl:pt-10 relative -top-2"
+            className="overflow-hidden xl:h-[82vh] md:h-[37vh] h-[90vh] md:flex xl:px-20 xl:pt-10 relative -top-2"
         >
             <div className="relative md:bg-none bg-gradient-to-t from-tertiary via-secondary to-primary h-80 md:h-96 md:w-2/5 xl:h-full xl:w-[45%] py-10">
                 <div className="md:hidden">
                     <img
-                        className="absolute w-screen h-[35vh] top-[50px] md:h-[40vh] md:-top-[120px]"
+                        className="absolute w-screen h-[36vh] top-[50px] md:h-[40vh] md:-top-[120px]"
                         src={lengkungungu}
                         alt=""
                     />
                     <img
-                        className="absolute w-screen h-[35vh] top-[70px] md:h-[38vh] md:-top-[80px]"
+                        className="absolute w-screen h-[36vh] top-[70px] md:h-[38vh] md:-top-[80px]"
                         src={lengkungputih}
                         alt=""
                     />
@@ -107,19 +107,6 @@ export default function AboutSection() {
                     </p>
                 </motion.button>
             </div>
-            <div>
-                <img
-                    className="absolute w-screen hidden md:block -left-0 xl:h-[50vh] xl:-bottom-[102vh] h-[25vh] -bottom-[64vh] md:-bottom-[12vh]"
-                    src={lengkungungu2}
-                    alt=""
-                />
-                <img
-                    className="absolute w-screen hidden md:block -left-0 xl:h-[45vh] xl:-bottom-[103vh] h-[25vh] -bottom-[65vh] md:-bottom-[13vh]"
-                    src={lengkungbiru}
-                    alt=""
-                />
-            </div>
-
             <img
                 className="absolute w-screen -left-0 xl:h-[45vh] md:h-[45vh] xl:-bottom-[140vh] hidden md:block md:-bottom-[45vh]"
                 src={meteor3}
