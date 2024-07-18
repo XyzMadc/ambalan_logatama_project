@@ -4,21 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Peserta extends Model
+class Peserta extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = [
-        'pangkalan',
-        'email',
-        'password',
-        'role'
-    ];
+    protected $fillable = ['pangkalan', 'email', 'password', 'role'];
 
-    protected $hidden = [
-        'password',
-    ];
-
+    protected $hidden = ['password'];
+    protected $table = 'pesertas';
     protected function casts(): array
     {
         return [

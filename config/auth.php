@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -40,6 +39,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'peserta' => [
+            'driver' => 'session',
+            'provider' => 'admins', // Uses the Admin model
+        ],
     ],
 
     /*
@@ -63,6 +66,12 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+            'username' => 'username', // Add this line
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Peserta::class,
+            'username'=>'username'
         ],
 
         // 'users' => [
@@ -97,6 +106,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -111,5 +126,4 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
-
 ];
