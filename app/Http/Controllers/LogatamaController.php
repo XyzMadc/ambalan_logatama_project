@@ -22,6 +22,15 @@ class LogatamaController
         $announcements =Pengumuman::all();
         return Inertia::render('Pengumuman/index',['announcements'=>$announcements]);
     }
+    function loginsoal()
+    {
+        return Inertia::render('loginSoal/index');
+    }
+    function loginadmin()
+    {
+            return view('tes.LoginAdmin');
+        // return 'halaman login admin logatama';
+    }
     function auth(Request $request)
     {
         //authenticate
@@ -42,8 +51,20 @@ class LogatamaController
         ];
 
         if (Auth::guard('peserta')->attempt($credential)) {
-            // return 'sukses';
-            return redirect()->intended('/lctp/dashboard-soal');
+            $login_as = Auth::guard('peserta')->user()->role;
+            if ($login_as == 'admin'){
+                $origin = explode('/',url()->previous());
+                if (end($origin) == 'login-soal'){
+                    return redirect('/admin-lctp/dashboard');
+                } else if(end($origin) == 'login-admin') {
+                    return redirect('/admin-logatama/dashboard');
+                }
+                return redirect()->back();
+            // return redirect()->intended('/lctp/dashboard-soal');
+            }else if($login_as == 'peserta' ){
+                return redirect('/lctp/dashboard-soal');
+            }
+            return redirect()->back();
         }
 
         return back()
@@ -55,17 +76,16 @@ class LogatamaController
      function logout()
     {
         if (Auth::guard('peserta')->check()) {
-            Auth::guard('peserta')->logout();
-            return redirect('/login-soal');
+            $login_as = Auth::guard('peserta')->user()->role;
+            if ($login_as == 'admin'){
+                Auth::guard('peserta')->logout();
+                return redirect('/login-admin');
+            }else if($login_as == 'peserta' ){
+                Auth::guard('peserta')->logout();
+                return redirect('/login-soal');
+            }
+            return redirect()->back();
         }
         return redirect()->back();
-    }
-    function soal()
-    {
-        return Inertia::render('loginSoal/index');
-    }
-    function admin()
-    {
-        return 'halaman login admin logatama';
     }
 }

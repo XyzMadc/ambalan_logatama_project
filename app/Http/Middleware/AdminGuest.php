@@ -10,10 +10,10 @@ class AdminGuest
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('peserta')->check()) {
-            return $next($request);    
+            return $next($request);
         }
 
-        
-        return redirect()->back(); // Replace with your custom route
+
+        return redirect()->back();
     }
 }

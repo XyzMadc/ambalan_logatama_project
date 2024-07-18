@@ -19,7 +19,7 @@ class Peserta
              return redirect('/login-soal')->with('error', 'Unauthorized access. Only Peserta!');
         }
 
-       
-        return redirect('/login-soal'); 
+
+        return redirect('/login-soal');
     }
 }

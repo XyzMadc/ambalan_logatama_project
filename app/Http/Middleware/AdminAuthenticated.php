@@ -16,10 +16,10 @@ class AdminAuthenticated
             }
             //klo bukan admin tidak boleh
              Auth::guard('peserta')->logout();
-             return redirect('admin-logatama/login')->with('error', 'Unauthorized access. Only Admin!');
+             return redirect('login-admin')->with('error', 'Unauthorized access. Only Admin!');
         }
 
-       
-        return redirect('/admin-logatama/login'); 
+
+        return redirect('/login-admin');
     }
 }

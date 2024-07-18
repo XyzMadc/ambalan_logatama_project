@@ -16,7 +16,7 @@ export default function loginSoal() {
     const { data, setData, errors, post, reset } = useForm({
         username: "",
         password: "",
-       
+
     });
     const toast = useToast();
 
@@ -26,7 +26,7 @@ export default function loginSoal() {
      const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        post("/login-soal", {
+        post("/login", {
             onSuccess: () => {
                 setIsLoading(false);
                 toast({
@@ -92,7 +92,7 @@ export default function loginSoal() {
                                     </p>
                                 )}
                             </div>
-                            
+
                         {/* <div className="flex flex-col items-center justify-center w-full px-[120px] gap-5">
                         <input
                             type="text"
@@ -111,7 +111,7 @@ export default function loginSoal() {
                             >
                                 {showPassword ? <Eye /> : <EyeClosed />}
                                 </span>
-                            
+
                         </div> */}
                     {/* </div> */}
                             <button
@@ -124,10 +124,10 @@ export default function loginSoal() {
                                     <p className="text-sm">Kirim</p>
                                 )}
                             </button>
-                            
+
                         </form>
-                    
-                        
+
+
                 </div>
                 <figure className="w-1/2 flex justify-center">
                     <img className="w-[20rem]" src={maskot} alt="" />

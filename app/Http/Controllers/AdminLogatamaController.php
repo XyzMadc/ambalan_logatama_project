@@ -17,49 +17,6 @@ class AdminLogatamaController
         // return "halaman admin logatama dashboard " . $peserta;
         return response("halaman admin logatama dashboard \n\n\n" . $peserta, 200)->header('Content-Type', 'text/plain');
     }
-    function login()
-    {
-        //login-view
-        return view('tes.LoginAdmin');
-    }
-    function logout()
-    {
-        if (Auth::guard('peserta')->check()) {
-            Auth::guard('peserta')->logout();
-            return redirect('admin-logatama/login');
-        }
-        return redirect()->back();
-    }
-    function auth(Request $request)
-    {
-        //authenticate
-        $request->validate(
-            [
-                'username' => 'required',
-                'password' => 'required|min:8',
-            ],
-            [
-                'username.required' => 'Username harus diisi!',
-                'password.required' => 'Password harus diisi!',
-                'password.min' => 'Password minimal 8 karakter!',
-            ],
-        );
-        $credential = [
-            'username' => $request->username,
-            'password' => $request->password,
-        ];
-
-        if (Auth::guard('peserta')->attempt($credential)) {
-            // return 'sukses';
-            return redirect()->intended('admin-logatama/dashboard');
-        }
-
-        return back()
-            ->withErrors([
-                'username' => 'Username/password salah!',
-            ])
-            ->onlyInput('username');
-    }
     function pengumuman()
     {
         return 'halaman admin logatama pengumuman';

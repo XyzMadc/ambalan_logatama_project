@@ -10,7 +10,7 @@ use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
 use App\Http\Controllers\AdminLctpController;
 
-// ini middleware guest sembarang mau dikasi apa ga
+
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
@@ -21,20 +21,23 @@ Route::controller(AmbalanController::class)
         Route::post('/kontak/mail', 'email')->name('contactMail');
     });
 
-// ini middleware guest sembarang mau dikasi apa ga
+
 Route::controller(LogatamaController::class)
     ->prefix('/')
     ->group(function () {
         Route::get('/logatama', 'index')->name('logatama');
         Route::get('/panduan', 'panduan');
         Route::get('/pengumuman', 'pengumuman');
-        Route::get('/login-soal', 'soal')->middleware('guest');
-        Route::get('/logout-soal', 'logout');
-        Route::post('/login-soal', 'auth');
-        Route::get('/login-admin', 'admin');
+        Route::middleware('guest')->group(function () {
+            Route::get('/login-soal', 'loginsoal');
+            Route::get('/login-admin', 'loginadmin');
+            Route::post('/login', 'auth');
+        });
+        Route::get('/logout', 'logout');
+
     });
 
-// ini tambahin middleware peserta
+
 Route::controller(LctpController::class)
     ->prefix('/lctp')
     ->group(function () {
@@ -42,10 +45,9 @@ Route::controller(LctpController::class)
              Route::get('/dashboard-soal', 'index');
              Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
         });
-        // Route::get('/', '');
     });
 
-//ini tambahin middleware admin
+
 Route::prefix('/admin-logatama')
     ->controller(AdminLogatamaController::class)
     ->group(function () {
@@ -53,17 +55,11 @@ Route::prefix('/admin-logatama')
             Route::get('/dashboard', 'index');
             // Route::get('/pengumuman', 'pengumuman');
             Route::get('/rekap-juara', 'rekap');
-            Route::get('/logout', 'logout')->name('logout');
+            Route::get('/pengumuman', 'createPengumuman');
         });
-        Route::middleware('guest')->group(function () {
-            Route::get('/login', 'login')->name('admin.login');
-        });
-
-        Route::post('/login', 'auth');
-         Route::get('/pengumuman', 'createPengumuman');
     });
 
-// //ini tambahin middleware admin
+
 Route::controller(AdminLctpController::class)
     ->prefix('/admin-lctp')
     ->group(function () {
