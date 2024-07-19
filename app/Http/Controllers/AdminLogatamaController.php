@@ -6,22 +6,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Peserta;
 use App\Models\Pengumuman;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AdminLogatamaController
 {
     function index()
     {
         $peserta = Peserta::where('role', 'peserta')->get();
-        // return "halaman admin logatama dashboard " . $peserta;
-        return response("halaman admin logatama dashboard \n\n\n" . $peserta, 200)->header('Content-Type', 'text/plain');
+        return Inertia::render('Admin/Dashboard/index', [
+            'peserta' => $peserta,
+        ]);
     }
     function pengumuman()
     {
-        return 'halaman admin logatama pengumuman';
+        return Inertia::render('Admin/Pengumuman/index');
     }
-    function createPengumuman(Request $request){
+    function createPengumuman(Request $request)
+    {
 
         $validated = $request->validate([
             'judul' => 'required|string|max:300',
@@ -29,7 +30,7 @@ class AdminLogatamaController
             // 'tanggal' => 'required|string|max:50',
         ]);
 
-        if ($validated){
+        if ($validated) {
             Pengumuman::create([
                 'judul' => $request->query('judul'),
                 'deskripsi' => $request->query('deskripsi'),
@@ -39,6 +40,24 @@ class AdminLogatamaController
     }
     function rekap()
     {
-        return 'halaman admin logatama rekap juara';
+        return Inertia::render('Admin/Rekap/index');
+    }
+    function createRekap(Request $request)
+    {
+
+        $validated = $request->validate([
+            'peringkat' => 'required|string|max:300',
+            'nama_pangkalan' => 'required|string|max:1000',
+            'skor_nilai' => 'required|number|max:6',
+        ]);
+
+        // if ($validated) {
+        //     Pengumuman::create([
+        //         'peringkat' => $request->query('peringkat'),
+        //         'nama_pangkalan' => $request->query('nama_pangkalan'),
+        //         'skor_nilai' => $request->query('skor_nilai'),
+        //     ]);
+        //     return Pengumuman::all();
+        // }
     }
 }
