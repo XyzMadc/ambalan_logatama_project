@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class LctpController
 {
     function index(){
-        return 'buat page dashboard soal';
+        return Inertia::render('LCTP/Dashboard/index');
     }
 
     function soal(Request $request){
