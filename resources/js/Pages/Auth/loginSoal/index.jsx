@@ -5,7 +5,6 @@ import { Eye, EyeClosed } from "@phosphor-icons/react";
 import { Head, useForm } from "@inertiajs/react";
 import { Spinner, useToast } from "@chakra-ui/react";
 
-
 export default function loginSoal() {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -16,14 +15,13 @@ export default function loginSoal() {
     const { data, setData, errors, post, reset } = useForm({
         username: "",
         password: "",
-
     });
     const toast = useToast();
 
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
     };
-     const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         post("/login", {
@@ -53,54 +51,35 @@ export default function loginSoal() {
                 <div className="h-full text-white w-1/2 flex flex-col items-center justify-evenly">
                     <h1 className="text-3xl font-bold">LOGATAMA XVII</h1>
                     <span>LOGO</span>
-                     <form
-                            className="w-full max-w-lg mx-auto mt-5"
-                            onSubmit={handleSubmit}
-                        >
-                            <div className="relative z-0 mb-6 w-full group">
+                    <form
+                        className="w-full max-w-lg mx-auto mt-5"
+                        onSubmit={handleSubmit}
+                    >
+                        <div className="relative z-0 mb-6 w-full group">
                             <input
-                                 value={data.username}
-                                    onChange={handleChange}
+                                value={data.username}
+                                onChange={handleChange}
                                 name="username"
-                            type="text"
-                            placeholder="Username"
-                            className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
-                        />
-                                {errors.username && (
-                                    <p className="text-red-600 text-sm">
-                                        {errors.username}
-                                    </p>
-                                )}
-                                {errors.error && (
-                                    <p className="text-red-600 text-sm">
-                                        {errors.error}
-                                    </p>
-                                )}
-                            </div>
-                            <div className="relative z-0 mb-6 w-full group">
-                            <input
-                                 value={data.password}
-                                    onChange={handleChange}
-                                name="password"
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Password"
+                                type="text"
+                                placeholder="Username"
                                 className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
                             />
-                                {errors.password && (
-                                    <p className="text-red-600 text-sm">
-                                        {errors.password}
-                                    </p>
-                                )}
-                            </div>
-
-                        {/* <div className="flex flex-col items-center justify-center w-full px-[120px] gap-5">
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
-                        />
-                        <div className="relative w-full">
+                            {errors.username && (
+                                <p className="text-red-600 text-sm">
+                                    {errors.username}
+                                </p>
+                            )}
+                            {errors.error && (
+                                <p className="text-red-600 text-sm">
+                                    {errors.error}
+                                </p>
+                            )}
+                        </div>
+                        <div className="relative z-0 mb-6 w-full group">
                             <input
+                                value={data.password}
+                                onChange={handleChange}
+                                name="password"
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
@@ -110,24 +89,24 @@ export default function loginSoal() {
                                 onClick={togglePasswordVisibility}
                             >
                                 {showPassword ? <Eye /> : <EyeClosed />}
-                                </span>
-
-                        </div> */}
-                    {/* </div> */}
-                            <button
-                                type="submit"
-                                className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
-                            >
-                                {isLoading ? (
-                                    <Spinner />
-                                ) : (
-                                    <p className="text-sm">Kirim</p>
-                                )}
-                            </button>
-
-                        </form>
-
-
+                            </span>
+                            {errors.password && (
+                                <p className="text-red-600 text-sm">
+                                    {errors.password}
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            type="submit"
+                            className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
+                        >
+                            {isLoading ? (
+                                <Spinner />
+                            ) : (
+                                <p className="text-sm">Kirim</p>
+                            )}
+                        </button>
+                    </form>
                 </div>
                 <figure className="w-1/2 flex justify-center">
                     <img className="w-[20rem]" src={maskot} alt="" />

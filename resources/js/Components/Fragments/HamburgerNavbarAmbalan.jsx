@@ -22,6 +22,11 @@ export default function HamburgerNavbarAmbalan() {
         }
         setOpen(!isOpen);
     };
+
+    const handleCloseButton = () => {
+        setOpen(false);
+        onDrawerClose();
+    };
     return (
         <>
             <Headroom>
@@ -45,7 +50,7 @@ export default function HamburgerNavbarAmbalan() {
             <DrawerLayoutAmbalan
                 finalFocusRef={btnRef}
                 isOpen={isDrawerOpen}
-                onClose={onDrawerClose}
+                onClose={handleCloseButton}
                 onToggle={onToggle}
             />
         </>

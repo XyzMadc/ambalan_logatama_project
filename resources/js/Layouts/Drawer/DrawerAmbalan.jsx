@@ -14,6 +14,9 @@ export default function DrawerLayoutAmbalan({
     finalFocusRef,
     onToggle,
 }) {
+    const handleOverlayClick = (e) => {
+        e.stopPropagation();
+    };
     return (
         <Drawer
             isOpen={isOpen}
@@ -21,11 +24,15 @@ export default function DrawerLayoutAmbalan({
             onClose={onClose}
             finalFocusRef={finalFocusRef}
         >
-            <DrawerOverlay />
+            <DrawerOverlay onClick={handleOverlayClick} />
             <DrawerContent>
-                <DrawerCloseButton color={"white"} size={"lg"} onClick={onToggle} />
+                <DrawerCloseButton
+                    color={"white"}
+                    size={"lg"}
+                    onClick={onToggle}
+                />
                 <DrawerBody pt="72px" bg={"#1e1b4b"}>
-                    <ul className="space-y-10 h-full text-white bg-indigo-950 px-5 py-5">
+                    <ul className="space-y-10 h-full text-white bg-indigo-950 p-5">
                         <List path="/" label="Beranda" />
                         <List path="/tentang" label="Tentang" />
                         <List path="/kegiatan" label="Kegiatan" />

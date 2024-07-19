@@ -34,16 +34,15 @@ Route::controller(LogatamaController::class)
             Route::post('/login', 'auth');
         });
         Route::get('/logout', 'logout');
-
     });
 
 
 Route::controller(LctpController::class)
     ->prefix('/lctp')
     ->group(function () {
-         Route::middleware('peserta.auth')->group(function () {
-             Route::get('/dashboard-soal', 'index');
-             Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
+        Route::middleware('peserta.auth')->group(function () {
+            Route::get('/dashboard-soal', 'index');
+            Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
         });
     });
 
@@ -53,9 +52,10 @@ Route::prefix('/admin-logatama')
     ->group(function () {
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
-            // Route::get('/pengumuman', 'pengumuman');
+            Route::get('/pengumuman', 'pengumuman');
             Route::get('/rekap-juara', 'rekap');
-            Route::get('/pengumuman', 'createPengumuman');
+            Route::post('/pengumuman', 'createPengumuman');
+            Route::post('/rekap-juara', 'createRekap');
         });
     });
 
@@ -65,6 +65,7 @@ Route::controller(AdminLctpController::class)
     ->group(function () {
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
+            Route::get('/soal', 'soal');
         });
     });
 

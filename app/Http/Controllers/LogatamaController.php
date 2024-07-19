@@ -19,17 +19,16 @@ class LogatamaController
     }
     function pengumuman()
     {
-        $announcements =Pengumuman::all();
-        return Inertia::render('Pengumuman/index',['announcements'=>$announcements]);
+        $announcements = Pengumuman::all();
+        return Inertia::render('Pengumuman/index', ['announcements' => $announcements]);
     }
     function loginsoal()
     {
-        return Inertia::render('loginSoal/index');
+        return Inertia::render('Auth/loginSoal/index');
     }
     function loginadmin()
     {
-            return view('tes.LoginAdmin');
-        // return 'halaman login admin logatama';
+        return Inertia::render('Auth/loginAdmin/index');
     }
     function auth(Request $request)
     {
@@ -52,16 +51,16 @@ class LogatamaController
 
         if (Auth::guard('peserta')->attempt($credential)) {
             $login_as = Auth::guard('peserta')->user()->role;
-            if ($login_as == 'admin'){
-                $origin = explode('/',url()->previous());
-                if (end($origin) == 'login-soal'){
+            if ($login_as == 'admin') {
+                $origin = explode('/', url()->previous());
+                if (end($origin) == 'login-soal') {
                     return redirect('/admin-lctp/dashboard');
-                } else if(end($origin) == 'login-admin') {
+                } else if (end($origin) == 'login-admin') {
                     return redirect('/admin-logatama/dashboard');
                 }
                 return redirect()->back();
-            // return redirect()->intended('/lctp/dashboard-soal');
-            }else if($login_as == 'peserta' ){
+                // return redirect()->intended('/lctp/dashboard-soal');
+            } else if ($login_as == 'peserta') {
                 return redirect('/lctp/dashboard-soal');
             }
             return redirect()->back();
@@ -73,14 +72,14 @@ class LogatamaController
             ])
             ->onlyInput('username');
     }
-     function logout()
+    function logout()
     {
         if (Auth::guard('peserta')->check()) {
             $login_as = Auth::guard('peserta')->user()->role;
-            if ($login_as == 'admin'){
+            if ($login_as == 'admin') {
                 Auth::guard('peserta')->logout();
                 return redirect('/login-admin');
-            }else if($login_as == 'peserta' ){
+            } else if ($login_as == 'peserta') {
                 Auth::guard('peserta')->logout();
                 return redirect('/login-soal');
             }

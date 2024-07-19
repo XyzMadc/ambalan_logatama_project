@@ -22,6 +22,11 @@ export default function HamburgerNavbarLogatama() {
         }
         setOpen(!isOpen);
     };
+
+    const handleCloseButton = () => {
+        setOpen(false);
+        onDrawerClose();
+    };
     return (
         <>
             <Headroom>
@@ -45,7 +50,8 @@ export default function HamburgerNavbarLogatama() {
             <DrawerLayoutLogatama
                 finalFocusRef={btnRef}
                 isOpen={isDrawerOpen}
-                onClose={onDrawerClose}
+                onClose={handleCloseButton}
+                onToggle={onToggle}
             />
         </>
     );
