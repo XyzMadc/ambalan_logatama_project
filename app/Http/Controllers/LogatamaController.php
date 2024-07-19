@@ -26,7 +26,7 @@ class LogatamaController
         // $bidang = 'lctp';
         $bidang = $request->query('bidang');
         if(!Schema::hasColumn('pesertas', $bidang)){
-            return redirect()->back();
+            $bidang = 'lctp';
         }
         $data = Peserta::where($bidang,'>',0);
         if ($data->exists())

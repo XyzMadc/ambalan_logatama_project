@@ -32,10 +32,9 @@ class AdminLogatamaController
 
         if ($validated) {
             Pengumuman::create([
-                'judul' => $request->query('judul'),
-                'deskripsi' => $request->query('deskripsi'),
+                'judul' => $request->input('judul'),
+                'deskripsi' => $request->input('deskripsi'),
             ]);
-            return Pengumuman::all();
         }
     }
     function rekap()
