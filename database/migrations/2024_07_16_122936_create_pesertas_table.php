@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('role');
+            $table->string('tingkat');
+            $table->string('kategori');
             $table->string('email')->unique();
-            $table->integer('lctp')->nullable();
-            $table->integer('pbb')->nullable();
+            $table->integer('lctp')->nullable()->default(0);
+            $table->integer('pbb')->nullable()->default(0);
             $table->timestamps();
         });
     }

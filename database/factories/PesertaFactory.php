@@ -24,11 +24,18 @@ class PesertaFactory extends Factory
     public function definition(): array
     {
         $school = rand(1, 50);
+        $acak = (int)rand(0,1);
+        $kategori = ['putra','putri'];
+        $tingkat = ['penegak','penggalang'][$acak];
+        $tingkatsekolah = ['SMA','SMP'][$acak];
         return [
             'team_id' => Str::uuid(),
-            'pangkalan' => "SMP $school Semarang",
-            'username' => "smp_" . $school . "_semarang",
+            'pangkalan' => "$tingkatsekolah $school Semarang",
+            'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
             'role' => 'peserta',
+            'tingkat' => $tingkat,
+            'kategori' => $kategori[intval(rand(0,1))],
+            'lctp' => rand(0,100),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
         ];

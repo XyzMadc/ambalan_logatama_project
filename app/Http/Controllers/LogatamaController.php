@@ -6,6 +6,9 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengumuman;
+use App\Models\Peserta;
+use Illuminate\Support\Facades\Schema;
+
 
 class LogatamaController
 {
@@ -17,10 +20,32 @@ class LogatamaController
     {
         return Inertia::render('Panduan/index');
     }
-    function pengumuman()
+    function pengumuman(Request $request)
     {
         $announcements =Pengumuman::all();
-        return Inertia::render('Pengumuman/index',['announcements'=>$announcements]);
+        // $bidang = 'lctp';
+        $bidang = $request->query('bidang');
+        if(!Schema::hasColumn('pesertas', $bidang)){
+            return redirect()->back();
+        }
+        $data = Peserta::where($bidang,'>',0);
+        if ($data->exists())
+        {
+            $penegak = Peserta::where('tingkat','penegak')->orderBy('kategori')->orderBy($bidang, 'desc')->select('kategori',$bidang,'pangkalan','tingkat')->get()->groupBy('kategori')->map(function ($items) {
+                return $items->take(3);
+            });
+
+            $penggalang = Peserta::where('tingkat','penggalang')->orderBy('kategori')->orderBy($bidang, 'desc')->select('kategori',$bidang,'pangkalan','tingkat')->get()->groupBy('kategori')->map(function ($items) {
+                return $items->take(3);
+            });
+            $juara = ['bidang'=>$bidang,'penggalang'=>$penggalang,'penegak'=>$penegak];
+            // return $juara;
+        }else {
+            $default = array_map(fn() =>['pangkalan'=>'Coming Soon',$bidang=>'xxx'], [1,2,3]);
+            $juara = ['bidang'=>$bidang,'penggalang'=>['putra'=>$default,'putri'=>$default],'penegak'=>['putra'=>$default,'putri'=>$default]];
+            // return $juara;
+        }
+        return Inertia::render('Pengumuman/index',['announcements'=>$announcements,'pesertaRekapitulasi'=>$juara]);
     }
     function loginsoal()
     {
@@ -89,3 +114,4 @@ class LogatamaController
         return redirect()->back();
     }
 }
+

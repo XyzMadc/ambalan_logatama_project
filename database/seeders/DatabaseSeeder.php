@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             'team_id' => Str::uuid(),
             'pangkalan' => 'SMKN 7 Semarang',
             'username' => 'admin',
+            'kategori' => 'admin',
+            'tingkat' => 'admin',
             'role' => 'admin',
             'email' => 'ambalansoekmasmkn7@gmail.com',
             'password' => static::$password ??= Hash::make('password')

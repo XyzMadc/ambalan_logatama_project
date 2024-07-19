@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Peserta extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = ['pangkalan', 'email', 'password', 'role'];
+    protected $fillable = ['pangkalan', 'email', 'password', 'role','tingkat','kategori'];
 
     protected $hidden = ['password'];
     protected $table = 'pesertas';

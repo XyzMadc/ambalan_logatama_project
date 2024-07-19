@@ -3,7 +3,6 @@ import { CaretDown } from "@phosphor-icons/react";
 import asetPutra from "../../../assets/pengumuman/aset-pramuka-putra-vr.png";
 import asetPutri from "../../../assets/pengumuman/aset-pramuka-putri-vr.png";
 import Background from "../../../assets/pengumuman/bg-beranda.png";
-// import announcements from "../../Services/pengumuman.json";
 
 export default function PengumumanLayout() {
     const formatDate = (isoString) => {

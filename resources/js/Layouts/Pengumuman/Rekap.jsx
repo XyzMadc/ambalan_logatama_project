@@ -1,5 +1,6 @@
 import { useState } from "react";
-import pesertaRekapitulasi from "../../Services/pesertaRekapitulasi.json";
+import { usePage } from '@inertiajs/react';
+// import pesertaRekapitulasi from "../../Services/pesertaRekapitulasi.json";
 
 export default function Rekapitulasi() {
     const [activeTab, setActiveTab] = useState("PENGGALANG");
@@ -7,7 +8,10 @@ export default function Rekapitulasi() {
     const handleClick = (tab) => {
         setActiveTab(tab);
     };
-    console.log(pesertaRekapitulasi);
+    const { props } = usePage();
+    const { pesertaRekapitulasi } = props;
+    const bidang = pesertaRekapitulasi.bidang;
+
     return (
         <section className="h-screen xl:h-auto bg-gradient-to-b from-[#0E062A] to-[#2B1577] text-center xl:pb-[120px]">
             <svg viewBox="0 0 100 25" className="rotate-180">
@@ -41,8 +45,8 @@ export default function Rekapitulasi() {
                 </div>
                 <h3 className="font-semibold text-lg xl:text-2xl text-slate-300">
                     {activeTab === "PENGGALANG"
-                        ? "BIDANG LCTP PENGGALANG"
-                        : "BIDANG LCTP PENEGAK"}
+                        ? "BIDANG " + bidang.toUpperCase() + " PENGGALANG"
+                        : "BIDANG " + bidang.toUpperCase() + " PENEGAK"}
                 </h3>
             </div>
             <div className="flex justify-center px-2 xl:px-20 gap-1 xl:gap-5">
@@ -58,8 +62,8 @@ export default function Rekapitulasi() {
                         </h3>
                         <div>
                             {(activeTab === "PENGGALANG"
-                                ? pesertaRekapitulasi.penggalang
-                                : pesertaRekapitulasi.penegak
+                                ? pesertaRekapitulasi.penggalang.putra
+                                : pesertaRekapitulasi.penegak.putra
                             ).map((peserta, index) => (
                                 <div
                                     key={index}
@@ -68,10 +72,10 @@ export default function Rekapitulasi() {
                                     <div className="flex gap-3 items-center">
                                         <span>{index + 1}</span>
                                         <h4 className="text-sm xl:text-base font-medium capitalize">
-                                            {peserta.putra}
+                                            {peserta.pangkalan}
                                         </h4>
                                     </div>
-                                    <span>000.000</span>
+                                    <span>{peserta[bidang]}</span>
                                 </div>
                             ))}
                         </div>
@@ -82,8 +86,8 @@ export default function Rekapitulasi() {
                         </h3>
                         <div>
                             {(activeTab === "PENGGALANG"
-                                ? pesertaRekapitulasi.penggalang
-                                : pesertaRekapitulasi.penegak
+                                ? pesertaRekapitulasi.penggalang.putri
+                                : pesertaRekapitulasi.penegak.putri
                             ).map((peserta, index) => (
                                 <div
                                     key={index}
@@ -92,10 +96,10 @@ export default function Rekapitulasi() {
                                     <div className="flex gap-3 items-center">
                                         <span>{index + 1}</span>
                                         <h4 className="text-sm xl:text-base font-medium capitalize">
-                                            {peserta.putri}
+                                        {peserta.pangkalan}
                                         </h4>
                                     </div>
-                                    <span>000.000</span>
+                                    <span>{peserta[bidang]}</span>
                                 </div>
                             ))}
                         </div>
