@@ -25,7 +25,7 @@ export default function rekapAdmin() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        post("/admin-logatama/rekap", {
+        post("/admin-logatama/rekap-juara", {
             onSuccess: () => {
                 setIsLoading(false);
                 toast({
@@ -50,14 +50,16 @@ export default function rekapAdmin() {
         setData(e.target.name, e.target.value);
     };
 
+    const { props } = usePage();
+    const { jumlahPeserta,bidang } = props;
     // ini jumlah data buat dijadikan value select option di Peringkat dan Nama Pangkalan
-    const jumlahPeserta = [
-        "SMKN 1 Semarang",
-        "SMKN 2 Semarang",
-        "SMKN 3 Semarang",
-        "SMKN 4 Semarang",
-        "SMKN 5 Semarang",
-    ];
+    // const jumlahPeserta = [
+    //     "SMKN 1 Semarang",
+    //     "SMKN 2 Semarang",
+    //     "SMKN 3 Semarang",
+    //     "SMKN 4 Semarang",
+    //     "SMKN 5 Semarang",
+    // ];
 
     return (
         <section className="min-h-screen overflow-hidden flex">
@@ -75,9 +77,9 @@ export default function rekapAdmin() {
                                 className="w-full py-2 border rounded-md border-slate-300 focus:outline-none text-slate-400 font-semibold text-sm"
                             >
                                 <option hidden>Isi Peringkat:</option>
-                                {jumlahPeserta.map((_, index) => (
-                                    <option key={index} value={index + 1}>
-                                        {index + 1}
+                                {bidang.map((mataLomba, index) => (
+                                    <option key={index} value={mataLomba}>
+                                        {mataLomba.toUpperCase()}
                                     </option>
                                 ))}
                             </select>
@@ -97,8 +99,8 @@ export default function rekapAdmin() {
                             >
                                 <option hidden>Isi Nama Pangkalan:</option>
                                 {jumlahPeserta.map((pangkalan, index) => (
-                                    <option key={index} value={pangkalan}>
-                                        {pangkalan}
+                                    <option key={index} value={pangkalan.team_id}>
+                                        {pangkalan.pangkalan.toUpperCase() + " - " + pangkalan.kategori.toUpperCase()}
                                     </option>
                                 ))}
                             </select>
