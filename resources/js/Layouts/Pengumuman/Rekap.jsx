@@ -4,9 +4,9 @@ import { router, usePage } from "@inertiajs/react";
 export default function Rekapitulasi() {
     const [activeTab, setActiveTab] = useState("PENGGALANG");
     const [currentBidang, setCurrentBidang] = useState("lctp");
-    const bidangList = ["lctp", "pbb", "cerdas_cermat"];
     const { props } = usePage();
     const { pesertaRekapitulasi } = props;
+    const { bidangList } = props;
 
     const handleClick = (tab) => {
         setActiveTab(tab);
@@ -23,7 +23,7 @@ export default function Rekapitulasi() {
             preserveState: true,
             preserveScroll: true,
         });
-        console.log(currentIndex, nextIndex, nextBidang);
+
     };
 
     const handlePrevious = () => {
@@ -38,7 +38,7 @@ export default function Rekapitulasi() {
             preserveState: true,
             preserveScroll: true,
         });
-        console.log(currentIndex, prevIndex, prevBidang);
+
     };
 
     return (

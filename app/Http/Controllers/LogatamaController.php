@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengumuman;
 use App\Models\Peserta;
@@ -23,8 +24,14 @@ class LogatamaController
     function pengumuman(Request $request)
     {
         $announcements = Pengumuman::all();
-        // $bidang = 'lctp';
-        $bidang = $request->query('bidang');
+        $bidangList = DB::table('information_schema.columns')
+        ->where('table_schema', env('DB_DATABASE'))
+        ->where('table_name', 'pesertas')
+        ->whereNotIn('column_name', ["id","team_id","pangkalan","username","password","role","tingkat","kategori","email","created_at","updated_at"])
+        ->pluck('column_name');
+
+        $bidang = $request->input('bidang');
+        // return $bidang;
         if (!Schema::hasColumn('pesertas', $bidang)) {
             $bidang = 'lctp';
         }
@@ -57,7 +64,7 @@ class LogatamaController
             $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
             // return $juara;
         }
-        return Inertia::render('Pengumuman/index', ['announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
+        return Inertia::render('Pengumuman/index', ['bidangList'=>$bidangList,'announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
     }
     function loginsoal()
     {

@@ -19,28 +19,50 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // Peserta::factory(36)->create();
-        $categories = [
-            ['tingkat' => 'penegak', 'kategori' => 'putra'],
-            ['tingkat' => 'penegak', 'kategori' => 'putri'],
-            ['tingkat' => 'penggalang', 'kategori' => 'putra'],
-            ['tingkat' => 'penggalang', 'kategori' => 'putri'],
-        ];
+        // Peserta::factory(10)->create(['tingkat' =>'penegak']);
 
-        foreach ($categories as $category) {
-            foreach (['lctp', 'pbb', 'cerdas_cermat'] as $field) {
-                Peserta::factory()
-                    ->count(3)
-                    ->state(function (array $attributes) use ($category, $field) {
-                        return [
-                            'tingkat' => $category['tingkat'],
-                            'kategori' => $category['kategori'],
-                            $field => rand(0, 100),
-                        ];
-                    })
-                    ->create();
-            }
-        }
+
+        Peserta::factory()
+            ->count(15)
+            ->state(function (array $attributes) {
+                $school = rand(1, 50);
+                $kategori = ['putra', 'putri'];
+                $tingkat = 'penegak';
+                $tingkatsekolah = 'SMA';
+                return [
+                    'pangkalan' => "$tingkatsekolah $school Semarang",
+                    'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
+                    'role' => 'peserta',
+                    'tingkat' => $tingkat,
+                    'kategori' => $kategori[intval(rand(0, 1))],
+                    'lctp'=> rand(0, 100),
+                    'pbb'=> rand(0, 100),
+                    'cerdas_cermat'=> rand(0, 100),
+
+                ];
+            })
+            ->create();
+            Peserta::factory()
+            ->count(15)
+            ->state(function (array $attributes) {
+                $school = rand(1, 50);
+                $kategori = ['putra', 'putri'];
+                $tingkat = 'penggalang';
+                $tingkatsekolah = 'SMP';
+                return [
+                    'pangkalan' => "$tingkatsekolah $school Semarang",
+                    'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
+                    'role' => 'peserta',
+                    'tingkat' => $tingkat,
+                    'kategori' => $kategori[intval(rand(0, 1))],
+                    'lctp'=> rand(0, 100),
+                    'pbb'=> rand(0, 100),
+                    'cerdas_cermat'=> rand(0, 100),
+
+                ];
+            })
+            ->create();
+
         Peserta::factory()->create([
             'team_id' => Str::uuid(),
             'pangkalan' => 'SMKN 7 Semarang',
