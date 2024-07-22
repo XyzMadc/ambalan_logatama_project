@@ -1,16 +1,45 @@
 import { useState } from "react";
-import { usePage } from '@inertiajs/react';
-// import pesertaRekapitulasi from "../../Services/pesertaRekapitulasi.json";
+import { router, usePage } from "@inertiajs/react";
 
 export default function Rekapitulasi() {
     const [activeTab, setActiveTab] = useState("PENGGALANG");
+    const [currentBidang, setCurrentBidang] = useState("lctp");
+    const bidangList = ["lctp", "pbb", "cerdas_cermat"];
+    const { props } = usePage();
+    const { pesertaRekapitulasi } = props;
 
     const handleClick = (tab) => {
         setActiveTab(tab);
     };
-    const { props } = usePage();
-    const { pesertaRekapitulasi } = props;
-    const bidang = pesertaRekapitulasi.bidang;
+
+    const handleNext = () => {
+        const currentIndex = bidangList.indexOf(currentBidang);
+        const nextIndex = (currentIndex + 1) % bidangList.length;
+        const nextBidang = bidangList[nextIndex];
+
+        if (currentIndex === bidangList.length - 1) return;
+        setCurrentBidang(nextBidang);
+        router.visit(`/pengumuman?bidang=${nextBidang}`, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+        console.log(currentIndex, nextIndex, nextBidang);
+    };
+
+    const handlePrevious = () => {
+        const currentIndex = bidangList.indexOf(currentBidang);
+        const prevIndex =
+            (currentIndex - 1 + bidangList.length) % bidangList.length;
+        const prevBidang = bidangList[prevIndex];
+
+        if (currentIndex === 0) return;
+        setCurrentBidang(prevBidang);
+        router.visit(`/pengumuman?bidang=${prevBidang}`, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+        console.log(currentIndex, prevIndex, prevBidang);
+    };
 
     return (
         <section className="h-screen xl:h-auto bg-gradient-to-b from-[#0E062A] to-[#2B1577] text-center xl:pb-[120px]">
@@ -43,15 +72,18 @@ export default function Rekapitulasi() {
                         PENEGAK
                     </button>
                 </div>
-                <h3 className="font-semibold text-lg xl:text-2xl text-slate-300">
+                <h3 className="font-semibold uppercase text-lg xl:text-2xl text-slate-300">
                     {activeTab === "PENGGALANG"
-                        ? "BIDANG " + bidang.toUpperCase() + " PENGGALANG"
-                        : "BIDANG " + bidang.toUpperCase() + " PENEGAK"}
+                        ? "BIDANG " + currentBidang + " PENGGALANG"
+                        : "BIDANG " + currentBidang + " PENEGAK"}
                 </h3>
             </div>
             <div className="flex justify-center px-2 xl:px-20 gap-1 xl:gap-5">
                 <div className="my-auto">
-                    <button className="text-4xl xl:text-6xl text-white font-bold p-1">
+                    <button
+                        className="text-4xl xl:text-6xl text-white font-bold p-1"
+                        onClick={handlePrevious}
+                    >
                         &lt;
                     </button>
                 </div>
@@ -70,12 +102,12 @@ export default function Rekapitulasi() {
                                     className="odd:bg-gradient-to-t odd:from-[#32108E] odd:to-[#532FB6] even:bg-[#633FCA] border-2 border-[#A586FF] py-2 px-3 xl:py-4 xl:px-6 rounded-2xl flex justify-between items-center font-semibold"
                                 >
                                     <div className="flex gap-3 items-center">
-                                        <span>{index + 1}</span>
+                                        <span>{index + 1}.</span>
                                         <h4 className="text-sm xl:text-base font-medium capitalize">
                                             {peserta.pangkalan}
                                         </h4>
                                     </div>
-                                    <span>{peserta[bidang]}</span>
+                                    <span>{peserta[currentBidang]}</span>
                                 </div>
                             ))}
                         </div>
@@ -94,22 +126,25 @@ export default function Rekapitulasi() {
                                     className="odd:bg-gradient-to-t odd:from-[#32108E] odd:to-[#532FB6] even:bg-[#633FCA] border-2 border-[#A586FF] py-2 px-3 xl:py-4 xl:px-6 rounded-2xl flex justify-between items-center font-semibold"
                                 >
                                     <div className="flex gap-3 items-center">
-                                        <span>{index + 1}</span>
+                                        <span>{index + 1}.</span>
                                         <h4 className="text-sm xl:text-base font-medium capitalize">
-                                        {peserta.pangkalan}
+                                            {peserta.pangkalan}
                                         </h4>
                                     </div>
-                                    <span>{peserta[bidang]}</span>
+                                    <span>{peserta[currentBidang]}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
-                <di className="my-auto">
-                    <button className="text-4xl xl:text-6xl text-white font-bold p-1">
+                <div className="my-auto">
+                    <button
+                        className="text-4xl xl:text-6xl text-white font-bold p-1"
+                        onClick={handleNext}
+                    >
                         &gt;
                     </button>
-                </di>
+                </div>
             </div>
             <button className="bg-white rounded-2xl py-2 xl:py-3 px-8 text-secondary font-bold text-xs xl:text-sm mt-10">
                 Lihat Rekapitulasi Nilai

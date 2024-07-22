@@ -23,22 +23,50 @@ class PesertaFactory extends Factory
      */
     public function definition(): array
     {
+        // $school = rand(1, 50);
+        // $acak = (int)rand(0,1);
+        // $kategori = ['putra','putri'];
+        // $tingkat = ['penegak','penggalang'][$acak];
+        // $tingkatsekolah = ['SMA','SMP'][$acak];
+        // return [
+        //     'team_id' => Str::uuid(),
+        //     'pangkalan' => "$tingkatsekolah $school Semarang",
+        //     'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
+        //     'role' => 'peserta',
+        //     'tingkat' => $tingkat,
+        //     'kategori' => $kategori[intval(rand(0,1))],
+        //     'lctp' => rand(0,100),
+        //     'pbb' => rand(0,100),
+        //     'cerdas_cermat' => rand(0,100),
+        //     'email' => fake()->unique()->safeEmail(),
+        //     'password' => static::$password ??= Hash::make('password'),
+        // ];
         $school = rand(1, 50);
-        $acak = (int)rand(0,1);
-        $kategori = ['putra','putri'];
-        $tingkat = ['penegak','penggalang'][$acak];
-        $tingkatsekolah = ['SMA','SMP'][$acak];
+        $acak = (int)rand(0, 1);
+        $kategori = ['putra', 'putri'];
+        $tingkat = ['penegak', 'penggalang'][$acak];
+        $tingkatsekolah = ['SMA', 'SMP'][$acak];
+
         return [
             'team_id' => Str::uuid(),
             'pangkalan' => "$tingkatsekolah $school Semarang",
             'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
             'role' => 'peserta',
             'tingkat' => $tingkat,
-            'kategori' => $kategori[intval(rand(0,1))],
-            'lctp' => rand(0,100),
-            'email' => fake()->unique()->safeEmail(),
+            'kategori' => $kategori[intval(rand(0, 1))],
+            'lctp' => 0,
+            'pbb' => 0,
+            'cerdas_cermat' => 0,
+            'email' => $this->faker->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
         ];
     }
-
+    public function withField($bidang)
+    {
+        return $this->state(function (array $attributes) use ($bidang) {
+            return [
+                $bidang => rand(0, 100),
+            ];
+        });
+    }
 }

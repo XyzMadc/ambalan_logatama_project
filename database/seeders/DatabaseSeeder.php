@@ -19,7 +19,28 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        Peserta::factory(10)->create();
+        // Peserta::factory(36)->create();
+        $categories = [
+            ['tingkat' => 'penegak', 'kategori' => 'putra'],
+            ['tingkat' => 'penegak', 'kategori' => 'putri'],
+            ['tingkat' => 'penggalang', 'kategori' => 'putra'],
+            ['tingkat' => 'penggalang', 'kategori' => 'putri'],
+        ];
+
+        foreach ($categories as $category) {
+            foreach (['lctp', 'pbb', 'cerdas_cermat'] as $field) {
+                Peserta::factory()
+                    ->count(3)
+                    ->state(function (array $attributes) use ($category, $field) {
+                        return [
+                            'tingkat' => $category['tingkat'],
+                            'kategori' => $category['kategori'],
+                            $field => rand(0, 100),
+                        ];
+                    })
+                    ->create();
+            }
+        }
         Peserta::factory()->create([
             'team_id' => Str::uuid(),
             'pangkalan' => 'SMKN 7 Semarang',
