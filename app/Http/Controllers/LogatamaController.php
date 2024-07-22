@@ -22,30 +22,42 @@ class LogatamaController
     }
     function pengumuman(Request $request)
     {
-        $announcements =Pengumuman::all();
+        $announcements = Pengumuman::all();
         // $bidang = 'lctp';
         $bidang = $request->query('bidang');
-        if(!Schema::hasColumn('pesertas', $bidang)){
+        if (!Schema::hasColumn('pesertas', $bidang)) {
             $bidang = 'lctp';
         }
-        $data = Peserta::where($bidang,'>',0);
-        if ($data->exists())
-        {
-            $penegak = Peserta::where('tingkat','penegak')->orderBy('kategori')->orderBy($bidang, 'desc')->select('kategori',$bidang,'pangkalan','tingkat')->get()->groupBy('kategori')->map(function ($items) {
-                return $items->take(3);
-            });
+        $data = Peserta::where($bidang, '>', 0);
+        if ($data->exists()) {
+            $penegak = Peserta::where('tingkat', 'penegak')
+                ->orderBy('kategori')
+                ->orderBy($bidang, 'desc')
+                ->select('kategori', $bidang, 'pangkalan', 'tingkat')
+                ->get()
+                ->groupBy('kategori')
+                ->map(function ($items) {
+                    return $items->take(3);
+                });
 
-            $penggalang = Peserta::where('tingkat','penggalang')->orderBy('kategori')->orderBy($bidang, 'desc')->select('kategori',$bidang,'pangkalan','tingkat')->get()->groupBy('kategori')->map(function ($items) {
-                return $items->take(3);
-            });
-            $juara = ['bidang'=>$bidang,'penggalang'=>$penggalang,'penegak'=>$penegak];
+            $penggalang = Peserta::where('tingkat', 'penggalang')
+                ->orderBy('kategori')
+                ->orderBy($bidang, 'desc')
+                ->select('kategori', $bidang, 'pangkalan', 'tingkat')
+                ->get()
+                ->groupBy('kategori')
+                ->map(function ($items) {
+                    return $items->take(3);
+                });
+
+            $juara = ['bidang' => $bidang, 'penggalang' => $penggalang, 'penegak' => $penegak];
             // return $juara;
-        }else {
-            $default = array_map(fn() =>['pangkalan'=>'Coming Soon',$bidang=>'xxx'], [1,2,3]);
-            $juara = ['bidang'=>$bidang,'penggalang'=>['putra'=>$default,'putri'=>$default],'penegak'=>['putra'=>$default,'putri'=>$default]];
+        } else {
+            $default = array_map(fn () => ['pangkalan' => 'Coming Soon', $bidang => 'xxx'], [1, 2, 3]);
+            $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
             // return $juara;
         }
-        return Inertia::render('Pengumuman/index',['announcements'=>$announcements,'pesertaRekapitulasi'=>$juara]);
+        return Inertia::render('Pengumuman/index', ['announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
     }
     function loginsoal()
     {
@@ -113,4 +125,3 @@ class LogatamaController
         return redirect()->back();
     }
 }
-

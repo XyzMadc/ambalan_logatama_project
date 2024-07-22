@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('lctp')->nullable()->default(0);
             $table->integer('pbb')->nullable()->default(0);
+            $table->integer('cerdas_cermat')->nullable()->default(0);
             $table->timestamps();
         });
     }

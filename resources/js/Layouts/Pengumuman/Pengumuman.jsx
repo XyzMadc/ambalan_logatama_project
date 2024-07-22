@@ -1,21 +1,21 @@
-import { usePage } from '@inertiajs/react';
+import { usePage } from "@inertiajs/react";
 import { CaretDown } from "@phosphor-icons/react";
 import asetPutra from "../../../assets/pengumuman/aset-pramuka-putra-vr.png";
 import asetPutri from "../../../assets/pengumuman/aset-pramuka-putri-vr.png";
 import Background from "../../../assets/pengumuman/bg-beranda.png";
 
 export default function PengumumanLayout() {
+    const { props } = usePage();
+    const { announcements } = props;
+
     const formatDate = (isoString) => {
         const date = new Date(isoString);
-        const day = String(date.getUTCDate()).padStart(2, '0');
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, "0");
+        const month = String(date.getUTCMonth() + 1).padStart(2, "0");
         const year = date.getUTCFullYear();
 
         return `${day}/${month}/${year}`;
-      };
-
-    const { props } = usePage();
-    const { announcements } = props;
+    };
 
     return (
         <section className="h-[115vh] xl:h-[150vh] bg-gradient-to-b from-[#0E062A] via-[#2B1577] to-[#775DD1] flex flex-col overflow-hidden w-full">

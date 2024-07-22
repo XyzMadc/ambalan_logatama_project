@@ -1,5 +1,5 @@
 import Sidebar from "@/Components/Partial/Sidebar";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ export default function pengumumanAdmin() {
         judul: "",
         deskripsi: "",
     });
+    const toast = useToast();
     const { url } = usePage();
     const handleSubmit = (e) => {
         e.preventDefault();
