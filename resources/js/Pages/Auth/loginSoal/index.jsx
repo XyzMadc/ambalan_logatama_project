@@ -1,6 +1,6 @@
 import { useState } from "react";
-import galaxy from "../../../assets/login-soal/galaxy.png";
-import maskot from "../../../assets/login-soal/maskot.png";
+import galaxy from "../../../../assets/login-soal/galaxy.png";
+import maskot from "../../../../assets/login-soal/maskot.png";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
 import { Head, useForm } from "@inertiajs/react";
 import { Spinner, useToast } from "@chakra-ui/react";

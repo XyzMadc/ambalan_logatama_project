@@ -12,6 +12,9 @@ class LctpController
     }
 
     function soal(Request $request){
-        return "buat page dashboard soal $request->id";
+        return Inertia::render('LCTP/Soal/index');
     }
+    // function soal(Request $request){
+    //     return "buat page dashboard soal $request->id";
+    // }
 }
