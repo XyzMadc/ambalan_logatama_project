@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Peserta;
+use App\Models\Soal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
     {
         // Peserta::factory(10)->create(['tingkat' =>'penegak']);
 
-
+        Soal::factory(50)->create(['tingkat'=>'penggalang']);
+        Soal::factory(50)->create(['tingkat'=>'penegak']);
         Peserta::factory()
             ->count(15)
             ->state(function (array $attributes) {

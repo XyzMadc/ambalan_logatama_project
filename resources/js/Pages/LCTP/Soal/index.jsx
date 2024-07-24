@@ -1,41 +1,19 @@
-import Logatama from "./assets/logatama.png";
-import Galaxy from "./assets/apen/bg 1.png";
+import Logatama from "../../../../assets/logatama.png";
+import Galaxy from "../../../../assets/apen/bg 1.png";
 import { useEffect, useState } from "react";
-import QuestionList from "@/Components/Fragments/QuestionList";
+import QuestionList from "../../../Components/Fragments/QuestionList";
+import { usePage } from "@inertiajs/react";
 
-const questions = [
-    {
-        id: 1,
-        text: "Sandi ini digunakan dengan cara merangkai huruf-huruf dengan terbolak-balik. Hampir  menyerupai sandi ular, jumlah huruf yang dirangkai dan dikelompokkan dalam sandi ini  harus sama. Sandi apakah ini?",
-        options: [
-            "Sandi Balik",
-            "Sandi Abjad Inter",
-            "Sandi Napoleon",
-            "Sandi Merah Putih",
-            "Sandi Siput",
-        ],
-    },
-    {
-        id: 2,
-        text: "Siapa bapak pramuka indonesia?",
-        options: [
-            "Sri Sultan Hamengkubuwono IX",
-            "Soekarno",
-            "Hatta",
-            "Mohammad Yamin",
-            "Afin",
-        ],
-    },
-    {
-        id: 3,
-        text: "Kapan pramuka indonesia didirikan?",
-        options: ["1961", "1945", "1950", "1965"],
-    },
-];
 
 export default function SoalPage() {
+    const { props } = usePage();
+    const { questions } = props;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+    const [markedForReview, setMarkedForReview] = useState(
+        Array(questions.length).fill(false)
+    );
+
 
     useEffect(() => {
         const storedAnswers = localStorage.getItem("answers");
@@ -96,8 +74,8 @@ export default function SoalPage() {
                             >
                                 <span>{index + 1}.</span>
                                 <div>
-                                    <p>{question.text}</p>
-                                    {question.options.map((option, index) => (
+                                    <p>{question.pertanyaan}</p>
+                                    {JSON.parse(question.pilihan).map((option, index) => (
                                         <label key={index} className="block">
                                             <input
                                                 type="radio"
