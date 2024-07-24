@@ -1,7 +1,7 @@
 import Logatama from "./assets/logatama.png";
 import Galaxy from "./assets/apen/bg 1.png";
 import { useEffect, useState } from "react";
-import QuestionList from "./Components/Layout/app/QuestionList";
+import QuestionList from "@/Components/Fragments/QuestionList";
 
 const questions = [
     {
@@ -36,36 +36,13 @@ const questions = [
 export default function SoalPage() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
-    const [markedForReview, setMarkedForReview] = useState(
-        Array(questions.length).fill(false)
-    );
 
-    // Load answers from localStorage on mount
     useEffect(() => {
         const storedAnswers = localStorage.getItem("answers");
         if (storedAnswers) {
             setAnswers(JSON.parse(storedAnswers));
         }
     }, []);
-
-    const nextQuestion = () => {
-        if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-        }
-    };
-
-    const prevQuestion = () => {
-        if (currentQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1);
-        }
-    };
-
-    const markForReview = () => {
-        const newMarkedForReview = [...markedForReview];
-        newMarkedForReview[currentQuestion] =
-            !newMarkedForReview[currentQuestion];
-        setMarkedForReview(newMarkedForReview);
-    };
 
     const handleAnswerChange = (answer) => {
         const newAnswers = [...answers];
@@ -192,7 +169,6 @@ export default function SoalPage() {
                     <QuestionList
                         questions={questions}
                         answers={answers}
-                        markedForReview={markedForReview}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                     />

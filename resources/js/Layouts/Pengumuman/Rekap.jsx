@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
+import { Spinner } from "@chakra-ui/react";
 
 export default function Rekapitulasi() {
-    const [activeTab, setActiveTab] = useState("PENGGALANG");
-    const [currentBidang, setCurrentBidang] = useState("lctp");
     const { props } = usePage();
-    const { pesertaRekapitulasi } = props;
-    const { bidangList } = props;
+    const { pesertaRekapitulasi, bidangList } = props;
+    const [activeTab, setActiveTab] = useState("PENGGALANG");
+    const [currentBidang, setCurrentBidang] = useState(
+        pesertaRekapitulasi.bidang
+    );
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [props]);
 
     const handleClick = (tab) => {
         setActiveTab(tab);
@@ -19,11 +26,12 @@ export default function Rekapitulasi() {
 
         if (currentIndex === bidangList.length - 1) return;
         setCurrentBidang(nextBidang);
+        setIsLoading(true);
         router.visit(`/pengumuman?bidang=${nextBidang}`, {
             preserveState: true,
             preserveScroll: true,
+            onFinish: () => setIsLoading(false),
         });
-
     };
 
     const handlePrevious = () => {
@@ -34,15 +42,23 @@ export default function Rekapitulasi() {
 
         if (currentIndex === 0) return;
         setCurrentBidang(prevBidang);
+        setIsLoading(true);
         router.visit(`/pengumuman?bidang=${prevBidang}`, {
             preserveState: true,
             preserveScroll: true,
+            onFinish: () => setIsLoading(false),
         });
+    };
 
+    const formatBidangName = (bidang) => {
+        return bidang
+            .split("_")
+            .map((kata) => kata.charAt(0) + kata.slice(1))
+            .join(" ");
     };
 
     return (
-        <section className="h-screen xl:h-auto bg-gradient-to-b from-[#0E062A] to-[#2B1577] text-center xl:pb-[120px]">
+        <section className="bg-gradient-to-b from-[#0E062A] to-[#2B1577] text-center pb-5">
             <svg viewBox="0 0 100 25" className="rotate-180">
                 <path d="M0,25 Q50,0 100,25 L100,50 L0,50 Z" fill="#fff" />
             </svg>
@@ -74,15 +90,24 @@ export default function Rekapitulasi() {
                 </div>
                 <h3 className="font-semibold uppercase text-lg xl:text-2xl text-slate-300">
                     {activeTab === "PENGGALANG"
-                        ? "BIDANG " + currentBidang + " PENGGALANG"
-                        : "BIDANG " + currentBidang + " PENEGAK"}
+                        ? "BIDANG " +
+                          formatBidangName(currentBidang) +
+                          " PENGGALANG"
+                        : "BIDANG " +
+                          formatBidangName(currentBidang) +
+                          " PENEGAK"}
                 </h3>
             </div>
             <div className="flex justify-center px-2 xl:px-20 gap-1 xl:gap-5">
                 <div className="my-auto">
                     <button
-                        className="text-4xl xl:text-6xl text-white font-bold p-1"
+                        className={`text-4xl xl:text-6xl text-white font-bold p-1 ${
+                            currentBidang === bidangList[0]
+                                ? "cursor-not-allowed"
+                                : "hover:text-primary"
+                        }`}
                         onClick={handlePrevious}
+                        disabled={currentBidang === bidangList[0]}
                     >
                         &lt;
                     </button>
@@ -103,11 +128,19 @@ export default function Rekapitulasi() {
                                 >
                                     <div className="flex gap-3 items-center">
                                         <span>{index + 1}.</span>
-                                        <h4 className="text-sm xl:text-base font-medium capitalize">
-                                            {peserta.pangkalan}
-                                        </h4>
+                                        {isLoading ? (
+                                            <Spinner />
+                                        ) : (
+                                            <h4 className="text-sm xl:text-base font-medium capitalize">
+                                                {peserta.pangkalan}
+                                            </h4>
+                                        )}
                                     </div>
-                                    <span>{peserta[currentBidang]}</span>
+                                    {isLoading ? (
+                                        <Spinner />
+                                    ) : (
+                                        <span>{peserta[currentBidang]}</span>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -127,11 +160,19 @@ export default function Rekapitulasi() {
                                 >
                                     <div className="flex gap-3 items-center">
                                         <span>{index + 1}.</span>
-                                        <h4 className="text-sm xl:text-base font-medium capitalize">
-                                            {peserta.pangkalan}
-                                        </h4>
+                                        {isLoading ? (
+                                            <Spinner />
+                                        ) : (
+                                            <h4 className="text-sm xl:text-base font-medium capitalize">
+                                                {peserta.pangkalan}
+                                            </h4>
+                                        )}
                                     </div>
-                                    <span>{peserta[currentBidang]}</span>
+                                    {isLoading ? (
+                                        <Spinner />
+                                    ) : (
+                                        <span>{peserta[currentBidang]}</span>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -139,8 +180,15 @@ export default function Rekapitulasi() {
                 </div>
                 <div className="my-auto">
                     <button
-                        className="text-4xl xl:text-6xl text-white font-bold p-1"
+                        className={`text-4xl xl:text-6xl text-white font-bold p-1 ${
+                            currentBidang === bidangList[bidangList.length - 1]
+                                ? "cursor-not-allowed"
+                                : "hover:text-primary"
+                        }`}
                         onClick={handleNext}
+                        disabled={
+                            currentBidang === bidangList[bidangList.length - 1]
+                        }
                     >
                         &gt;
                     </button>
