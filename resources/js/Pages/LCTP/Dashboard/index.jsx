@@ -57,6 +57,7 @@ export default function DashboardSoal() {
                                     <h4>{userTestData.waktu}</h4>
                                 </div>
                                 <h4>LCTP {capitalizeFirstLetter(userTestData.tingkat)}</h4>
+                                <h4>/lctp/soal/{userTestData.team_id}</h4>
                                 <h4>{userTestData.mulai} - {userTestData.berakhir.split(' ')[3]}</h4>
                             </div>
                             <div className="flex justify-between items-center p-5 border-t border-[#3A1797]">

@@ -57,9 +57,21 @@ class LctpController
     }
 
     function soal(Request $request){
-        $kategori =Auth::guard('peserta')->user()->tingkat;
-        $questions = Soal::where('tingkat',$kategori)->get();
-        return Inertia::render('LCTP/Soal/index',['questions'=> $questions]);
+        $user_data = Auth::guard('peserta')->user();
+        $userTestData = Lctp::where('status',0)->where('team_id',$user_data->team_id)->select('team_id','mulai','berakhir','tingkat','status')->first();
+        if($request->id == $user_data->team_id) {
+            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp){
+                $tingkat =Auth::guard('peserta')->user()->tingkat;
+                $question = Soal::where('tingkat',$tingkat)->get();
+                $questions = [
+                    'soal' => $question,
+                    'tingkat' => $tingkat
+                ];
+                return Inertia::render('LCTP/Soal/index',['questions'=> $questions]);
+            }
+            return redirect('/lctp/dashboard-soal');
+        }
+        return redirect('/lctp/dashboard-soal');
     }
 
 }

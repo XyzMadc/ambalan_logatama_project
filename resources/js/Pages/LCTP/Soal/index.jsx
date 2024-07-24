@@ -7,13 +7,18 @@ import { usePage } from "@inertiajs/react";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const { questions } = props;
+    const  questions  = props.questions.soal;
+    const tingkat = props.questions.tingkat;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
     const [markedForReview, setMarkedForReview] = useState(
         Array(questions.length).fill(false)
     );
 
+    function capitalizeFirstLetter(str) {
+        if (str.length === 0) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     // Load answers from localStorage on mount
     useEffect(() => {
@@ -79,7 +84,7 @@ export default function SoalPage() {
                 <div className="px-20 py-10 bg-white rounded space-y-5 w-3/4">
                     <div className="flex justify-between">
                         <h1 className="text-secondary text-xl font-semibold">
-                            Soal LCTP Penggalang
+                            Soal LCTP {capitalizeFirstLetter(tingkat)}
                         </h1>
                         <button className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
                             Sisa Waktu : 30:00:00
