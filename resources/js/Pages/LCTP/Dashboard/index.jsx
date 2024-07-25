@@ -1,14 +1,11 @@
 import Logatama from "../../../../assets/logatama.png";
 import Galaxy from "../../../../assets/apen/bg 1.png";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 export default function DashboardSoal() {
     const { props } = usePage();
     const { userTestData } = props;
-    function capitalizeFirstLetter(str) {
-        if (str.length === 0) return str;
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    console.log(userTestData);
     return (
         <>
             <main className="min-h-screen overflow-hidden">
@@ -18,7 +15,7 @@ export default function DashboardSoal() {
                     </div>
                     <div className="absolute inset-0 px-32 py-10">
                         <div className="flex justify-between">
-                            <div>
+                            <div className="space-y-3">
                                 <figure className="w-40">
                                     <img
                                         src={Logatama}
@@ -26,14 +23,19 @@ export default function DashboardSoal() {
                                         alt=""
                                     />
                                 </figure>
-                                <span className="text-white font-bold">
+                                <h4 className="text-neutral-200 font-bold">
                                     “Show Your Ability with Innovative Culture
                                     and Technology”
-                                </span>
+                                </h4>
                             </div>
-                            <button className="bg-white text-secondary font-semibold px-10 rounded">
-                                LOGOUT
-                            </button>
+                            <div className="flex items-center">
+                                <button
+                                    className="bg-white text-secondary font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-primary hover:text-white transition duration-300 ease-in-out"
+                                    // onClick={() => router.post("/logout")}
+                                >
+                                    LOGOUT
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -43,8 +45,8 @@ export default function DashboardSoal() {
                     </h3>
                     <div className="bg-gradient-to-t from-[#32108E] from-70% via-[#532FB6] to-[#633FCA] text-white rounded-lg shadow-md max-w-sm">
                         <div className="relative py-3 px-8">
-                            <h2 className="text-xl font-semibold mt-9">
-                                Soal LCTP {capitalizeFirstLetter(userTestData.tingkat)}
+                            <h2 className="text-xl font-semibold mt-9 capitalize">
+                                Soal LCTP {userTestData.tingkat}
                             </h2>
                             <div className="absolute top-4 -right-10 bg-red-500 text-base px-3 py-1 font-semibold">
                                 {userTestData.status}
@@ -56,16 +58,27 @@ export default function DashboardSoal() {
                                     <h4>{userTestData.jumlahSoal}</h4>
                                     <h4>{userTestData.waktu}</h4>
                                 </div>
-                                <h4>LCTP {capitalizeFirstLetter(userTestData.tingkat)}</h4>
-                                <h4>/lctp/soal/{userTestData.team_id}</h4>
-                                <h4>{userTestData.mulai} - {userTestData.berakhir.split(' ')[3]}</h4>
+                                <h4 className="capitalize">
+                                    LCTP {userTestData.tingkat}
+                                </h4>
+                                <h4>
+                                    {userTestData.mulai} -{" "}
+                                    {userTestData.berakhir.split(" ")[3]}
+                                </h4>
                             </div>
                             <div className="flex justify-between items-center p-5 border-t border-[#3A1797]">
                                 <span className="text-[#5431B8] text-sm font-medium">
                                     {userTestData.tesStatus}
                                 </span>
-                                <button className="bg-[#5431B8] hover:bg-primary transition-colors duration-150 ease-in text-white font-semibold px-5 py-1 rounded">
-                                    {/* nanti redirect /lctp/soa/{userTestData.team_id} */}
+                                <button
+                                    className="bg-[#5431B8] hover:bg-primary transition-colors duration-150 ease-in text-white font-semibold px-5 py-1 rounded"
+                                    onClick={() =>
+                                        router.get(
+                                            `/lctp/soal/${userTestData.team_id}`
+                                        )
+                                    }
+                                >
+                                    {/* nanti redirect /lctp/soal/{userTestData.team_id} */}
                                     MASUK KE SOAL
                                 </button>
                             </div>

@@ -1,9 +1,8 @@
 import Logatama from "../../../../assets/logatama.png";
 import Galaxy from "../../../../assets/apen/bg 1.png";
-import { useEffect, useState } from "react";
-import QuestionList from "../../../Components/Fragments/QuestionList";
-import { usePage } from "@inertiajs/react";
-
+import { useEffect, useRef, useState } from "react";
+import { router, usePage } from "@inertiajs/react";
+import QuestionList from "@/Components/Fragments/QuestionList";
 
 export default function SoalPage() {
     const { props } = usePage();
@@ -11,16 +10,8 @@ export default function SoalPage() {
     const tingkat = props.questions.tingkat;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
-    const [markedForReview, setMarkedForReview] = useState(
-        Array(questions.length).fill(false)
-    );
+    const questionRefs = useRef([]);
 
-    function capitalizeFirstLetter(str) {
-        if (str.length === 0) return str;
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    // Load answers from localStorage on mount
     useEffect(() => {
         const storedAnswers = localStorage.getItem("answers");
         if (storedAnswers) {
@@ -28,36 +19,29 @@ export default function SoalPage() {
         }
     }, []);
 
-    const nextQuestion = () => {
-        if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-        }
-    };
+    useEffect(() => {
+        questionRefs.current[currentQuestion]?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }, [currentQuestion]);
 
-    const prevQuestion = () => {
-        if (currentQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1);
-        }
-    };
-
-    const markForReview = () => {
-        const newMarkedForReview = [...markedForReview];
-        newMarkedForReview[currentQuestion] =
-            !newMarkedForReview[currentQuestion];
-        setMarkedForReview(newMarkedForReview);
-    };
-
-    const handleAnswerChange = (answer) => {
+    const handleAnswerChange = (index, answer) => {
         const newAnswers = [...answers];
-        newAnswers[currentQuestion] = answer;
+        newAnswers[index] = answer;
         setAnswers(newAnswers);
-        // Save to localStorage
         localStorage.setItem("answers", JSON.stringify(newAnswers));
     };
 
     const handleSubmit = () => {
         console.log("Selected answers:", answers);
     };
+
+    const handleClear = () => {
+        setAnswers(Array(questions.length).fill(null));
+        localStorage.removeItem("answers");
+    };
+
     return (
         <>
             <nav className="bg-gradient-to-t from-primary via-secondary to-tertiary relative overflow-hidden h-[20vh]">
@@ -73,112 +57,107 @@ export default function SoalPage() {
                                 alt=""
                             />
                         </figure>
-                        <button className="bg-white text-secondary font-semibold px-5 py-2 rounded tracking-wide">
+                        <button
+                            className="bg-white text-secondary font-semibold px-10 py-2 rounded-lg shadow-md hover:bg-primary hover:text-white transition duration-300 ease-in-out"
+                            // onClick={() => router.post("/logout")}
+                        >
                             LOGOUT
                         </button>
                     </div>
                 </div>
             </nav>
             <div className="h-[80vh] bg-neutral-300 w-full" />
-            <main className="absolute top-32 w-full px-10 flex gap-4">
+            <main className="absolute top-24 w-full px-10 flex gap-4 h-[36rem] overflow-hidden">
                 <div className="px-20 py-10 bg-white rounded space-y-5 w-3/4">
                     <div className="flex justify-between">
                         <h1 className="text-secondary text-xl font-semibold">
                             Soal LCTP {capitalizeFirstLetter(tingkat)}
                         </h1>
+                        {/* Kalo mau clear localStorage */}
+                        <button
+                            className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide"
+                            onClick={handleClear}
+                        >
+                            Clear jawaban
+                        </button>
                         <button className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
                             Sisa Waktu : 30:00:00
                         </button>
                     </div>
                     <div className="border border-secondary w-full" />
                     <div className="overflow-y-auto space-y-4 h-[65vh] none-scrollbar">
-                        {questions.map((question, index) => (
+                        {questions.map((question, questionIndex) => (
                             <div
-                                key={index}
+                                key={questionIndex}
+                                ref={(ref) =>
+                                    (questionRefs.current[questionIndex] = ref)
+                                }
                                 className="py-5 px-3 border-2 border-secondary flex gap-3 text-secondary"
                             >
-                                <span>{index + 1}.</span>
-                                <div>
-                                    <p>{question.pertanyaan}</p>
-                                    {JSON.parse(question.pilihan).map((option, index) => (
-                                        <label key={index} className="block">
-                                            <input
-                                                type="radio"
-                                                name={`question-${index + 1}`}
-                                                value={option}
-                                                checked={
-                                                    answers[index + 1] ===
-                                                    option
-                                                }
-                                                onChange={() =>
-                                                    handleAnswerChange(option)
+                                <span>{questionIndex + 1}.</span>
+                                <div className="flex">
+                                    <div
+                                        className={
+                                            question.images ? "w-3/4" : "w-full"
+                                        }
+                                    >
+                                        <p>{question.pertanyaan}</p>
+                                        {JSON.parse(question.pilihan).map(
+                                            (option, optIndex) => (
+                                                <label
+                                                    key={optIndex}
+                                                    className="block"
+                                                >
+                                                    <input
+                                                        type="radio"
+                                                        name={`question-${questionIndex}`}
+                                                        value={option}
+                                                        checked={
+                                                            answers[
+                                                                questionIndex
+                                                            ] === option
+                                                        }
+                                                        onChange={() =>
+                                                            handleAnswerChange(
+                                                                questionIndex,
+                                                                option
+                                                            )
+                                                        }
+                                                    />
+                                                    <span className="ml-2">
+                                                        {option}
+                                                    </span>
+                                                </label>
+                                            )
+                                        )}
+                                    </div>
+                                    {question.images && (
+                                        <figure className="w-1/4 flex justify-center overflow-hidden">
+                                            <img
+                                                className="w-full object-contain h-full"
+                                                src={question.images}
+                                                alt={
+                                                    "image question" +
+                                                    (questionIndex + 1)
                                                 }
                                             />
-                                            <span className="ml-2">
-                                                {option}
-                                            </span>
-                                        </label>
-                                    ))}
+                                        </figure>
+                                    )}
                                 </div>
                             </div>
                         ))}
                     </div>
-                    {/* <div className="py-5 px-3 border-2 border-secondary flex gap-3 text-secondary">
-            <span>{currentQuestion + 1}.</span>
-            <div className="space-y-3">
-              <p>{questions[currentQuestion].text}</p>
-              {questions[currentQuestion].options.map((option, index) => (
-                <label key={index} className="block">
-                  <input
-                    type="radio"
-                    name={`question-${currentQuestion}`}
-                    value={option}
-                    checked={answers[currentQuestion] === option}
-                    onChange={() => handleAnswerChange(option)}
-                  />
-                  <span className="ml-2">{option}</span>
-                </label>
-              ))}
-            </div>
-          </div> */}
-                    {/* <div className="flex justify-between">
-            <button
-              onClick={prevQuestion}
-              disabled={currentQuestion === 0}
-              className="bg-secondary text-white px-4 py-2 rounded disabled:opacity-50"
-            >
-              SOAL SEBELUMNYA
-            </button>
-            <button
-              onClick={markForReview}
-              className={`px-4 py-2 rounded text-white ${
-                markedForReview[currentQuestion]
-                  ? "bg-orange-500"
-                  : "bg-secondary"
-              }`}
-            >
-              RAGU-RAGU
-            </button>
-            <button
-              onClick={nextQuestion}
-              disabled={currentQuestion === questions.length - 1}
-              className="bg-secondary text-white px-4 py-2 rounded disabled:opacity-50"
-            >
-              SOAL SELANJUTNYA
-            </button>
-          </div> */}
                 </div>
-                <div className="p-10 bg-white rounded w-1/4">
+                <div className="py-5 px-10 bg-white rounded w-1/4">
                     <QuestionList
                         questions={questions}
                         answers={answers}
-                        markedForReview={markedForReview}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                     />
                     <button
                         onClick={handleSubmit}
-                        className="mt-4 w-full bg-red-500 text-white p-2 rounded"
+                        className="mt-4 w-full bg-red-500 text-white p-2 rounded hover:bg-white hover:border hover:border-red-500 hover:text-red-500 transition duration-300 ease-in-out"
                     >
                         Submit
                     </button>
