@@ -59,7 +59,7 @@ export default function SoalPage() {
                         </figure>
                         <button
                             className="bg-white text-secondary font-semibold px-10 py-2 rounded-lg shadow-md hover:bg-primary hover:text-white transition duration-300 ease-in-out"
-                            // onClick={() => router.post("/logout")}
+                            onClick={() => router.post("/logout")}
                         >
                             LOGOUT
                         </button>
@@ -67,11 +67,11 @@ export default function SoalPage() {
                 </div>
             </nav>
             <div className="h-[80vh] bg-neutral-300 w-full" />
-            <main className="absolute top-24 w-full px-10 flex gap-4 h-[36rem] overflow-hidden">
+            <main className="absolute top-24 w-full px-10 flex gap-4 h-[36rem] 2xl:h-[40rem] overflow-hidden">
                 <div className="px-20 py-10 bg-white rounded space-y-5 w-3/4">
                     <div className="flex justify-between">
-                        <h1 className="text-secondary text-xl font-semibold">
-                            Soal LCTP {capitalizeFirstLetter(tingkat)}
+                        <h1 className="text-secondary text-xl capitalize font-semibold">
+                            Soal LCTP {tingkat}
                         </h1>
                         {/* Kalo mau clear localStorage */}
                         <button

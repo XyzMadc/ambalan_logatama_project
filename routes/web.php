@@ -33,7 +33,7 @@ Route::controller(LogatamaController::class)
             Route::get('/login-admin', 'loginadmin');
             Route::post('/login', 'auth');
         });
-        Route::get('/logout', 'logout');
+        Route::post('/logout', 'logout');
     });
 
 

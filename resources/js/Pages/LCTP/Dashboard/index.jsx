@@ -5,7 +5,6 @@ import { router, usePage } from "@inertiajs/react";
 export default function DashboardSoal() {
     const { props } = usePage();
     const { userTestData } = props;
-    console.log(userTestData);
     return (
         <>
             <main className="min-h-screen overflow-hidden">
@@ -31,7 +30,7 @@ export default function DashboardSoal() {
                             <div className="flex items-center">
                                 <button
                                     className="bg-white text-secondary font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-primary hover:text-white transition duration-300 ease-in-out"
-                                    // onClick={() => router.post("/logout")}
+                                    onClick={() => router.post("/logout")}
                                 >
                                     LOGOUT
                                 </button>

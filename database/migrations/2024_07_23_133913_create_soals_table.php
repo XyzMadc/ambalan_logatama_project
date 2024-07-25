@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('pilihan');
             $table->string('jawaban');
             $table->integer('poin');
-            $table->string('file');
+            $table->string('images');
             $table->string('tingkat');
             $table->timestamps();
         });

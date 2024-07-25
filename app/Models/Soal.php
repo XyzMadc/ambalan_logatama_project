@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Soal extends Model
 {
     use HasFactory;
-    protected $fillable = ['pertanyaan', 'pilihan', 'jawaban', 'poin','file','tingkat'];
+    protected $fillable = ['pertanyaan', 'pilihan', 'jawaban', 'poin','images','tingkat'];
 }
