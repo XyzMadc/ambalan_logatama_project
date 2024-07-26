@@ -42,7 +42,8 @@ Route::controller(LctpController::class)
     ->group(function () {
         Route::middleware('peserta.auth')->group(function () {
             Route::get('/dashboard-soal', 'index');
-            Route::get('/soal/{id}', 'soal'); //id buat identifier timnya bukan nomer soal
+            Route::get('/soal/{id}', 'soal');
+            Route::post('/soal/{id}', 'storeTempAnswer');
         });
     });
 

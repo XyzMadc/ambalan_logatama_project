@@ -9,7 +9,7 @@ import { router } from "@inertiajs/react";
 
 export default function Sidebar({ url }) {
     const handleLogout = () => {
-        router.get("/logout");
+        router.post("/logout");
     };
     return (
         <div className="w-1/5 bg-[#2B1577] h-screen py-10 flex flex-col justify-between">

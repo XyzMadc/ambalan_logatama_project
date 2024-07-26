@@ -103,7 +103,6 @@ class LogatamaController
                     return redirect('/admin-logatama/dashboard');
                 }
                 return redirect()->back();
-                // return redirect()->intended('/lctp/dashboard-soal');
             } else if ($login_as == 'peserta') {
                 return redirect('/lctp/dashboard-soal');
             }

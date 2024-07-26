@@ -8,12 +8,13 @@ export default function SoalPage() {
     const { props } = usePage();
     const  questions  = props.questions.soal;
     const tingkat = props.questions.tingkat;
+    const team_id = props.questions.id;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
     const questionRefs = useRef([]);
 
     useEffect(() => {
-        const storedAnswers = localStorage.getItem("answers");
+        const storedAnswers = props.questions.storedAnswers;
         if (storedAnswers) {
             setAnswers(JSON.parse(storedAnswers));
         }
@@ -29,8 +30,16 @@ export default function SoalPage() {
     const handleAnswerChange = (index, answer) => {
         const newAnswers = [...answers];
         newAnswers[index] = answer;
-        setAnswers(newAnswers);
-        localStorage.setItem("answers", JSON.stringify(newAnswers));
+        router.post("/lctp/soal/"+team_id, { jawaban: newAnswers }, {
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: (page) => {
+                setAnswers(newAnswers);
+            },
+            onError: (errors) => {
+                console.error('Error:', errors);
+            }
+        });
     };
 
     const handleSubmit = () => {
@@ -39,7 +48,7 @@ export default function SoalPage() {
 
     const handleClear = () => {
         setAnswers(Array(questions.length).fill(null));
-        localStorage.removeItem("answers");
+        // localStorage.removeItem("answers");
     };
 
     return (

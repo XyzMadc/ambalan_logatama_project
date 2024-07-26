@@ -22,7 +22,7 @@ class LctpController
             Lctp::create([
                 'team_id' => $user_data->team_id,
                 'mulai',
-                'jawaban' => '[]',
+                'jawaban' => json_encode(array_fill(0, 50, null)),
                 'berakhir',
                 'tingkat' => $user_data->tingkat,
                 'status' => 0
@@ -45,11 +45,13 @@ class LctpController
         $userTestData->mulai = $start;
         $userTestData->berakhir = $end;
         if ($userTestData->status == 0) {
-            $userTestData->status = 'Belum Dikerjakan';
+            if (in_array(!null,json_decode(Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first()))) {
+                $userTestData->status = 'Sedang Dikerjakan';
+            }else{
+                $userTestData->status = 'Belum Dikerjakan';
+            }
         } elseif ($userTestData->status == 1) {
-            $userTestData->status = 'Sedang Dikerjakan';
-        } elseif (count(json_decode(Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first())) > 0) {
-            $userTestData->status = 'Selesai Dikerjakan';
+            $userTestData->status = 'Sudah Dikerjakan';
         }
 
         $userTestData->jumlahSoal = count(Soal::where('tingkat', $user_data->tingkat)->get()) . ' Soal';
@@ -64,15 +66,40 @@ class LctpController
         if($request->id == $user_data->team_id) {
             if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp){
                 $tingkat =Auth::guard('peserta')->user()->tingkat;
+                $storedAnswers = Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first();
                 $question = Soal::where('tingkat',$tingkat)->get();
                 $questions = [
+                    'id' => $userTestData->team_id,
                     'soal' => $question,
-                    'tingkat' => $tingkat
+                    'tingkat' => $tingkat,
+                    'storedAnswers' => $storedAnswers
                 ];
                 return Inertia::render('LCTP/Soal/index',['questions'=> $questions]);
             }
             return redirect('/lctp/dashboard-soal');
         }
         return redirect('/lctp/dashboard-soal');
+    }
+
+    function storeTempAnswer(Request $request){
+        $user_data = Auth::guard('peserta')->user();
+        $userTestData = Lctp::where('status',0)->where('team_id',$user_data->team_id)->select('team_id','mulai','berakhir','tingkat','status')->first();
+        if($request->id == $user_data->team_id) {
+            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp){
+                $validated = $request->validate([
+                    'jawaban' => 'required|array|size:50',
+                ]);
+
+                if ($validated) {
+                Lctp::where('team_id',$user_data->team_id)
+                ->update([
+                        'jawaban' => $request->jawaban,
+                    ]);
+                // return 'tersimpan';
+                }
+            }
+            return redirect('/lctp/soal/'.$user_data->team_id);
+        }
+        return redirect('/lctp/soal/'.$user_data->team_id);
     }
 }

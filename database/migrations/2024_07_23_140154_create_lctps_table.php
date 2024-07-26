@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('lctps', function (Blueprint $table) {
             $table->id();
             $table->uuid('team_id')->nullable();
-            $table->string('jawaban')->nullable();
+            $table->text('jawaban')->nullable();
             $table->string('tingkat')->nullable();
             $table->timestamp('mulai')->nullable()->default('2024-07-17 12.00');
             $table->timestamp('berakhir')->nullable()->default('2024-08-17 14.00');
