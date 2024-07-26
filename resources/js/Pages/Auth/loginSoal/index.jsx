@@ -56,6 +56,12 @@ export default function loginSoal() {
                         onSubmit={handleSubmit}
                     >
                         <div className="relative z-0 mb-6 w-full group">
+                             {errors.attempt && (
+                                    <p className="text-white text-md p-4 mb-5 bg-red-500 rounded">
+                                        {errors.attempt}   
+                                         
+                                    </p>
+                                )}
                             <input
                                 value={data.username}
                                 onChange={handleChange}
@@ -99,12 +105,13 @@ export default function loginSoal() {
                         <button
                             type="submit"
                             className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
-                        >
+                            disabled={!!errors.attempt}>
                             {isLoading ? (
                                 <Spinner />
                             ) : (
                                 <p className="text-sm">Kirim</p>
                             )}
+                            
                         </button>
                     </form>
                 </div>

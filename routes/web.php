@@ -31,7 +31,7 @@ Route::controller(LogatamaController::class)
         Route::middleware('guest')->group(function () {
             Route::get('/login-soal', 'loginsoal');
             Route::get('/login-admin', 'loginadmin');
-            Route::post('/login', 'auth');
+            Route::post('/login', 'auth')->middleware('throttle:login');
         });
         Route::post('/logout', 'logout');
     });
