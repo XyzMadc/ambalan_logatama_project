@@ -45,9 +45,9 @@ class LctpController
         $userTestData->mulai = $start;
         $userTestData->berakhir = $end;
         if ($userTestData->status == 0) {
-            if (in_array(!null,json_decode(Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first()))) {
+            if (in_array(!null, json_decode(Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first()))) {
                 $userTestData->status = 'Sedang Dikerjakan';
-            }else{
+            } else {
                 $userTestData->status = 'Belum Dikerjakan';
             }
         } elseif ($userTestData->status == 1) {
@@ -60,46 +60,48 @@ class LctpController
         return Inertia::render('LCTP/Dashboard/index', ['userTestData' => $userTestData]);
     }
 
-    function soal(Request $request){
+    function soal(Request $request)
+    {
         $user_data = Auth::guard('peserta')->user();
-        $userTestData = Lctp::where('status',0)->where('team_id',$user_data->team_id)->select('team_id','mulai','berakhir','tingkat','status')->first();
-        if($request->id == $user_data->team_id) {
-            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp){
-                $tingkat =Auth::guard('peserta')->user()->tingkat;
+        $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
+        if ($request->id == $user_data->team_id) {
+            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
+                $tingkat = Auth::guard('peserta')->user()->tingkat;
                 $storedAnswers = Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first();
-                $question = Soal::where('tingkat',$tingkat)->get();
+                $question = Soal::where('tingkat', $tingkat)->get();
                 $questions = [
                     'id' => $userTestData->team_id,
                     'soal' => $question,
                     'tingkat' => $tingkat,
                     'storedAnswers' => $storedAnswers
                 ];
-                return Inertia::render('LCTP/Soal/index',['questions'=> $questions]);
+                return Inertia::render('LCTP/Soal/index', ['questions' => $questions]);
             }
             return redirect('/lctp/dashboard-soal');
         }
         return redirect('/lctp/dashboard-soal');
     }
 
-    function storeTempAnswer(Request $request){
+    function storeTempAnswer(Request $request)
+    {
         $user_data = Auth::guard('peserta')->user();
-        $userTestData = Lctp::where('status',0)->where('team_id',$user_data->team_id)->select('team_id','mulai','berakhir','tingkat','status')->first();
-        if($request->id == $user_data->team_id) {
-            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp){
+        $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
+        if ($request->id == $user_data->team_id) {
+            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
                 $validated = $request->validate([
                     'jawaban' => 'required|array|size:50',
                 ]);
 
                 if ($validated) {
-                Lctp::where('team_id',$user_data->team_id)
-                ->update([
-                        'jawaban' => $request->jawaban,
-                    ]);
-                // return 'tersimpan';
+                    Lctp::where('team_id', $user_data->team_id)
+                        ->update([
+                            'jawaban' => $request->jawaban,
+                        ]);
+                    // return 'tersimpan';
                 }
             }
-            return redirect('/lctp/soal/'.$user_data->team_id);
+            return redirect('/lctp/soal/' . $user_data->team_id);
         }
-        return redirect('/lctp/soal/'.$user_data->team_id);
+        return redirect('/lctp/soal/' . $user_data->team_id);
     }
 }

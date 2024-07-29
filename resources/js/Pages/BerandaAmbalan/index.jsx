@@ -10,7 +10,7 @@ import { Head } from "@inertiajs/react";
 export default function BerandaPage() {
     return (
         <>
-            <Head title="Beranda Ambalan" />
+            <Head title="Beranda" />
             <NavbarAmbalan />
             <main className="min-w-full overflow-hidden">
                 <HeroSection />

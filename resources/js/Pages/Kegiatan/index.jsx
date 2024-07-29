@@ -10,10 +10,12 @@ import Pasukan14 from "@/Layouts/Kegiatan/Pasukan14";
 import Pembantaran from "@/Layouts/Kegiatan/Pembantaran";
 import Pjs from "@/Layouts/Kegiatan/Pjs";
 import Recruitment from "@/Layouts/Kegiatan/Recruitment";
+import { Head } from "@inertiajs/react";
 
 export default function KegiatanPage() {
     return (
         <>
+            <Head title="Kegiatan" />
             <NavbarAmbalan />
             <main className="min-w-full overflow-hidden">
                 <HeroSection />

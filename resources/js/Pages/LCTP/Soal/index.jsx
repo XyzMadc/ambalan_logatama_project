@@ -3,15 +3,18 @@ import Galaxy from "../../../../assets/apen/bg 1.png";
 import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
+import { useToast } from "@chakra-ui/react";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const  questions  = props.questions.soal;
-    const tingkat = props.questions.tingkat;
-    const team_id = props.questions.id;
+    const { soal: questions, tingkat, id: team_id } = props.questions;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+    const [doubtFlags, setdoubtFlags] = useState(
+        Array(questions.length).fill(false)
+    );
     const questionRefs = useRef([]);
+    const toast = useToast();
 
     useEffect(() => {
         const storedAnswers = props.questions.storedAnswers;
@@ -29,26 +32,39 @@ export default function SoalPage() {
 
     const handleAnswerChange = (index, answer) => {
         const newAnswers = [...answers];
+        const prevAnswer = [...answers];
         newAnswers[index] = answer;
-        router.post("/lctp/soal/"+team_id, { jawaban: newAnswers }, {
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: (page) => {
-                setAnswers(newAnswers);
-            },
-            onError: (errors) => {
-                console.error('Error:', errors);
+        setAnswers(newAnswers);
+        router.post(
+            "/lctp/soal/" + team_id,
+            { jawaban: newAnswers },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                onError: (errors) => {
+                    setAnswers(prevAnswer);
+                    toast({
+                        title: `Terjadi kesalahan pada nomor ${index + 1}, ulangi jawaban anda!`,
+                        description: errors.jawaban,
+                        status: "error",
+                    });
+                },
             }
-        });
+        );
     };
 
     const handleSubmit = () => {
         console.log("Selected answers:", answers);
     };
 
+    const handleDoubt = () => {
+        const newDoubtFlags = [...doubtFlags];
+        newDoubtFlags[currentQuestion] = !newDoubtFlags[currentQuestion];
+        setdoubtFlags(newDoubtFlags);
+    };
+
     const handleClear = () => {
         setAnswers(Array(questions.length).fill(null));
-        // localStorage.removeItem("answers");
     };
 
     return (
@@ -163,7 +179,14 @@ export default function SoalPage() {
                         answers={answers}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
+                        doubtFlags={doubtFlags}
                     />
+                    <button
+                        className="mt-4 w-full bg-orange-500 text-white p-2 rounded hover:bg-white hover:border hover:border-orange-500 hover:text-orange-500 transition duration-300 ease-in-out"
+                        onClick={handleDoubt}
+                    >
+                        Ragu Ragu
+                    </button>
                     <button
                         onClick={handleSubmit}
                         className="mt-4 w-full bg-red-500 text-white p-2 rounded hover:bg-white hover:border hover:border-red-500 hover:text-red-500 transition duration-300 ease-in-out"

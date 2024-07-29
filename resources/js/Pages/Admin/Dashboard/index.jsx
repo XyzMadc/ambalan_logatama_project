@@ -2,8 +2,7 @@ import Sidebar from "@/Components/Partial/Sidebar";
 import { usePage } from "@inertiajs/react";
 
 export default function dashboardAdmin() {
-    const { url } = usePage();
-    const { props } = usePage();
+    const { url, props } = usePage();
     const semuaBidang = props.semuaBidang;
     const semuaPeserta = props.peserta;
     return (
@@ -22,29 +21,39 @@ export default function dashboardAdmin() {
                             className="space-y-4 rounded-lg p-6 font-semibold text-[#2B1577] snap-center"
                         >
                             <h1 className="text-lg">
-                                REKAPITULASI NILAI {bidang.toUpperCase()} PENGGALANG
+                                REKAPITULASI NILAI {bidang.toUpperCase()}{" "}
+                                PENGGALANG
                             </h1>
                             <div className="w-full border bg-[#2B1577]" />
                             <div className="space-y-3 px-5 py-1">
-                                {semuaPeserta.penggalang.map((peserta, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex justify-between items-center py-2 px-4 rounded-lg shadow-login-admin-atas text-sm"
-                                    >
-                                        <span>{peserta.pangkalan + ' - ' + peserta.kategori}</span>
-                                        <div className="flex gap-4 items-center">
-                                            <div className="rounded-lg py-1 px-8 border border-[#2B1577]">
-                                                <span>{peserta[bidang]}</span>
+                                {semuaPeserta.penggalang.map(
+                                    (peserta, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex justify-between items-center py-2 px-4 rounded-lg shadow-login-admin-atas text-sm"
+                                        >
+                                            <span>
+                                                {peserta.pangkalan +
+                                                    " - " +
+                                                    peserta.kategori}
+                                            </span>
+                                            <div className="flex gap-4 items-center">
+                                                <div className="rounded-lg py-1 px-8 border border-[#2B1577]">
+                                                    <span>
+                                                        {peserta[bidang]}
+                                                    </span>
+                                                </div>
+                                                <button className="bg-[#2B1577] text-white rounded-lg py-1 px-10">
+                                                    Detail
+                                                </button>
                                             </div>
-                                            <button className="bg-[#2B1577] text-white rounded-lg py-1 px-10">
-                                                Detail
-                                            </button>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                )}
                             </div>
                             <h1 className="text-lg">
-                                REKAPITULASI NILAI {bidang.toUpperCase()} PENEGAK
+                                REKAPITULASI NILAI {bidang.toUpperCase()}{" "}
+                                PENEGAK
                             </h1>
                             <div className="w-full border bg-[#2B1577]" />
                             <div className="space-y-3 px-5 py-1">
@@ -53,7 +62,11 @@ export default function dashboardAdmin() {
                                         key={index}
                                         className="flex justify-between items-center py-2 px-4 rounded-lg shadow-login-admin-atas text-sm"
                                     >
-                                        <span>{peserta.pangkalan + ' - ' + peserta.kategori}</span>
+                                        <span>
+                                            {peserta.pangkalan +
+                                                " - " +
+                                                peserta.kategori}
+                                        </span>
                                         <div className="flex gap-4 items-center">
                                             <div className="rounded-lg py-1 px-8 border border-[#2B1577]">
                                                 <span>{peserta[bidang]}</span>

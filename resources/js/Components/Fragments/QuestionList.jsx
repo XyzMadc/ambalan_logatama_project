@@ -3,9 +3,10 @@ export default function QuestionList({
     answers,
     currentQuestion,
     setCurrentQuestion,
+    doubtFlags,
 }) {
     return (
-        <div className="max-h-[29.7rem] overflow-y-auto none-scrollbar">
+        <div className="max-h-[26.5rem] overflow-y-auto none-scrollbar">
             <h1 className="text-secondary text-xl font-semibold mb-4">
                 Nomor Soal
             </h1>
@@ -13,6 +14,7 @@ export default function QuestionList({
                 {questions.map((question, index) => {
                     const answered = answers[index] !== null;
                     const isCurrent = currentQuestion === index;
+                    const isDoubt = doubtFlags[index];
 
                     return (
                         <button
@@ -21,6 +23,8 @@ export default function QuestionList({
                             className={`p-2 text-white rounded ${
                                 isCurrent
                                     ? "bg-blue-800"
+                                    : isDoubt
+                                    ? "bg-orange-500"
                                     : answered
                                     ? "bg-green-500"
                                     : "bg-gray-400"
