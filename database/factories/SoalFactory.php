@@ -31,7 +31,7 @@ class SoalFactory extends Factory
             'pilihan' => json_encode([$faker->word,$faker->word,$faker->word,$faker->word,$faker->word]),
             'jawaban' => ['A','B','C','D','E'][rand(0,4)],
             'poin' => 2,
-            'images' => ['','http://127.0.0.1:5173/resources/assets/beranda/baden-powell.png'][rand(0,1)],
+            'images' => ['','http://localhost:5173/resources/assets/beranda/baden-powell.png'][rand(0,1)],
         ];
     }
 

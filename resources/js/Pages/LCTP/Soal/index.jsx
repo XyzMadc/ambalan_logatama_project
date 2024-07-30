@@ -13,6 +13,7 @@ export default function SoalPage() {
     const [doubtFlags, setdoubtFlags] = useState(
         Array(questions.length).fill(false)
     );
+    const [sisaWaktu, setSisaWaktu] = useState(3600);
     const questionRefs = useRef([]);
     const toast = useToast();
 
@@ -30,6 +31,28 @@ export default function SoalPage() {
         });
     }, [currentQuestion]);
 
+    useEffect(() => {
+        const waktu = setInterval(() => {
+            setSisaWaktu((prevSisaWaktu) => {
+                if (prevSisaWaktu <= 0) {
+                    clearInterval(waktu);
+                    return 0;
+                }
+                return prevSisaWaktu - 1;
+            });
+        }, 1000);
+        return () => clearInterval(waktu);
+    }, []);
+
+    const formatTime = (time) => {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+        return [hours, minutes, seconds]
+            .map((v) => (v > 10 ? v : "0" + v))
+            .join(":");
+    };
+
     const handleAnswerChange = (index, answer) => {
         const newAnswers = [...answers];
         const prevAnswer = [...answers];
@@ -44,7 +67,9 @@ export default function SoalPage() {
                 onError: (errors) => {
                     setAnswers(prevAnswer);
                     toast({
-                        title: `Terjadi kesalahan pada nomor ${index + 1}, ulangi jawaban anda!`,
+                        title: `Terjadi kesalahan pada nomor ${
+                            index + 1
+                        }, ulangi jawaban anda!`,
                         description: errors.jawaban,
                         status: "error",
                     });
@@ -105,9 +130,9 @@ export default function SoalPage() {
                         >
                             Clear jawaban
                         </button>
-                        <button className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
-                            Sisa Waktu : 30:00:00
-                        </button>
+                        <div className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
+                            Sisa Waktu : {formatTime(sisaWaktu)}
+                        </div>
                     </div>
                     <div className="border border-secondary w-full" />
                     <div className="overflow-y-auto space-y-4 h-[65vh] none-scrollbar">
@@ -120,7 +145,7 @@ export default function SoalPage() {
                                 className="py-5 px-3 border-2 border-secondary flex gap-3 text-secondary"
                             >
                                 <span>{questionIndex + 1}.</span>
-                                <div className="flex">
+                                <div className="flex w-full">
                                     <div
                                         className={
                                             question.images ? "w-3/4" : "w-full"
@@ -159,7 +184,7 @@ export default function SoalPage() {
                                     {question.images && (
                                         <figure className="w-1/4 flex justify-center overflow-hidden">
                                             <img
-                                                className="w-full object-contain h-full"
+                                                className="size-60 object-contain"
                                                 src={question.images}
                                                 alt={
                                                     "image question" +

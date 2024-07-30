@@ -129,7 +129,7 @@ export default function loginAdmin() {
                                 {isLoading ? (
                                     <Spinner />
                                 ) : (
-                                    <p className="text-sm">Kirim</p>
+                                    <p className="text-sm">Masuk</p>
                                 )}
                             </button>
                         </form>

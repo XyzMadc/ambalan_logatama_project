@@ -17,7 +17,7 @@ class AdminLogatamaController
                 ->where('table_schema', env('DB_DATABASE'))
                 ->where('table_name', 'pesertas')
                 ->whereNotIn('column_name', ["id","team_id","pangkalan","username","password","role","tingkat","kategori","email","created_at","updated_at"])
-                ->pluck('column_name')->toArray();
+                ->pluck('COLUMN_NAME')->toArray();
         // return $peserta;
         return Inertia::render('Admin/Dashboard/index', [
             'peserta' => $peserta,
@@ -51,7 +51,7 @@ class AdminLogatamaController
         ->where('table_schema', env('DB_DATABASE'))
         ->where('table_name', 'pesertas')
         ->whereNotIn('column_name', ["id","team_id","pangkalan","username","password","role","tingkat","kategori","email","created_at","updated_at"])
-        ->pluck('column_name');
+        ->pluck('COLUMN_NAME');
         // return $pangkalan;
         return Inertia::render('Admin/Rekap/index',['jumlahPeserta'=>$pangkalan,'bidang'=>$bidang]);
     }
@@ -71,7 +71,7 @@ class AdminLogatamaController
                 ->where('table_schema', env('DB_DATABASE'))
                 ->where('table_name', 'pesertas')
                 ->whereNotIn('column_name', ["id","team_id","pangkalan","username","password","role","tingkat","kategori","email","created_at","updated_at"])
-                ->pluck('column_name')->toArray();
+                ->pluck('COLUMN_NAME')->toArray();
             $all_team = Peserta::where('role','peserta')->pluck('team_id')->toArray();
             if (in_array($team_id, $all_team)){
                 if (in_array($bidang, $all_bidang)){
