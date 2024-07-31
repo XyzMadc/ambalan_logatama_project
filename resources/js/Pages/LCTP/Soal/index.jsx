@@ -1,21 +1,25 @@
 import Logatama from "../../../../assets/logatama.png";
 import Galaxy from "../../../../assets/apen/bg 1.png";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
 import { useToast } from "@chakra-ui/react";
-import { debounce } from "lodash";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const { soal: questions, tingkat, id: team_id, sisa_waktu: sisa_waktu } = props.questions;
+    const {
+        soal,
+        tingkat,
+        id: team_id,
+        remainingTime,
+    } = props.questions;
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+    const [answers, setAnswers] = useState(Array(soal.length).fill(null));
     const [doubtFlags, setdoubtFlags] = useState(
-        Array(questions.length).fill(false)
+        Array(soal.length).fill(false)
     );
-    const [sisaWaktu, setSisaWaktu] = useState(3600);
-    // const [leaveTab, setLeaveTab] = useState(0);
+    const [sisaWaktu, setSisaWaktu] = useState(remainingTime);
+    const [leaveTab, setLeaveTab] = useState(0);
     const questionRefs = useRef([]);
     const toast = useToast();
     useEffect(() => {
@@ -37,9 +41,9 @@ export default function SoalPage() {
             setSisaWaktu((prevSisaWaktu) => {
                 if (prevSisaWaktu <= 0) {
                     clearInterval(waktu);
+                    handleSubmit();
                     return 0;
                 }
-                // nanti tambahin if sisawaktu <=0 post ke /lctp/soal/team_id/submit beloma da controllernya tp
                 return prevSisaWaktu - 1;
             });
         }, 1000);
@@ -48,43 +52,43 @@ export default function SoalPage() {
     }, []);
 
     // hayo mau pindah tab ya?! 😁, jangan ya dek ya
-    // useEffect(() => {
-    //     const handleVisibilityChange = () => {
-    //         if (document.visibilityState === "hidden") {
-    //             setLeaveTab((leaveTab) => {
-    //                 const newCount = leaveTab + 1;
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "hidden") {
+                setLeaveTab((leaveTab) => {
+                    const newCount = leaveTab + 1;
 
-    //                 if (newCount === 3) {
-    //                     toast({
-    //                         title: "Peringatan!",
-    //                         description:
-    //                             "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
-    //                         status: "error",
-    //                     });
-    //                     router.visit("/lctp/dashboard-soal");
-    //                 } else {
-    //                     toast({
-    //                         title: "Jangan tinggalkan halaman ini!",
-    //                         description:
-    //                             "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
-    //                         status: "warning",
-    //                     });
-    //                 }
+                    if (newCount === 3) {
+                        toast({
+                            title: "Peringatan!",
+                            description:
+                                "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
+                            status: "error",
+                        });
+                        router.visit("/lctp/dashboard-soal");
+                    } else {
+                        toast({
+                            title: "Jangan tinggalkan halaman ini!",
+                            description:
+                                "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
+                            status: "warning",
+                        });
+                    }
 
-    //                 return newCount;
-    //             });
-    //         }
-    //     };
+                    return newCount;
+                });
+            }
+        };
 
-    //     document.addEventListener("visibilitychange", handleVisibilityChange);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    //     return () => {
-    //         document.removeEventListener(
-    //             "visibilitychange",
-    //             handleVisibilityChange
-    //         );
-    //     };
-    // }, [toast]);
+        return () => {
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+        };
+    }, [toast]);
 
     const formatTime = (time) => {
         const hours = Math.floor(time / 3600);
@@ -122,7 +126,7 @@ export default function SoalPage() {
 
     const handleSubmit = () => {
         router.post(
-            "/lctp/soal/" + team_id + "/submit",
+            `/lctp/soal/${team_id}/submit`,
             { jawaban: answers },
             {
                 preserveState: true,
@@ -146,7 +150,7 @@ export default function SoalPage() {
     };
 
     const handleClear = () => {
-        setAnswers(Array(questions.length).fill(null));
+        setAnswers(Array(soal.length).fill(null));
     };
 
     return (
@@ -193,7 +197,7 @@ export default function SoalPage() {
                     </div>
                     <div className="border border-secondary w-full" />
                     <div className="overflow-y-auto space-y-4 h-[65vh] none-scrollbar">
-                        {questions.map((question, questionIndex) => (
+                        {soal.map((question, questionIndex) => (
                             <div
                                 key={questionIndex}
                                 ref={(ref) =>
@@ -257,7 +261,7 @@ export default function SoalPage() {
                 </div>
                 <div className="py-5 px-10 bg-white rounded w-1/4">
                     <QuestionList
-                        questions={questions}
+                        questions={soal}
                         answers={answers}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}

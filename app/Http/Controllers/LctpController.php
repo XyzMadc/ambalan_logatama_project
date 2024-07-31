@@ -74,7 +74,7 @@ class LctpController
                     'id' => $userTestData->team_id,
                     'soal' => $question,
                     'tingkat' => $tingkat,
-                    'sisa_waktu'=>$sisa_waktu,
+                    'remainingTime'=>$sisa_waktu,
                     'storedAnswers' => $storedAnswers
                 ];
                 // return $questions;
