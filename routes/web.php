@@ -44,6 +44,7 @@ Route::controller(LctpController::class)
             Route::get('/dashboard-soal', 'index');
             Route::get('/soal/{id}', 'soal');
             Route::post('/soal/{id}', 'storeTempAnswer');
+            Route::post('/soal/{id}/submit', 'submit');
         });
     });
 

@@ -8,7 +8,7 @@ import { debounce } from "lodash";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const { soal: questions, tingkat, id: team_id } = props.questions;
+    const { soal: questions, tingkat, id: team_id, sisa_waktu: sisa_waktu } = props.questions;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(questions.length).fill(null));
     const [doubtFlags, setdoubtFlags] = useState(
@@ -18,7 +18,6 @@ export default function SoalPage() {
     // const [leaveTab, setLeaveTab] = useState(0);
     const questionRefs = useRef([]);
     const toast = useToast();
-
     useEffect(() => {
         const storedAnswers = props.questions.storedAnswers;
         if (storedAnswers) {
@@ -40,9 +39,11 @@ export default function SoalPage() {
                     clearInterval(waktu);
                     return 0;
                 }
+                // nanti tambahin if sisawaktu <=0 post ke /lctp/soal/team_id/submit beloma da controllernya tp
                 return prevSisaWaktu - 1;
             });
         }, 1000);
+
         return () => clearInterval(waktu);
     }, []);
 
@@ -111,7 +112,7 @@ export default function SoalPage() {
                         title: `Terjadi kesalahan pada nomor ${
                             index + 1
                         }, ulangi jawaban anda!`,
-                        description: errors.jawaban,
+                        description: errors.gagal,
                         status: "error",
                     });
                 },
@@ -120,7 +121,22 @@ export default function SoalPage() {
     };
 
     const handleSubmit = () => {
-        console.log("Selected answers:", answers);
+        router.post(
+            "/lctp/soal/" + team_id + "/submit",
+            { jawaban: answers },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                onError: (errors) => {
+                    setAnswers(answers);
+                    toast({
+                        title: `Terjadi Kesalahan`,
+                        description: errors.kosong,
+                        status: "error",
+                    });
+                },
+            }
+        );
     };
 
     const handleDoubt = () => {
