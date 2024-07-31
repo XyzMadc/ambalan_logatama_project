@@ -1,9 +1,10 @@
 import Logatama from "../../../../assets/logatama.png";
 import Galaxy from "../../../../assets/apen/bg 1.png";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
 import { useToast } from "@chakra-ui/react";
+import { debounce } from "lodash";
 
 export default function SoalPage() {
     const { props } = usePage();
@@ -14,6 +15,7 @@ export default function SoalPage() {
         Array(questions.length).fill(false)
     );
     const [sisaWaktu, setSisaWaktu] = useState(3600);
+    // const [leaveTab, setLeaveTab] = useState(0);
     const questionRefs = useRef([]);
     const toast = useToast();
 
@@ -43,6 +45,45 @@ export default function SoalPage() {
         }, 1000);
         return () => clearInterval(waktu);
     }, []);
+
+    // hayo mau pindah tab ya?! 😁, jangan ya dek ya
+    // useEffect(() => {
+    //     const handleVisibilityChange = () => {
+    //         if (document.visibilityState === "hidden") {
+    //             setLeaveTab((leaveTab) => {
+    //                 const newCount = leaveTab + 1;
+
+    //                 if (newCount === 3) {
+    //                     toast({
+    //                         title: "Peringatan!",
+    //                         description:
+    //                             "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
+    //                         status: "error",
+    //                     });
+    //                     router.visit("/lctp/dashboard-soal");
+    //                 } else {
+    //                     toast({
+    //                         title: "Jangan tinggalkan halaman ini!",
+    //                         description:
+    //                             "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
+    //                         status: "warning",
+    //                     });
+    //                 }
+
+    //                 return newCount;
+    //             });
+    //         }
+    //     };
+
+    //     document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    //     return () => {
+    //         document.removeEventListener(
+    //             "visibilitychange",
+    //             handleVisibilityChange
+    //         );
+    //     };
+    // }, [toast]);
 
     const formatTime = (time) => {
         const hours = Math.floor(time / 3600);
@@ -156,7 +197,7 @@ export default function SoalPage() {
                                             (option, optIndex) => (
                                                 <label
                                                     key={optIndex}
-                                                    className="block"
+                                                    className="block w-fit cursor-pointer"
                                                 >
                                                     <input
                                                         type="radio"
