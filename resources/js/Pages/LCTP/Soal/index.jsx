@@ -65,7 +65,24 @@ export default function SoalPage() {
                                 "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
                             status: "error",
                         });
-                        router.visit("/lctp/dashboard-soal");
+                    }else if(newCount > 3){
+                        router.post(
+                            `/lctp/soal/${team_id}/submit`,
+                            { jawaban: answers, cheat : 'True' },
+                            {
+                                preserveState: true,
+                                preserveScroll: true,
+                                onError: (errors) => {
+                                    setAnswers(answers);
+                                    toast({
+                                        title: `Terjadi Kesalahan`,
+                                        description: errors.kosong,
+                                        status: "error",
+                                    });
+                                },
+                            }
+                        );
+
                     } else {
                         toast({
                             title: "Jangan tinggalkan halaman ini!",
@@ -104,6 +121,7 @@ export default function SoalPage() {
         const prevAnswer = [...answers];
         newAnswers[index] = answer;
         setAnswers(newAnswers);
+        setCurrentQuestion(index);
         router.post(
             "/lctp/soal/" + team_id,
             { jawaban: newAnswers },

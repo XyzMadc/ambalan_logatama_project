@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
                     'role' => 'peserta',
                     'tingkat' => $tingkat,
                     'kategori' => $kategori[intval(rand(0, 1))],
-                    'lctp'=> rand(0, 100),
                     'pbb'=> rand(0, 100),
                     'cerdas_cermat'=> rand(0, 100),
 
@@ -57,7 +56,6 @@ class DatabaseSeeder extends Seeder
                     'role' => 'peserta',
                     'tingkat' => $tingkat,
                     'kategori' => $kategori[intval(rand(0, 1))],
-                    'lctp'=> rand(0, 100),
                     'pbb'=> rand(0, 100),
                     'cerdas_cermat'=> rand(0, 100),
 

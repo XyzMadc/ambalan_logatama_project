@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Soal;
 use App\Models\Lctp;
+use App\Models\Peserta;
 use Carbon\Carbon;
 
 
@@ -28,7 +29,7 @@ class LctpController
                 'status' => 0
             ]);
         }
-        $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
+        $userTestData = Lctp::where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
         $start = Carbon::parse($userTestData->mulai)->translatedFormat('d F Y H.i');
         $end = Carbon::parse($userTestData->berakhir)->translatedFormat('d F Y H.i');
         $range = Carbon::parse($userTestData->berakhir)->timestamp - Carbon::parse($userTestData->mulai)->timestamp;
@@ -64,23 +65,25 @@ class LctpController
     {
         $user_data = Auth::guard('peserta')->user();
         $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
-        if ($request->id == $user_data->team_id) {
-            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
-                $tingkat = Auth::guard('peserta')->user()->tingkat;
-                $storedAnswers = Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first();
-                $question = Soal::where('tingkat', $tingkat)->select('id','pertanyaan','pilihan','images','tingkat')->get();
-                $sisa_waktu = Carbon::parse($userTestData->berakhir)->timestamp - time();
-                $questions = [
-                    'id' => $userTestData->team_id,
-                    'soal' => $question,
-                    'tingkat' => $tingkat,
-                    'remainingTime'=>$sisa_waktu,
-                    'storedAnswers' => $storedAnswers
-                ];
-                // return $questions;
-                return Inertia::render('LCTP/Soal/index', ['questions' => $questions]);
+        if ($userTestData){
+            if ($request->id == $user_data->team_id) {
+                if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
+                    $tingkat = Auth::guard('peserta')->user()->tingkat;
+                    $storedAnswers = Lctp::where('team_id', $user_data->team_id)->pluck('jawaban')->first();
+                    $question = Soal::where('tingkat', $tingkat)->select('id','pertanyaan','pilihan','images','tingkat')->get();
+                    $sisa_waktu = Carbon::parse($userTestData->berakhir)->timestamp - time();
+                    $questions = [
+                        'id' => $userTestData->team_id,
+                        'soal' => $question,
+                        'tingkat' => $tingkat,
+                        'remainingTime'=>$sisa_waktu,
+                        'storedAnswers' => $storedAnswers
+                    ];
+                    // return $questions;
+                    return Inertia::render('LCTP/Soal/index', ['questions' => $questions]);
+                }
+                return redirect('/lctp/dashboard-soal');
             }
-            return redirect('/lctp/dashboard-soal');
         }
         return redirect('/lctp/dashboard-soal');
     }
@@ -89,22 +92,24 @@ class LctpController
     {
         $user_data = Auth::guard('peserta')->user();
         $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
-        if ($request->id == $user_data->team_id) {
-            if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
-                $validated = $request->validate([
-                    'jawaban' => 'required|array|size:50',
-                ]);
+        if ($userTestData){
+            if ($request->id == $user_data->team_id) {
+                if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
+                    $validated = $request->validate([
+                        'jawaban' => 'required|array|size:50',
+                    ]);
 
-                if ($validated) {
-                    Lctp::where('team_id', $user_data->team_id)
-                        ->update([
-                            'jawaban' => $request->jawaban,
-                        ]);
-                }else{
-                    return back()->withErrors(['gagal'=>'Jawaban Gagal Tersimpan']);
+                    if ($validated) {
+                        Lctp::where('team_id', $user_data->team_id)
+                            ->update([
+                                'jawaban' => $request->jawaban,
+                            ]);
+                    }else{
+                        return back()->withErrors(['gagal'=>'Jawaban Gagal Tersimpan']);
+                    }
                 }
+                return redirect('/lctp/soal/' . $user_data->team_id);
             }
-            return redirect('/lctp/soal/' . $user_data->team_id);
         }
         return redirect('/lctp/soal/' . $user_data->team_id);
     }
@@ -114,40 +119,84 @@ class LctpController
         $userTestData = Lctp::where('status', 0)->where('team_id', $user_data->team_id)->select('team_id', 'mulai', 'berakhir', 'tingkat', 'status')->first();
         $tingkat = Auth::guard('peserta')->user()->tingkat;
         $kunci_jawaban = Soal::where('tingkat', $tingkat)->select('jawaban','poin')->get();
-        if ($request->id == $user_data->team_id) {
-            if (time() < Carbon::parse($userTestData->berakhir)->timestamp) {
-                $validated = $request->validate([
-                    'jawaban' => 'required|array|size:50',
-                ]);
-
-                if ($validated) {
-                    $user_answer = $request->jawaban;
-                    if (in_array(null,$user_answer)){
-                        return back()->withErrors(['kosong'=>'Jawaban Harus Terisi Semua']);
-                    }
-                    $jawaban = array_map(function($question, $questionIndex) use ($kunci_jawaban) {
-                        if ($question!=null && $question == $kunci_jawaban[$questionIndex]->jawaban){
-                            return $kunci_jawaban[$questionIndex]->poin;
-                        }else{
-                            return 0;
+        if ($userTestData){
+            $validated = $request->validate([
+                'jawaban' => 'required|array|size:50',
+            ]);
+            if ($request->id == $user_data->team_id && $validated) {
+                if (time() < Carbon::parse($userTestData->berakhir)->timestamp) {
+                    if ($request->cheat != 'True'){
+                        $user_answer = $request->jawaban;
+                        if (in_array(null,$user_answer)){
+                            return back()->withErrors(['kosong'=>'Jawaban Harus Terisi Semua']);
                         }
-                    }, $user_answer, array_keys($user_answer));
-                    return 'nilai '. array_sum($jawaban);
-                }
 
-                return redirect('/lctp/soal/' . $user_data->team_id);
-            } elseif (time() >= Carbon::parse($userTestData->berakhir)->timestamp) {
-                $user_answer = $request->jawaban;
-                $jawaban = array_map(function($question, $questionIndex) use ($kunci_jawaban) {
-                    if ($question!=null && $question == $kunci_jawaban[$questionIndex]->jawaban){
-                        return $kunci_jawaban[$questionIndex]->poin;
-                    }else{
-                        return 0;
+                        $jawaban = array_map(function($question, $questionIndex) use ($kunci_jawaban) {
+                                if ($question!=null && $question == $kunci_jawaban[$questionIndex]->jawaban){
+                                    return $kunci_jawaban[$questionIndex]->poin;
+                                }else{
+                                    return 0;
+                                }
+                            }, $user_answer, array_keys($user_answer));
+                        $nilai = array_sum($jawaban);
+                        Lctp::where('team_id', $user_data->team_id)
+                            ->update([
+                                'jawaban' => $request->jawaban,
+                                'status' => 1,
+                            ]);
+                        Peserta::where('team_id', $user_data->team_id)
+                            ->update([
+                                'lctp' => $nilai,
+                            ]);
+                        return redirect('/lctp/dashboard-soal');
+
+                    }elseif ($request->cheat == 'True') {
+                        $user_answer = $request->jawaban;
+                        $jawaban = array_map(function($question, $questionIndex) use ($kunci_jawaban) {
+                                if ($question!=null && $question == $kunci_jawaban[$questionIndex]->jawaban){
+                                    return $kunci_jawaban[$questionIndex]->poin;
+                                }else{
+                                    return 0;
+                                }
+                            }, $user_answer, array_keys($user_answer));
+                        $nilai = array_sum($jawaban);
+                        Lctp::where('team_id', $user_data->team_id)
+                            ->update([
+                                'jawaban' => $request->jawaban,
+                                'status' => 1,
+                            ]);
+                        Peserta::where('team_id', $user_data->team_id)
+                            ->update([
+                                'lctp' => $nilai,
+                            ]);
+                        return redirect('/lctp/dashboard-soal');
                     }
-                }, $user_answer, array_keys($user_answer));
-                return 'nilai '. array_sum($jawaban);
+
+                    return redirect('/lctp/soal/' . $user_data->team_id);
+
+                } elseif (time() >= Carbon::parse($userTestData->berakhir)->timestamp) {
+                    $user_answer = $request->jawaban;
+                    $jawaban = array_map(function($question, $questionIndex) use ($kunci_jawaban) {
+                            if ($question!=null && $question == $kunci_jawaban[$questionIndex]->jawaban){
+                                return $kunci_jawaban[$questionIndex]->poin;
+                            }else{
+                                return 0;
+                            }
+                        }, $user_answer, array_keys($user_answer));
+                    $nilai = array_sum($jawaban);
+                    Lctp::where('team_id', $user_data->team_id)
+                        ->update([
+                            'jawaban' => $request->jawaban,
+                            'status' => 1,
+                        ]);
+                    Peserta::where('team_id', $user_data->team_id)
+                        ->update([
+                            'lctp' => $nilai,
+                        ]);
+                    return redirect('/lctp/dashboard-soal');
+                }
+                return redirect('/lctp/soal/' . $user_data->team_id);
             }
-            return redirect('/lctp/soal/' . $user_data->team_id);
         }
         return redirect('/lctp/soal/' . $user_data->team_id);
     }

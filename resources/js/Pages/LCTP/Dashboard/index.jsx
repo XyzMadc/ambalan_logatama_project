@@ -77,8 +77,7 @@ export default function DashboardSoal() {
                                         )
                                     }
                                 >
-                                    {/* nanti redirect /lctp/soal/{userTestData.team_id} */}
-                                    MASUK KE SOAL
+                                    {userTestData.status == 'Sudah Dikerjakan' ? 'DISABLED' : 'MASUK KE SOAL'}
                                 </button>
                             </div>
                         </div>

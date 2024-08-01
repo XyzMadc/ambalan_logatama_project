@@ -26,10 +26,11 @@ class SoalFactory extends Factory
     public function definition(): array
     {
         $faker = Faker::create('id_ID');
+        $pilihan = [$faker->word,$faker->word,$faker->word,$faker->word,$faker->word];
         return [
             'pertanyaan' => $faker->sentence,
-            'pilihan' => json_encode([$faker->word,$faker->word,$faker->word,$faker->word,$faker->word]),
-            'jawaban' => ['A','B','C','D','E'][rand(0,4)],
+            'pilihan' => json_encode($pilihan),
+            'jawaban' => $pilihan[rand(0,4)],
             'poin' => 2,
             'images' => ['','http://localhost:5173/resources/assets/beranda/baden-powell.png'][rand(0,1)],
         ];
