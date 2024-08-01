@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengumuman;
+use App\Models\Faq;
 use App\Models\Peserta;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,7 +20,8 @@ class LogatamaController
     }
     function panduan()
     {
-        return Inertia::render('Panduan/index');
+        $faq = Faq::select('pertanyaan','jawaban')->get();
+        return Inertia::render('Panduan/index',['faqs'=>$faq]);
     }
     function pengumuman(Request $request)
     {

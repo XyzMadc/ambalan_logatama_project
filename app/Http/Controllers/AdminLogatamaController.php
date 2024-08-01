@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Peserta;
+use App\Models\Faq;
+use App\Models\Dokumentasi;
 use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -96,12 +98,12 @@ class AdminLogatamaController
         ]);
 
         if ($validated) {
-            // gaweke model faq e pen, karo dokumentasi san yak, woiiii gaweke lo yaaa
-            Pengumuman::create([
+            Faq::create([
                 'pertanyaan' => $request->input('pertanyaan'),
                 'jawaban' => $request->input('jawaban'),
             ]);
         }
+        return redirect()->back();
     }
     function dokumentasi()
     {
@@ -118,18 +120,16 @@ class AdminLogatamaController
             return redirect()->back()->withErrors(['file' => 'File harus berupa gambar!']);
         }
 
-        // iki tak kekke storage "/storage/app/public/cover/dokumentasi" gawe dewe sek folder e tapi
-        // karo kuwi ya nak iso nama file e digawe seng cantik, apik, bagus, seng iki kan teko gerek ditambahi tempStamp
-        // semangat bang apin 😁
         if ($request->file("file")) {
-            $extension = $request->file("file")->getClientOriginalExtension();
-            $newName = now()->timestamp . '.' . $extension;
-            Storage::disk('public')->putFileAs('dokumentasi', $request->file("file"), $newName);
-            $request['dokumentasi'] = $newName;
+            $image = $request->file("file");
+            $extension = $image->getClientOriginalExtension();
+            $newName = "logatama_dokumentasi_" . now()->format('Y_m_d_H.i.s') . '.' . $extension;
+            $image->storeAs('dokumentasi',$newName,'public');
+            Dokumentasi::create([
+                'path' => '/storage/dokumentasi/' . $newName,
+            ]);
         }
-        // ini juga yak ganti pake model dokumentasi
-        Pengumuman::create([
-            'file' => $request->input('file'),
-        ]);
+
+        return redirect()->back();
     }
 }

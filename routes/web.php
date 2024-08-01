@@ -60,6 +60,7 @@ Route::prefix('/admin-logatama')
             Route::get('/dokumentasi', 'dokumentasi');
             Route::post('/pengumuman', 'createPengumuman');
             Route::post('/rekap-juara', 'createRekap');
+            Route::post('/faq', 'createFaq');
             Route::post('/dokumentasi', 'createDokumentasi');
         });
     });

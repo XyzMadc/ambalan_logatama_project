@@ -1,6 +1,7 @@
 import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
 import { useForm } from "@inertiajs/react";
 import { useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Camera } from "@phosphor-icons/react/dist/ssr";
 
 export default function DokumentasiAdmin() {
@@ -16,7 +17,7 @@ export default function DokumentasiAdmin() {
         if (file) {
             setData({
                 ...data,
-                file: URL.createObjectURL(file),
+                file: file,
                 name_file: file.name,
             });
         }
@@ -42,6 +43,14 @@ export default function DokumentasiAdmin() {
             },
         });
     };
+
+    useEffect(() => {
+        return () => {
+            if (data.file && data.file instanceof File) {
+                URL.revokeObjectURL(data.file);
+            }
+        };
+    }, [data.file]);
 
     return (
         <LayoutAdminLogatama title="DOKUMENTASI KEGIATAN">
@@ -81,13 +90,14 @@ export default function DokumentasiAdmin() {
                                 </span>
                             </div>
                             <input
+                                name="image"
                                 type="file"
                                 onChange={handleImageChange}
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                             />
                             {data.file && (
                                 <img
-                                    src={data.file}
+                                    src={URL.createObjectURL(data.file)}
                                     alt="uploaded"
                                     className="object-cover w-full h-full"
                                 />
