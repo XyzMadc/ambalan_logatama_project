@@ -56,8 +56,11 @@ Route::prefix('/admin-logatama')
             Route::get('/dashboard', 'index');
             Route::get('/pengumuman', 'pengumuman');
             Route::get('/rekap-juara', 'rekap');
+            Route::get('/faq', 'faq');
+            Route::get('/dokumentasi', 'dokumentasi');
             Route::post('/pengumuman', 'createPengumuman');
             Route::post('/rekap-juara', 'createRekap');
+            Route::post('/dokumentasi', 'createDokumentasi');
         });
     });
 

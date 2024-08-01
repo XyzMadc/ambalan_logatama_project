@@ -7,12 +7,7 @@ import { useToast } from "@chakra-ui/react";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const {
-        soal,
-        tingkat,
-        id: team_id,
-        remainingTime,
-    } = props.questions;
+    const { soal, tingkat, id: team_id, remainingTime } = props.questions;
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState(Array(soal.length).fill(null));
     const [doubtFlags, setdoubtFlags] = useState(
@@ -65,10 +60,10 @@ export default function SoalPage() {
                                 "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
                             status: "error",
                         });
-                    }else if(newCount > 3){
+                    } else if (newCount > 3) {
                         router.post(
                             `/lctp/soal/${team_id}/submit`,
-                            { jawaban: answers, cheat : 'True' },
+                            { jawaban: answers, cheat: "True" },
                             {
                                 preserveState: true,
                                 preserveScroll: true,
@@ -82,7 +77,6 @@ export default function SoalPage() {
                                 },
                             }
                         );
-
                     } else {
                         toast({
                             title: "Jangan tinggalkan halaman ini!",
@@ -91,14 +85,11 @@ export default function SoalPage() {
                             status: "warning",
                         });
                     }
-
                     return newCount;
                 });
             }
         };
-
         document.addEventListener("visibilitychange", handleVisibilityChange);
-
         return () => {
             document.removeEventListener(
                 "visibilitychange",
@@ -152,7 +143,7 @@ export default function SoalPage() {
                 onError: (errors) => {
                     setAnswers(answers);
                     toast({
-                        title: `Terjadi Kesalahan`,
+                        title: `Gagal Melakukan Submit`,
                         description: errors.kosong,
                         status: "error",
                     });

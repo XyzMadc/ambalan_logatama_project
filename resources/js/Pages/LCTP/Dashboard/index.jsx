@@ -5,6 +5,24 @@ import { router, usePage } from "@inertiajs/react";
 export default function DashboardSoal() {
     const { props } = usePage();
     const { userTestData } = props;
+    const userTest =
+        userTestData.status === "Sedang Dikerjakan"
+            ? "bg-slate-500"
+            : userTestData.status === "Sudah Dikerjakan"
+            ? "bg-green-500"
+            : "bg-red-500";
+
+    const isDisabled =
+        userTestData.status === "Sudah Dikerjakan" ||
+        userTestData.tesStatus === "Telah Berakhir" ||
+        userTestData.tesStatus === "Belum Dimulai";
+
+    const buttonLabel =
+        userTestData.status === "Sedang Dikerjakan"
+            ? "LANJUTKAN"
+            : userTestData.status === "Sudah Dikerjakan"
+            ? "SELESAI"
+            : "MASUK SOAL";
     return (
         <>
             <main className="min-h-screen overflow-hidden">
@@ -47,7 +65,9 @@ export default function DashboardSoal() {
                             <h2 className="text-xl font-semibold mt-9 capitalize">
                                 Soal LCTP {userTestData.tingkat}
                             </h2>
-                            <div className="absolute top-4 -right-10 bg-red-500 text-base px-3 py-1 font-semibold">
+                            <div
+                                className={`absolute top-4 -right-10 ${userTest} text-base px-3 py-1 font-semibold`}
+                            >
                                 {userTestData.status}
                             </div>
                         </div>
@@ -70,14 +90,17 @@ export default function DashboardSoal() {
                                     {userTestData.tesStatus}
                                 </span>
                                 <button
-                                    className="bg-[#5431B8] hover:bg-primary transition-colors duration-150 ease-in text-white font-semibold px-5 py-1 rounded"
+                                    className={`bg-[#5431B8] hover:bg-primary transition-colors duration-150 ease-in text-white font-semibold px-5 py-1 rounded ${
+                                        isDisabled && "cursor-not-allowed"
+                                    }`}
                                     onClick={() =>
                                         router.get(
                                             `/lctp/soal/${userTestData.team_id}`
                                         )
                                     }
+                                    disabled={isDisabled}
                                 >
-                                    {userTestData.status == 'Sudah Dikerjakan' ? 'DISABLED' : 'MASUK KE SOAL'}
+                                    {buttonLabel}
                                 </button>
                             </div>
                         </div>

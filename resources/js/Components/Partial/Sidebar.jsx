@@ -1,6 +1,8 @@
 import {
     Clipboard,
+    Images,
     NotePencil,
+    Question,
     SquaresFour,
     WarningCircle,
 } from "@phosphor-icons/react";
@@ -40,6 +42,18 @@ export default function Sidebar({ url }) {
                         icon={Clipboard}
                         text="Rekap Juara"
                         link="/admin-logatama/rekap-juara"
+                    />
+                    <SidebarButton
+                        active={url === "/admin-logatama/faq"}
+                        icon={Question}
+                        text="FAQ"
+                        link="/admin-logatama/faq"
+                    />
+                    <SidebarButton
+                        active={url === "/admin-logatama/dokumentasi"}
+                        icon={Images}
+                        text="Dokumentasi"
+                        link="/admin-logatama/dokumentasi"
                     />
                 </div>
             </div>
