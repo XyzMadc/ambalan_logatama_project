@@ -3,14 +3,14 @@
 // use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AmbalanController;
 use App\Http\Controllers\LogatamaController;
 use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
 use App\Http\Controllers\AdminLctpController;
 
-
+URL::forceScheme('https');
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
