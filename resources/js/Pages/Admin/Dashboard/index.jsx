@@ -15,9 +15,10 @@ export default function dashboardAdmin() {
                     <div className="bg-[#2B1577] w-1/3 h-36 rounded-lg" />
                 </div>
                 <div className="snap-y snap-mandatory overflow-y-auto max-h-96 shadow-2xl">
-                    {semuaBidang.map((bidang, index) => (
+                    {semuaBidang.map((bidang) => (
                         <div
                             id={bidang}
+                            key={bidang}
                             className="space-y-4 rounded-lg p-6 font-semibold text-[#2B1577] snap-center"
                         >
                             <h1 className="text-lg">

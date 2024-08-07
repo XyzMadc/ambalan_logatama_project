@@ -17,7 +17,7 @@ export default function DokumentasiAdmin() {
         if (file) {
             setData({
                 ...data,
-                file: file,
+                file,
                 name_file: file.name,
             });
         }

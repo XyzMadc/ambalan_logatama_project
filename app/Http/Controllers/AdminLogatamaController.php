@@ -47,6 +47,18 @@ class AdminLogatamaController
             ]);
         }
     }
+    function soal()
+    {
+        return Inertia::render('Admin/Soal/index');
+    }
+    function reviewSoal()
+    {
+        return Inertia::render('Admin/Soal/ReviewSoal/index');
+    }
+    function createSoal()
+    {
+        return Inertia::render('Admin/Soal/CreateSoal/index');
+    }
     function rekap()
     {
         $pangkalan = Peserta::where('role', 'peserta')->select('pangkalan', 'kategori', 'team_id')->get();
@@ -124,7 +136,7 @@ class AdminLogatamaController
             $image = $request->file("file");
             $extension = $image->getClientOriginalExtension();
             $newName = "logatama_dokumentasi_" . now()->format('Y_m_d_H.i.s') . '.' . $extension;
-            $image->storeAs('dokumentasi',$newName,'public');
+            $image->storeAs('dokumentasi', $newName, 'public');
             Dokumentasi::create([
                 'path' => '/storage/dokumentasi/' . $newName,
             ]);

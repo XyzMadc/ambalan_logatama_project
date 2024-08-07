@@ -11,7 +11,7 @@ import { router } from "@inertiajs/react";
 
 export default function Sidebar({ url }) {
     return (
-        <div className="w-1/5 bg-[#2B1577] h-screen py-10 flex flex-col justify-between">
+        <aside className="w-1/5 bg-[#2B1577] h-screen py-10 flex flex-col justify-between">
             <div className="space-y-16">
                 <div className="px-4">
                     <h1 className="text-white font-bold text-2xl text-center">
@@ -65,6 +65,6 @@ export default function Sidebar({ url }) {
                     Keluar
                 </button>
             </div>
-        </div>
+        </aside>
     );
 }

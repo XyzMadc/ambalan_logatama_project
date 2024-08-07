@@ -5,7 +5,7 @@ export default function SidebarButton({ link, text, icon: Icon, active }) {
         <Link
             href={link}
             className={`p-2 rounded-l-2xl flex gap-4 items-center w-full ${
-                active ? "bg-white text-[#2B1577]" : ""
+                active ? "bg-white text-[#2B1577]" : "hover:bg-indigo-950"
             }`}
         >
             <Icon size={30} />

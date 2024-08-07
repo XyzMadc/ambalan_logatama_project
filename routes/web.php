@@ -10,7 +10,7 @@ use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
 use App\Http\Controllers\AdminLctpController;
 
-URL::forceScheme('https');
+// URL::forceScheme('https');
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
@@ -55,6 +55,9 @@ Route::prefix('/admin-logatama')
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
             Route::get('/pengumuman', 'pengumuman');
+            Route::get('/soal', 'soal');
+            Route::get('/review-soal', 'reviewSoal');
+            Route::get('/create-soal', 'createSoal');
             Route::get('/rekap-juara', 'rekap');
             Route::get('/faq', 'faq');
             Route::get('/dokumentasi', 'dokumentasi');
