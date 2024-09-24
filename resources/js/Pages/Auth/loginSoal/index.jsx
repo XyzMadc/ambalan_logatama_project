@@ -68,7 +68,7 @@ export default function loginSoal() {
                                 name="username"
                                 type="text"
                                 placeholder="Username"
-                                className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
+                                className="w-full py-2 text-[#2B1577] font-semibold pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
                             />
                             {errors.username && (
                                 <p className="text-red-600 text-sm">
@@ -88,10 +88,10 @@ export default function loginSoal() {
                                 name="password"
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
-                                className="w-full py-2 text-black pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
+                                className="w-full py-2 text-[#2B1577] font-semibold pl-4 pr-10 text-base placeholder:text-sm bg-white border-none rounded-xl shadow-md focus:outline-none"
                             />
                             <span
-                                className="absolute right-5 top-1/2 transform -translate-y-1/2 cursor-pointer text-neutral-500 text-xl"
+                                className="absolute right-5 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#2B1577] text-xl"
                                 onClick={togglePasswordVisibility}
                             >
                                 {showPassword ? <Eye /> : <EyeClosed />}

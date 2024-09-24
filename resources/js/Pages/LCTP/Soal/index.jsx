@@ -3,16 +3,20 @@ import Galaxy from "../../../../assets/apen/bg 1.png";
 import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
+import { useToast } from "@chakra-ui/react";
 
 export default function SoalPage() {
     const { props } = usePage();
-    const  questions  = props.questions.soal;
-    const tingkat = props.questions.tingkat;
-    const team_id = props.questions.id;
+    const { soal, tingkat, id: team_id, remainingTime } = props.questions;
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+    const [answers, setAnswers] = useState(Array(soal.length).fill(null));
+    const [doubtFlags, setdoubtFlags] = useState(
+        Array(soal.length).fill(false)
+    );
+    const [sisaWaktu, setSisaWaktu] = useState(remainingTime);
+    const [leaveTab, setLeaveTab] = useState(0);
     const questionRefs = useRef([]);
-
+    const toast = useToast();
     useEffect(() => {
         const storedAnswers = props.questions.storedAnswers;
         if (storedAnswers) {
@@ -27,28 +31,135 @@ export default function SoalPage() {
         });
     }, [currentQuestion]);
 
+    useEffect(() => {
+        const waktu = setInterval(() => {
+            setSisaWaktu((prevSisaWaktu) => {
+                if (prevSisaWaktu <= 0) {
+                    clearInterval(waktu);
+                    handleSubmit();
+                    return 0;
+                }
+                return prevSisaWaktu - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(waktu);
+    }, []);
+
+    // hayo mau pindah tab ya?! 😁, jangan ya dek ya
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "hidden") {
+                setLeaveTab((leaveTab) => {
+                    const newCount = leaveTab + 1;
+
+                    if (newCount === 3) {
+                        toast({
+                            title: "Peringatan!",
+                            description:
+                                "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
+                            status: "error",
+                        });
+                    } else if (newCount > 3) {
+                        router.post(
+                            `/lctp/soal/${team_id}/submit`,
+                            { jawaban: answers, cheat: "True" },
+                            {
+                                preserveState: true,
+                                preserveScroll: true,
+                                onError: (errors) => {
+                                    setAnswers(answers);
+                                    toast({
+                                        title: `Terjadi Kesalahan`,
+                                        description: errors.kosong,
+                                        status: "error",
+                                    });
+                                },
+                            }
+                        );
+                    } else {
+                        toast({
+                            title: "Jangan tinggalkan halaman ini!",
+                            description:
+                                "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
+                            status: "warning",
+                        });
+                    }
+                    return newCount;
+                });
+            }
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => {
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+        };
+    }, [toast]);
+
+    const formatTime = (time) => {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+        return [hours, minutes, seconds]
+            .map((v) => (v > 10 ? v : "0" + v))
+            .join(":");
+    };
+
     const handleAnswerChange = (index, answer) => {
         const newAnswers = [...answers];
+        const prevAnswer = [...answers];
         newAnswers[index] = answer;
-        router.post("/lctp/soal/"+team_id, { jawaban: newAnswers }, {
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: (page) => {
-                setAnswers(newAnswers);
-            },
-            onError: (errors) => {
-                console.error('Error:', errors);
+        setAnswers(newAnswers);
+        setCurrentQuestion(index);
+        router.post(
+            "/lctp/soal/" + team_id,
+            { jawaban: newAnswers },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                onError: (errors) => {
+                    setAnswers(prevAnswer);
+                    toast({
+                        title: `Terjadi kesalahan pada nomor ${
+                            index + 1
+                        }, ulangi jawaban anda!`,
+                        description: errors.gagal,
+                        status: "error",
+                    });
+                },
             }
-        });
+        );
     };
 
     const handleSubmit = () => {
-        console.log("Selected answers:", answers);
+        router.post(
+            `/lctp/soal/${team_id}/submit`,
+            { jawaban: answers },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                onError: (errors) => {
+                    setAnswers(answers);
+                    toast({
+                        title: `Gagal Melakukan Submit`,
+                        description: errors.kosong,
+                        status: "error",
+                    });
+                },
+            }
+        );
+    };
+
+    const handleDoubt = () => {
+        const newDoubtFlags = [...doubtFlags];
+        newDoubtFlags[currentQuestion] = !newDoubtFlags[currentQuestion];
+        setdoubtFlags(newDoubtFlags);
     };
 
     const handleClear = () => {
-        setAnswers(Array(questions.length).fill(null));
-        // localStorage.removeItem("answers");
+        setAnswers(Array(soal.length).fill(null));
     };
 
     return (
@@ -89,13 +200,13 @@ export default function SoalPage() {
                         >
                             Clear jawaban
                         </button>
-                        <button className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
-                            Sisa Waktu : 30:00:00
-                        </button>
+                        <div className="bg-secondary text-white font-semibold px-5 py-2 rounded tracking-wide">
+                            Sisa Waktu : {formatTime(sisaWaktu)}
+                        </div>
                     </div>
                     <div className="border border-secondary w-full" />
                     <div className="overflow-y-auto space-y-4 h-[65vh] none-scrollbar">
-                        {questions.map((question, questionIndex) => (
+                        {soal.map((question, questionIndex) => (
                             <div
                                 key={questionIndex}
                                 ref={(ref) =>
@@ -104,7 +215,7 @@ export default function SoalPage() {
                                 className="py-5 px-3 border-2 border-secondary flex gap-3 text-secondary"
                             >
                                 <span>{questionIndex + 1}.</span>
-                                <div className="flex">
+                                <div className="flex w-full">
                                     <div
                                         className={
                                             question.images ? "w-3/4" : "w-full"
@@ -115,7 +226,7 @@ export default function SoalPage() {
                                             (option, optIndex) => (
                                                 <label
                                                     key={optIndex}
-                                                    className="block"
+                                                    className="block w-fit cursor-pointer"
                                                 >
                                                     <input
                                                         type="radio"
@@ -143,7 +254,7 @@ export default function SoalPage() {
                                     {question.images && (
                                         <figure className="w-1/4 flex justify-center overflow-hidden">
                                             <img
-                                                className="w-full object-contain h-full"
+                                                className="size-60 object-contain"
                                                 src={question.images}
                                                 alt={
                                                     "image question" +
@@ -159,11 +270,18 @@ export default function SoalPage() {
                 </div>
                 <div className="py-5 px-10 bg-white rounded w-1/4">
                     <QuestionList
-                        questions={questions}
+                        questions={soal}
                         answers={answers}
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
+                        doubtFlags={doubtFlags}
                     />
+                    <button
+                        className="mt-4 w-full bg-orange-500 text-white p-2 rounded hover:bg-white hover:border hover:border-orange-500 hover:text-orange-500 transition duration-300 ease-in-out"
+                        onClick={handleDoubt}
+                    >
+                        Ragu Ragu
+                    </button>
                     <button
                         onClick={handleSubmit}
                         className="mt-4 w-full bg-red-500 text-white p-2 rounded hover:bg-white hover:border hover:border-red-500 hover:text-red-500 transition duration-300 ease-in-out"

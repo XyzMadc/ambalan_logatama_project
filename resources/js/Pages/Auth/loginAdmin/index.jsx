@@ -1,7 +1,7 @@
 import { Spinner, useToast } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/react";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 export default function loginAdmin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -43,7 +43,7 @@ export default function loginAdmin() {
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
     };
-    
+
     return (
         <section className="relative min-h-screen overflow-hidden">
             <div className="absolute inset-0 flex">
@@ -81,10 +81,9 @@ export default function loginAdmin() {
                             onSubmit={handleSubmit}
                         >
                             <div className="relative z-0 mb-6 w-full group">
-                                 {errors.attempt && (
+                                {errors.attempt && (
                                     <p className="text-white text-md p-4 mb-5 bg-red-500 rounded">
-                                        {errors.attempt}   
-                                         
+                                        {errors.attempt}
                                     </p>
                                 )}
                                 <input
@@ -125,11 +124,12 @@ export default function loginAdmin() {
                             <button
                                 type="submit"
                                 className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
-                                      disabled={!!errors.attempt} >
+                                disabled={!!errors.attempt}
+                            >
                                 {isLoading ? (
                                     <Spinner />
                                 ) : (
-                                    <p className="text-sm">Kirim</p>
+                                    <p className="text-sm">Masuk</p>
                                 )}
                             </button>
                         </form>

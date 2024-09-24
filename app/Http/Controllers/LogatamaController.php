@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengumuman;
+use App\Models\Faq;
 use App\Models\Peserta;
 use Illuminate\Support\Facades\Schema;
 
@@ -19,16 +20,18 @@ class LogatamaController
     }
     function panduan()
     {
-        return Inertia::render('Panduan/index');
+        $faq = Faq::select('pertanyaan','jawaban')->get();
+        return Inertia::render('Panduan/index',['faqs'=>$faq]);
     }
     function pengumuman(Request $request)
     {
         $announcements = Pengumuman::all();
         $bidangList = DB::table('information_schema.columns')
-        ->where('table_schema', env('DB_DATABASE'))
-        ->where('table_name', 'pesertas')
-        ->whereNotIn('column_name', ["id","team_id","pangkalan","username","password","role","tingkat","kategori","email","created_at","updated_at"])
-        ->pluck('column_name');
+            ->where('table_schema', env('DB_DATABASE'))
+            ->where('table_name', 'pesertas')
+            ->whereNotIn('column_name', ["id", "team_id", "pangkalan", "username", "password", "role", "tingkat", "kategori", "email", "created_at", "updated_at"])
+            ->pluck('COLUMN_NAME');
+        // ->select('column_name')->get();
 
         $bidang = $request->input('bidang');
         // return $bidang;
@@ -64,7 +67,7 @@ class LogatamaController
             $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
             // return $juara;
         }
-        return Inertia::render('Pengumuman/index', ['bidangList'=>$bidangList,'announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
+        return Inertia::render('Pengumuman/index', ['bidangList' => $bidangList, 'announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
     }
     function loginsoal()
     {

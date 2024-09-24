@@ -3,14 +3,14 @@
 // use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AmbalanController;
 use App\Http\Controllers\LogatamaController;
 use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
 use App\Http\Controllers\AdminLctpController;
 
-
+// URL::forceScheme('https');
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
@@ -44,6 +44,7 @@ Route::controller(LctpController::class)
             Route::get('/dashboard-soal', 'index');
             Route::get('/soal/{id}', 'soal');
             Route::post('/soal/{id}', 'storeTempAnswer');
+            Route::post('/soal/{id}/submit', 'submit');
         });
     });
 
@@ -54,9 +55,16 @@ Route::prefix('/admin-logatama')
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
             Route::get('/pengumuman', 'pengumuman');
+            Route::get('/soal', 'soal');
+            Route::get('/review-soal', 'reviewSoal');
+            Route::get('/create-soal', 'createSoal');
             Route::get('/rekap-juara', 'rekap');
+            Route::get('/faq', 'faq');
+            Route::get('/dokumentasi', 'dokumentasi');
             Route::post('/pengumuman', 'createPengumuman');
             Route::post('/rekap-juara', 'createRekap');
+            Route::post('/faq', 'createFaq');
+            Route::post('/dokumentasi', 'createDokumentasi');
         });
     });
 
