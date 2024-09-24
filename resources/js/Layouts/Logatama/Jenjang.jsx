@@ -1,6 +1,6 @@
 export default function Jenjang() {
     return (
-        <section className="h-[90vh] bg-secondary  p-10 space-y-10 text-center text-white">
+        <section className="h-[100vh] bg-secondary md:py-[15vh] p-10 space-y-10 text-center text-white">
             <h1 className="text-2xl font-bold">JENJANG PERLOMBAAN</h1>
             <div className="relative border-2 border-primary md:inset-x-[30vw] md:h-[400px] md:w-[600px] rounded-2xl flex flex-col md:flex-row">
                 <div className="space-y-5 border-b-4 md:border-r-4 md:border-b-0 border-primary p-10 bg-gradient-to-l from-secondary from-10% to-[#633FCA] rounded-t-xl md:rounded-tr-none md:rounded-l-xl">

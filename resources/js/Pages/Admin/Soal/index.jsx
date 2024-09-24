@@ -36,7 +36,7 @@ export default function SoalAdmin() {
                     <h1 className="text-xl font-semibold text-secondary">
                         Dipublikasikan
                     </h1>
-                    <div className="overflow-y-auto space-y-4 h-[22rem] none-scrollbar">
+                    <div className="overflow-y-auto space-y-4 h-[20vw] none-scrollbar">
                         {/* tak kei 2 gawe contoh seko design, ngko muncul tergantung soal seng meh di publikasike */}
                         <div className="p-6 rounded-lg bg-secondary text-white space-y-2">
                             <div className="border-2 border-white rounded-lg py-1 px-4 w-fit font-semibold text-sm">

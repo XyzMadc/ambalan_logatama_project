@@ -13,14 +13,27 @@ export default function Judul() {
             />
             <main className="absolute inset-0">
                 <div className="flex flex-col h-full justify-end px-5">
-                    <figure className="flex justify-center">
+                    <figure className="flex md:justify-end justify-center">
+                        <div className="hidden md:block text-white pt-[20vh] space-y-5">
+                            <h1 className="font-bold text-3xl">
+                                Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
+                            </h1>
+                            <p className="text-xl tracking-wide">
+                                Salam Pramuka! <br />
+                                Halo kakak-kakak dan adik-adik semua, terima kasih
+                                telah mengunjungi website resmi logatama ini.
+                                Logatama XVIII akan segera diadakan jadi bagi yang
+                                berminat serta belum daftar silahkan lihat info
+                                pendaftaran dan segera mendaftar. Ayo Buruan..!
+                            </p>
+                        </div>
                         <img
                             className="md:w-[300px] w-[200px]"
                             src={Maskot}
                             alt=""
                         />
                     </figure>
-                    <div className="text-white space-y-3">
+                    <div className="text-white md:hidden space-y-3">
                         <h1 className="font-bold text-base">
                             Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
                         </h1>

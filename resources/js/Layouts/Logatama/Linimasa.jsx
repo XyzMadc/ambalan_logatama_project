@@ -4,11 +4,11 @@ import purpleWave from "../../../assets/logatama/ombak-ungu.png";
 
 export default function Linimasa() {
     return (
-        <section className="h-[60vh] relative">
-            <img className="absolute -bottom-1" src={purpleWave} alt="" />
-            <img className="absolute -bottom-2" src={blueWave} alt="" />
-            <div className="flex justify-center">
-                <div className="py-10 px-16 space-y-4 rounded-2xl bg-secondary text-center">
+        <section className="h-[70vh] md:h-full relative">
+            <img className="absolute -bottom-1 md:-bottom-1" src={purpleWave} alt="" />
+            <img className="absolute -bottom-2 md:-bottom-8" src={blueWave} alt="" />
+            <div className="flex py-[15vh] md:py-[45vh]  justify-center">
+                <div className="py-10 px-16 space-y-4 w-[80vw] rounded-2xl bg-secondary text-center">
                     <div className="flex justify-center">
                         <NotePencil size={80} color="white" />
                     </div>

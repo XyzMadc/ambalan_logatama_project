@@ -9,7 +9,7 @@ import {
 
 export default function Footer() {
   return (
-    <section>
+    <section  className="md:pt-[40vh]">
       <div className="bg-footer text-white py-10 px-[60px] xl:px-24 xl:py-20 rounded-tl-[70px] xl:rounded-tl-[170px] xl:flex xl:justify-between">
         <div className="xl:w-1/3 space-y-3">
           <div className="flex gap-1 xl:gap-2">

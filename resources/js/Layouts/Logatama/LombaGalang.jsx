@@ -2,7 +2,7 @@ import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png"
 
 export default function LombaGalang() {
     return (
-        <section className="overflow-hidden w-full text-center md:h-full h-[70vh] relative">
+        <section className="overflow-hidden w-full text-center md:h-[90vh] h-[70vh] relative">
             <figure className="relative">
                 <img className="w-[150vw]" src={lombaGalangMobile} alt="" />
                 <div className="absolute inset-0 bg-primary bg-opacity-30" />
