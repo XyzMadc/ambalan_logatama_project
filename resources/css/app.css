@@ -172,8 +172,23 @@ instagram {
     }
 }
 
-/* @media (max-width: 1280px) {
-    .item:nth-child(n + 4) {
+@media (max-width: 1280px) {
+    .merchandise:nth-child(n + 3) {
         display: none;
     }
-} */
+}
+
+.shadow-login-admin-kiri {
+    box-shadow: -25px 0 50px -12px rgba(0, 0, 0, 0.25),
+        0 -25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.shadow-login-admin-kanan {
+    box-shadow: 25px 0 50px -12px rgba(0, 0, 0, 0.25),
+        0 -25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-login-admin-atas {
+    box-shadow: -3px 2px 13px -2px rgba(100, 100, 100, 100.75);
+}

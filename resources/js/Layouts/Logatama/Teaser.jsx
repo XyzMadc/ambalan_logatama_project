@@ -20,6 +20,8 @@ export default function Teaser() {
                         >
                             <span>TEASERLOGATAMA</span>
                             <span>TEASERLOGATAMA</span>
+                            <span className="hidden md:block">TEASERLOGATAMA</span>
+                            <span className="hidden md:block">TEASERLOGATAMA</span>
                         </Marquee>
                     ))}
                 </div>

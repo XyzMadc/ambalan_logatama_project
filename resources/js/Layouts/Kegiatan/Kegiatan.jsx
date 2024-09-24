@@ -42,9 +42,9 @@ export default function Kegiatan() {
     return (
         <section
             ref={ref}
-            className="h-[90vh] xl:min-h-screen xl:relative xl:overflow-hidden xl:h-0 bg-gradient-to-b from-primary to-secondary to-50%"
+            className="h-[90vh] md:h-[60vh] xl:min-h-screen xl:relative xl:overflow-hidden xl:h-0 bg-gradient-to-b from-primary to-secondary to-50%"
         >
-            <div className="absolute inset-0 hidden lg:block">
+            <div className="absolute inset-0 hidden md:block">
                 <img
                     className="w-screen md:block hidden -top-[28vh] absolute"
                     src={galaxy}
@@ -57,10 +57,10 @@ export default function Kegiatan() {
                 />
             </div>
             <div className="xl:absolute inset-0">
-                <div className="text-center space-y-3 xl:space-y-10 text-white py-20 px-5">
-                    <div className="space-y-3 xl:space-y-10 xl:px-40">
+                <div className="text-center space-y-3 md:space-y-7 xl:space-y-10 text-white py-20 px-5">
+                    <div className="space-y-3 md:space-y-7 xl:space-y-10 xl:px-40">
                         <motion.h1
-                            className="font-bold text-lg xl:text-4xl"
+                            className="font-bold text-lg md:text-2xl xl:text-4xl"
                             initial={{ opacity: 0 }}
                             animate={
                                 inView
@@ -72,7 +72,7 @@ export default function Kegiatan() {
                             Bagaimana kegiatan-kegiatan Ambalan berlangsung
                         </motion.h1>
                         <motion.p
-                            className="text-[13px] xl:text-xl"
+                            className="text-[13px] md:text-lg xl:text-xl"
                             initial={{ opacity: 0 }}
                             animate={
                                 inView

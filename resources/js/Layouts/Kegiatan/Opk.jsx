@@ -10,10 +10,10 @@ export default function Opk() {
     return (
         <section
             ref={ref}
-            className="px-5 xl:min-h-screen xl:flex items-center justify-center xl:px-20"
+            className="px-5 xl:min-h-screen md:flex items-center justify-center xl:px-20"
         >
-            <div className="flex flex-col xl:flex-row">
-                <div className="h-1/2 xl:w-[35%]">
+            <div className="flex flex-col md:flex-row">
+                <div className="h-1/2 md:w-[25%] xl:w-[35%]">
                     <motion.img
                         className="xl:w-full"
                         src={OPK}
@@ -27,7 +27,7 @@ export default function Opk() {
                         transition={{ duration: 0.5 }}
                     />
                 </div>
-                <div className="text-white bg-secondary h-1/2 px-5 py-10 space-y-3 xl:w-[65%] xl:h-[520px] xl:px-20 xl:space-y-7 xl:flex flex-col justify-center">
+                <div className="text-white bg-secondary h-1/2 px-5 py-10 space-y-3 md:w-[75%] xl:w-[65%] md:h-[14.7rem] xl:h-[520px] xl:px-20 xl:space-y-7 xl:flex flex-col justify-center">
                     <motion.h1
                         className="text-[16.73px] xl:text-3xl leading-4 font-semibold"
                         initial={{ opacity: 0 }}

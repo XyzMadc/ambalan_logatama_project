@@ -1,16 +1,16 @@
-export default function ImageSection(p) {
-  return (
-    <>
-      <img
-        className="size-80 xl:size-[30rem]"
-        src={p.src}
-        alt="imageSejarahAmbalan"
-      />
-      <img
-        className={`size-80 hidden xl:block absolute ${p.className} border-[12px]`}
-        src={p.src}
-        alt="imageSejarahAmbalan"
-      />
-    </>
-  );
+export default function ImageSection({ className, src }) {
+    return (
+        <>
+            <img
+                className="size-80 md:size-[23rem] xl:size-[30rem]"
+                src={src}
+                alt="imageSejarahAmbalan"
+            />
+            <img
+                className={`hidden md:block absolute ${className} md:border-8 xl:border-[12px]`}
+                src={src}
+                alt="imageSejarahAmbalan"
+            />
+        </>
+    );
 }

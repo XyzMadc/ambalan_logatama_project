@@ -11,7 +11,6 @@ export default function NavbarAmbalan() {
     return (
         <>
             <Headroom className="absolute z-50 inset-0">
-                {/* <div className={`z-50 ${isBorder ? "shadow-lg bg-secondary" : ""}`}> */}
                 <div
                     className={`z-50 ${
                         isBorder

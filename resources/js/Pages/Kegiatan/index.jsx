@@ -8,24 +8,26 @@ import LatihanRutin from "@/Layouts/Kegiatan/LatihanRutin";
 import Opk from "@/Layouts/Kegiatan/Opk";
 import Pasukan14 from "@/Layouts/Kegiatan/Pasukan14";
 import Pembantaran from "@/Layouts/Kegiatan/Pembantaran";
+import Pjs from "@/Layouts/Kegiatan/Pjs";
 import Recruitment from "@/Layouts/Kegiatan/Recruitment";
 
 export default function KegiatanPage() {
-  return (
-    <>
-      <NavbarAmbalan />
-      <main className="min-w-full overflow-hidden">
-        <HeroSection />
-        <Kegiatan />
-        <Pasukan14 />
-        <Recruitment />
-        <LatihanRutin />
-        <Pembantaran />
-        <Opk />
-        <BhaktiSoekma />
-        <AjangPerlombaan />
-      </main>
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <NavbarAmbalan />
+            <main className="min-w-full overflow-hidden">
+                <HeroSection />
+                <Kegiatan />
+                <Pasukan14 />
+                <Recruitment />
+                <LatihanRutin />
+                <Pembantaran />
+                <Opk />
+                <Pjs />
+                <BhaktiSoekma />
+                <AjangPerlombaan />
+            </main>
+            <Footer />
+        </>
+    );
 }

@@ -2,7 +2,7 @@ import Marquee from "react-fast-marquee";
 
 export default function Dokumentasi() {
     return (
-        <section className="h-screen xl:h-[120vh] bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center space-y-3 xl:space-y-10">
+        <section className="xl:h-[120vh] bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center xl:space-y-10 py-20">
             <h1 className="font-semibold xl:text-3xl">
                 DOKUMENTASI PERLOMBAAN
             </h1>
