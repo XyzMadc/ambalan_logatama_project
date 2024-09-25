@@ -2,12 +2,12 @@ import ContentSoal from "@/Components/Fragments/ContentSoal";
 import HeaderSoal from "@/Components/Fragments/HeaderSoal";
 import { CaretLeft, Check, List, Plus, Trash, X } from "@phosphor-icons/react";
 
-export default function ReviewSoal() {
+export default function ReviewSoal({tingkat,id}) {
     return (
         <>
             <section className="min-h-screen w-full bg-neutral-300">
-                <HeaderSoal />
-                <ContentSoal />
+                <HeaderSoal tingkat={tingkat} />
+                <ContentSoal id={id} />
                 {/* <header className="flex justify-between bg-white p-4 shadow-xl">
                     <div className="flex gap-2 text-secondary items-center">
                         <button>

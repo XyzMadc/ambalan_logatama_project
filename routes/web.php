@@ -55,9 +55,10 @@ Route::prefix('/admin-logatama')
         Route::middleware('admin.auth')->group(function () {
             Route::get('/dashboard', 'index');
             Route::get('/pengumuman', 'pengumuman');
-            Route::get('/soal', 'soal');
-            Route::get('/review-soal', 'reviewSoal');
-            Route::get('/create-soal', 'createSoal');
+            Route::get('/soal-lctp', 'soal');
+            Route::get('/daftar-soal/{tingkat}', 'reviewSoal');
+            Route::get('/daftar-soal/{tingkat}/create', 'createSoal');
+            Route::get('/daftar-soal/{tingkat}/edit/{id}', 'editSoal');
             Route::get('/rekap-juara', 'rekap');
             Route::get('/faq', 'faq');
             Route::get('/dokumentasi', 'dokumentasi');
@@ -69,13 +70,13 @@ Route::prefix('/admin-logatama')
     });
 
 
-Route::controller(AdminLctpController::class)
-    ->prefix('/admin-lctp')
-    ->group(function () {
-        Route::middleware('admin.auth')->group(function () {
-            Route::get('/dashboard', 'index');
-            Route::get('/soal', 'soal');
-        });
-    });
+// Route::controller(AdminLctpController::class)
+//     ->prefix('/admin-lctp')
+//     ->group(function () {
+//         Route::middleware('admin.auth')->group(function () {
+//             Route::get('/dashboard', 'index');
+//             Route::get('/soal', 'soal');
+//         });
+//     });
 
 require __DIR__ . '/auth.php';

@@ -1,7 +1,7 @@
 import { List, Trash } from "@phosphor-icons/react";
 import AnswerSoal from "./AnswerSoal";
 
-export default function PertanyaanSoal() {
+export default function PertanyaanSoal({id}) {
     return (
         <div className="p-5 bg-white rounded text-secondary font-semibold space-y-3 text-xs">
             <div className="flex justify-between items-center">
@@ -13,7 +13,7 @@ export default function PertanyaanSoal() {
                         <p>Pilihan Ganda</p>
                     </div>
                     <div className="py-1 px-4 flex items-center justify-center rounded border border-slate-400">
-                        <p>1 poin</p>
+                        <p>{id.poin} poin</p>
                     </div>
                 </div>
                 <div className="flex gap-3">
@@ -26,16 +26,18 @@ export default function PertanyaanSoal() {
                 </div>
             </div>
             <p className="mb-2">
-                Bisa membuat perencanaan setiap akan melakukan tindakan
-                merupakan contoh penerapan dasa darma nomor...
+                {id.pertanyaan}
             </p>
             <p className="text-slate-400">Pilihan Jawaban</p>
             <div className="grid grid-flow-col grid-rows-3 gap-4">
-                <AnswerSoal isCorrect={false} answer="3" />
-                <AnswerSoal isCorrect={true} answer="7" />
-                <AnswerSoal isCorrect={false} answer="2" />
-                <AnswerSoal isCorrect={false} answer="6" />
-                <AnswerSoal isCorrect={false} answer="4" />
+            {JSON.parse(id.pilihan).map(pilihan => (
+                <AnswerSoal isCorrect={pilihan==id.jawaban} answer={pilihan}  />
+            ))}
+                {/* <AnswerSoal isCorrect={false} answer={id.pilihan[0]} />
+                <AnswerSoal isCorrect={false} answer={id.pilihan[1]} />
+                <AnswerSoal isCorrect={false} answer={id.pilihan[2]} />
+                <AnswerSoal isCorrect={false} answer={id.pilihan[3]} /> */}
+                {/* <AnswerSoal isCorrect={false} answer="4" /> */}
             </div>
         </div>
     );

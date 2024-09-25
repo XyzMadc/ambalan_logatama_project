@@ -4,7 +4,7 @@ import { usePage } from "@inertiajs/react";
 export default function LayoutAdminLogatama({ title, children }) {
     const { url } = usePage();
     return (
-        <section className="min-h-screen overflow-hidden flex">
+        <section className="min-h-screen max-h-screen overflow-hidden flex">
             <Sidebar url={url} />
             <div className="w-4/5 px-10 py-14">
                 <div className="space-y-8">

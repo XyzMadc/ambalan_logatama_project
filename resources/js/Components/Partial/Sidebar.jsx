@@ -32,10 +32,10 @@ export default function Sidebar({ url }) {
                         link="/admin-logatama/pengumuman"
                     />
                     <SidebarButton
-                        active={url === "/admin-logatama/soal"}
+                        active={url === "/admin-logatama/soal-lctp"}
                         icon={NotePencil}
                         text="Soal LCTP"
-                        link="/admin-logatama/soal"
+                        link="/admin-logatama/soal-lctp"
                     />
                     <SidebarButton
                         active={url === "/admin-logatama/rekap-juara"}

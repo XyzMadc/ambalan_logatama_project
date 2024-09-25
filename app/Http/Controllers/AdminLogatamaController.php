@@ -8,6 +8,7 @@ use App\Models\Peserta;
 use App\Models\Faq;
 use App\Models\Dokumentasi;
 use App\Models\Pengumuman;
+use App\Models\Soal;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -47,18 +48,53 @@ class AdminLogatamaController
             ]);
         }
     }
+
     function soal()
     {
         return Inertia::render('Admin/Soal/index');
     }
-    function reviewSoal()
+
+    function reviewSoal(Request $request)
     {
-        return Inertia::render('Admin/Soal/ReviewSoal/index');
+        $tingkat = $request->tingkat; 
+        if (in_array($tingkat,['penegak','penggalang'])){
+            $question = Soal::where('tingkat', $tingkat)->select('pertanyaan','pilihan','jawaban','tingkat','poin')->get();
+            // $questions = [
+            //     // 'id' => $userTestData->team_id,
+            //     'soal' => $question,
+            //     'tingkat' => $tingkat,
+            //     // 'remainingTime'=>$sisa_waktu,
+            //     // 'storedAnswers' => $storedAnswers
+            // ];
+        // return $question;
+            return Inertia::render('Admin/Soal/ReviewSoal/index',['tingkat'=>$tingkat,'id'=>$question]);
+        }
+        return redirect()->back();
     }
-    function createSoal()
+
+    function createSoal(Request $request)
     {
-        return Inertia::render('Admin/Soal/CreateSoal/index');
+        $tingkat = $request->tingkat; 
+        if (in_array($tingkat,['penegak','penggalang'])){
+        return $request;
+            // return Inertia::render('Admin/Soal/CreateSoal/index');
+        }
+        return redirect()->back();
+        
     }
+
+    function editSoal(Request $request)
+    {
+
+        $tingkat = $request->tingkat; 
+        if (in_array($tingkat,['penegak','penggalang'])){
+        return $tingkat;
+            // return Inertia::render('Admin/Soal/CreateSoal/index');
+        }
+        return redirect()->back();
+        
+    }
+
     function rekap()
     {
         $pangkalan = Peserta::where('role', 'peserta')->select('pangkalan', 'kategori', 'team_id')->get();

@@ -6,7 +6,7 @@ export default function dashboardAdmin() {
     const semuaBidang = props.semuaBidang;
     const semuaPeserta = props.peserta;
     return (
-        <section className="min-h-screen overflow-hidden flex">
+        <section className="min-h-screen max-h-screen overflow-hidden flex">
             <Sidebar url={url} />
             <div className="w-4/5 p-10 space-y-10">
                 <div className="flex justify-center gap-16">
