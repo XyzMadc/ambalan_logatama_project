@@ -31,7 +31,7 @@ export default function PertanyaanSoal({id,semuaPilihan}) {
             <p className="text-slate-400">Pilihan Jawaban</p>
             <div className="grid grid-flow-col grid-rows-3 gap-4">
             {semuaPilihan.map((pilihan, index) => (
-                <AnswerSoal key={index} isCorrect={false} answer={pilihan} />
+                <AnswerSoal key={index} isCorrect={pilihan==id.jawaban} answer={pilihan} />
             ))}
                 {/* <AnswerSoal isCorrect={false} answer="4" /> */}
             </div>

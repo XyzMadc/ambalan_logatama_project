@@ -87,13 +87,65 @@ class AdminLogatamaController
     {
         $tingkat = $request->tingkat; 
         if (in_array($tingkat,['penegak','penggalang'])){
-            $pilihan =  $request->options;
             $pertanyaan =  $request->question;
-            // $jawaban = $pilihan->is_answered
-        return $pilihan;
-            // return Inertia::render('Admin/Soal/CreateSoal/index');
+            $pilihan = array_map(function($item) {
+                return $item['value'];
+            
+            }, $request->options);
+            // $jawaban = array_map(function($item) {
+            //     $item['isAnswered']==1?$a=$item['value']:$a='';
+            //     return $a;
+            // }, $request->options);
+            $jawaban = array_column(array_filter($request->options, fn($item) => $item['isAnswered'] == 1), 'value')[0] ?? '';
+            if(strlen($jawaban)==0){
+                return redirect()->back()->withErrors(['question'=>'jawaban belum diisi']);
+            }
+        //     // return Inertia::render('Admin/Soal/CreateSoal/index');
+        
+            $validated = $request->validate([
+                'question' => 'required|string|max:300',
+                'file' => 'image|mimes:jpg,png,jpeg|max:300',
+            ]);
+        
+            if (!$validated || !is_array($request->options)) {
+                // return redirect()->back()->withErrors(['imageFile' => 'File harus berupa gambar!']);
+                return redirect()->back()->withErrors();
+            }
+            
+            if ($request->file("imageFile")) {
+                $image = $request->file("imageFile");
+                $extension = $image->getClientOriginalExtension();
+                $newName = "soal_" . $tingkat . now()->format('Y_m_d_H.i.s') . '.' . $extension;
+                $image->storeAs('soal', $newName, 'public');   
+                Soal::create([
+                    'pertanyaan'=>$pertanyaan,
+                    'pilihan' => json_encode($pilihan),
+                    'jawaban'=>$jawaban,
+                    'poin'=>2,
+                    'images'=>'/storage/soal/'.$newName,
+                    'tingkat' => $tingkat,
+                ]);  
+                Dokumentasi::create([
+                    'path' => '/storage/soal/' . $newName,
+                ]);
+                return redirect()->back();
+            }else{ 
+                Soal::create([
+                    'pertanyaan'=>$pertanyaan,
+                    'pilihan' => json_encode($pilihan),
+                    'jawaban'=>$jawaban,
+                    'poin'=>2,
+                    'images'=>'',
+                    'tingkat' => $tingkat,
+                ]);
+                return redirect()->back();
+            }
+
+
+            return redirect()->back();
         }
         return redirect()->back();
+
         
     }
 
