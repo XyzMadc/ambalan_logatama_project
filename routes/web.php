@@ -66,6 +66,7 @@ Route::prefix('/admin-logatama')
             Route::post('/rekap-juara', 'createRekap');
             Route::post('/faq', 'createFaq');
             Route::post('/dokumentasi', 'createDokumentasi');
+            Route::post('/daftar-soal/{tingkat}/create', 'postSoal');
         });
     });
 

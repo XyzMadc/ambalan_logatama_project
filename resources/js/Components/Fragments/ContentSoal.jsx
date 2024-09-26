@@ -15,9 +15,9 @@ export default function ContentSoal({id}) {
                 </button>
             </div>
             <div className="overflow-y-auto space-y-4 h-[30rem] none-scrollbar">
-                {/* <PertanyaanSoal id={id[0]}/> */}
-                {id.map(idSoal => (
-                    <PertanyaanSoal id={idSoal} />
+                {/* <PertanyaanSoal key={idSoal} id={id[0]}/> */}
+                {id.map((idSoal) => (
+                    <PertanyaanSoal key={idSoal.id} id={idSoal} semuaPilihan={JSON.parse(idSoal.pilihan)} />
                 ))}
             </div>
             <button className="bg-secondary text-white flex items-center gap-3 justify-center font-semibold py-2 px-4 rounded-xl text-sm mx-auto">

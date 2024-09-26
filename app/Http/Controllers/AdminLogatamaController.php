@@ -58,7 +58,7 @@ class AdminLogatamaController
     {
         $tingkat = $request->tingkat; 
         if (in_array($tingkat,['penegak','penggalang'])){
-            $question = Soal::where('tingkat', $tingkat)->select('pertanyaan','pilihan','jawaban','tingkat','poin')->get();
+            $question = Soal::where('tingkat', $tingkat)->select('id','pertanyaan','pilihan','jawaban','tingkat','poin')->get();
             // $questions = [
             //     // 'id' => $userTestData->team_id,
             //     'soal' => $question,
@@ -76,7 +76,21 @@ class AdminLogatamaController
     {
         $tingkat = $request->tingkat; 
         if (in_array($tingkat,['penegak','penggalang'])){
-        return $request;
+        // return $request;
+            return Inertia::render('Admin/Soal/CreateSoal/index');
+        }
+        return redirect()->back();
+        
+    }
+
+    function postSoal(Request $request)
+    {
+        $tingkat = $request->tingkat; 
+        if (in_array($tingkat,['penegak','penggalang'])){
+            $pilihan =  $request->options;
+            $pertanyaan =  $request->question;
+            // $jawaban = $pilihan->is_answered
+        return $pilihan;
             // return Inertia::render('Admin/Soal/CreateSoal/index');
         }
         return redirect()->back();

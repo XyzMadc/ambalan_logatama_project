@@ -68,7 +68,7 @@ export default function CreateSoal() {
 
     const handleSave = (e) => {
         e.preventDefault();
-        post("/admin-logatama/soal/create-soal", {
+        post("create", {
             onSuccess: () => {
                 toast({
                     title: "Berhasil membuat soal",
