@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         // Peserta::factory(10)->create(['tingkat' =>'penegak']);
 
-        Soal::factory(1)->create(['tingkat'=>'penggalang']);
+        Soal::factory(2)->create(['tingkat'=>'penggalang']);
         // Soal::factory(50)->create(['tingkat'=>'penegak']);
         Peserta::factory()
             ->count(15)

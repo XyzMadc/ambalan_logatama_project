@@ -23,7 +23,7 @@ class LctpController
             Lctp::create([
                 'team_id' => $user_data->team_id,
                 'mulai',
-                'jawaban' => json_encode(array_fill(0, 50, null)),
+                'jawaban' => json_encode(array_fill(0,count(Soal::where('tingkat', $user_data->tingkat)->get()) , null)),
                 'berakhir',
                 'tingkat' => $user_data->tingkat,
                 'status' => 0
@@ -96,7 +96,7 @@ class LctpController
             if ($request->id == $user_data->team_id) {
                 if (time() > Carbon::parse($userTestData->mulai)->timestamp && time() < Carbon::parse($userTestData->berakhir)->timestamp) {
                     $validated = $request->validate([
-                        'jawaban' => 'required|array|size:50',
+                        'jawaban' => ['required', 'array', 'size:' . count(Soal::where('tingkat', $user_data->tingkat)->get())]
                     ]);
 
                     if ($validated) {
@@ -121,7 +121,7 @@ class LctpController
         $kunci_jawaban = Soal::where('tingkat', $tingkat)->select('jawaban','poin')->get();
         if ($userTestData){
             $validated = $request->validate([
-                'jawaban' => 'required|array|size:50',
+                'jawaban' => ['required', 'array', 'size:' . count($kunci_jawaban)]
             ]);
             if ($request->id == $user_data->team_id && $validated) {
                 if (time() < Carbon::parse($userTestData->berakhir)->timestamp) {

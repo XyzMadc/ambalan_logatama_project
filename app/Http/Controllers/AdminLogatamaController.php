@@ -115,7 +115,7 @@ class AdminLogatamaController
             if ($request->file("imageFile")) {
                 $image = $request->file("imageFile");
                 $extension = $image->getClientOriginalExtension();
-                $newName = "soal_" . $tingkat . now()->format('Y_m_d_H.i.s') . '.' . $extension;
+                $newName = "soal_" . $tingkat . rand(99,999) . rand(99,999). now()->format('Y_m_d_H.i.s') . '.' . $extension;
                 $image->storeAs('soal', $newName, 'public');   
                 Soal::create([
                     'pertanyaan'=>$pertanyaan,
@@ -128,7 +128,7 @@ class AdminLogatamaController
                 Dokumentasi::create([
                     'path' => '/storage/soal/' . $newName,
                 ]);
-                return redirect()->back();
+                return redirect('/admin-logatama/daftar-soal/'.$tingkat);
             }else{ 
                 Soal::create([
                     'pertanyaan'=>$pertanyaan,
@@ -138,7 +138,7 @@ class AdminLogatamaController
                     'images'=>'',
                     'tingkat' => $tingkat,
                 ]);
-                return redirect()->back();
+                return redirect('/admin-logatama/daftar-soal/'.$tingkat);
             }
 
 
@@ -155,6 +155,23 @@ class AdminLogatamaController
         $tingkat = $request->tingkat; 
         if (in_array($tingkat,['penegak','penggalang'])){
         return $tingkat;
+            // return Inertia::render('Admin/Soal/CreateSoal/index');
+        }
+        return redirect()->back();
+        
+    }
+
+    function hapusSoal(Request $request)
+    {
+
+        $tingkat = $request->tingkat; 
+        if (in_array($tingkat,['penegak','penggalang'])){
+            $soal = Soal::where('id',$request->id)->where('tingkat',$tingkat);
+            if($soal->exists()){
+                $soal->delete();
+                return redirect()->back();
+            }
+            return redirect('admin-logatama/daftar-soal/'.$tingkat);
             // return Inertia::render('Admin/Soal/CreateSoal/index');
         }
         return redirect()->back();
