@@ -154,7 +154,20 @@ class AdminLogatamaController
 
         $tingkat = $request->tingkat; 
         if (in_array($tingkat,['penegak','penggalang'])){
-        return $tingkat;
+            $soal = Soal::where('id',$request->id)->where('tingkat',$tingkat);
+            if($soal->exists()){
+            //     $soal->update([
+            //         'pertanyaan'=>$pertanyaan,
+            //         'pilihan' => json_encode($pilihan),
+            //         'jawaban'=>$jawaban,
+            //         'poin'=>2,
+            //         'images'=>'',
+            //         'tingkat' => $tingkat
+            //     ]);
+            return $soal->get();
+                // return redirect()->back();
+            }
+            return redirect('admin-logatama/daftar-soal/'.$tingkat);
             // return Inertia::render('Admin/Soal/CreateSoal/index');
         }
         return redirect()->back();
@@ -177,6 +190,7 @@ class AdminLogatamaController
         return redirect()->back();
         
     }
+    
 
     function rekap()
     {
