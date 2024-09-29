@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
 import { Spinner } from "@chakra-ui/react";
 import { UploadSimple } from "@phosphor-icons/react";
 
-export default function CreateSoal() {
+export default function CreateSoal({ soal }) {
     const { data, setData, post, processing, errors } = useForm({
         question: "",
         imageFile: null,

@@ -1,5 +1,5 @@
 import Sidebar from "@/Components/Partial/Sidebar";
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { ListBullets } from "@phosphor-icons/react";
 import React from "react";
 
@@ -14,22 +14,28 @@ export default function SoalAdmin() {
                         Soal Lomba Cerdas Tangkas Pramuka
                     </h1>
                     <div className="flex justify-center gap-16 text-white">
-                        <button className="bg-red-800 w-1/2 h-36 rounded-lg space-y-3 hover:bg-red-700 transition-colors duration-200 ease-in-out">
+                        <Link
+                            href="/admin-logatama/daftar-soal/penggalang"
+                            className="bg-red-800 w-1/2 h-36 rounded-lg flex flex-col justify-center items-center gap-3 hover:bg-red-700 transition-colors duration-200 ease-in-out"
+                        >
                             <h3 className="text-2xl font-semibold">
                                 SOAL LCTP PENYISIHAN
                             </h3>
                             <h5 className="text-lg font-semibold">
                                 GOLONGAN PENGGALANG
                             </h5>
-                        </button>
-                        <button className="bg-yellow-500 w-1/2 h-36 rounded-lg space-y-3 hover:bg-yellow-400 transition-colors duration-200 ease-in-out">
+                        </Link>
+                        <Link
+                            href="/admin-logatama/daftar-soal/penegak"
+                            className="bg-yellow-500 w-1/2 h-36 rounded-lg flex flex-col justify-center items-center gap-3 hover:bg-yellow-400 transition-colors duration-200 ease-in-out"
+                        >
                             <h3 className="text-2xl font-semibold">
                                 SOAL LCTP PENYISIHAN
                             </h3>
                             <h5 className="text-lg font-semibold">
                                 GOLONGAN PENEGAK
                             </h5>
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="space-y-5">

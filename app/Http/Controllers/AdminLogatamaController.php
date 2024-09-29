@@ -67,7 +67,7 @@ class AdminLogatamaController
             //     // 'storedAnswers' => $storedAnswers
             // ];
         // return $question;
-            return Inertia::render('Admin/Soal/ReviewSoal/index',['tingkat'=>$tingkat,'id'=>$question]);
+            return Inertia::render('Admin/Soal/ReviewSoal/index',['tingkat'=>$tingkat,'data_review_soal'=>$question]);
         }
         return redirect()->back();
     }
@@ -109,7 +109,7 @@ class AdminLogatamaController
         
             if (!$validated || !is_array($request->options)) {
                 // return redirect()->back()->withErrors(['imageFile' => 'File harus berupa gambar!']);
-                return redirect()->back()->withErrors();
+                return redirect()->back()->withErrors(['options' => 'Pilihan harus diisi!']);
             }
             
             if ($request->file("imageFile")) {
@@ -152,7 +152,9 @@ class AdminLogatamaController
     function editSoal(Request $request)
     {
 
-        $tingkat = $request->tingkat; 
+        $tingkat = $request->tingkat;
+        $id = $request->id;
+        $question = Soal::where('id',$request->id)->where('tingkat',$tingkat)->select('id','pertanyaan','pilihan','jawaban','tingkat','poin')->get();
         if (in_array($tingkat,['penegak','penggalang'])){
             $soal = Soal::where('id',$request->id)->where('tingkat',$tingkat);
             if($soal->exists()){
