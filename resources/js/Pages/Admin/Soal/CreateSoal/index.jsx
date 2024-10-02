@@ -6,29 +6,39 @@ import { Spinner } from "@chakra-ui/react";
 import { UploadSimple } from "@phosphor-icons/react";
 
 export default function CreateSoal({ soal }) {
+    // console.log(soal);
+    const pilihan = soal?JSON.parse(soal.pilihan):'';
+    const jawaban = soal?soal.jawaban:'';
+    // console.log(jawaban);
+    // console.log(pilihan[2]==jawaban);
     const { data, setData, post, processing, errors } = useForm({
-        question: "",
+        question: soal?soal.pertanyaan:'',
         imageFile: null,
+        oldImage: soal?soal.images:null ,
         options: [
             {
-                value: "",
+                value: pilihan[0],
                 isEditing: false,
-                isAnswered: false,
+                isSelected:  pilihan[0]==jawaban,
+                isAnswered:  pilihan[0]==jawaban,
             },
             {
-                value: "",
+                value: pilihan[1],
                 isEditing: false,
-                isAnswered: false,
+                isSelected: pilihan[1]==jawaban,
+                isAnswered: pilihan[1]==jawaban,
             },
             {
-                value: "",
+                value: pilihan[2],
                 isEditing: false,
-                isAnswered: false,
+                isSelected: pilihan[2]==jawaban,
+                isAnswered: pilihan[2]==jawaban,
             },
             {
-                value: "",
+                value: pilihan[3],
                 isEditing: false,
-                isAnswered: false,
+                isSelected: pilihan[3]==jawaban,
+                isAnswered: pilihan[3]==jawaban,
             },
         ],
     });
@@ -62,13 +72,15 @@ export default function CreateSoal({ soal }) {
         const newOptions = data.options.map((option, i) => ({
             ...option,
             isAnswered: i === index,
+            isSelected: i === index,
         }));
         setData("options", newOptions);
     };
 
     const handleSave = (e) => {
         e.preventDefault();
-        post("create", {
+        const action = soal.id ? soal.id+"/update" : "create"; 
+        post(action, {
             onSuccess: () => {
                 toast({
                     title: "Berhasil membuat soal",
@@ -151,10 +163,11 @@ export default function CreateSoal({ soal }) {
                                 />
                             </div>
                         </div>
-                        {data.imageFile && (
+                        {(data.imageFile || data.oldImage) && (
                             <figure className="p-2 border-2 border-secondary rounded-lg w-[28rem] overflow-hidden">
                                 <img
-                                    src={URL.createObjectURL(data.imageFile)}
+                                    // src={URL.createObjectURL(data.imageFile)}
+                                    src={data.imageFile ? URL.createObjectURL(data.imageFile) : soal.images}
                                     className="h-full object-contain rounded-lg mx-auto"
                                     alt=""
                                 />

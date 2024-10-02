@@ -32,7 +32,7 @@ class SoalFactory extends Factory
             'pilihan' => json_encode($pilihan),
             'jawaban' => $pilihan[rand(0,4)],
             'poin' => 2,
-            'images' => ['','http://localhost:5173/resources/assets/beranda/baden-powell.png'][rand(0,1)],
+            'images' => '',
         ];
     }
 

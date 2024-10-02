@@ -67,7 +67,8 @@ Route::prefix('/admin-logatama')
             Route::post('/faq', 'createFaq');
             Route::post('/dokumentasi', 'createDokumentasi');
             Route::post('/daftar-soal/{tingkat}/create', 'postSoal');
-            Route::delete('/daftar-soal/{tingkat}/delete/{id}', 'hapusSoal');
+            Route::post('/daftar-soal/{tingkat}/edit/{id}/update', 'updateSoal');
+            Route::post('/daftar-soal/{tingkat}/delete/{id}', 'hapusSoal');
         });
     });
 

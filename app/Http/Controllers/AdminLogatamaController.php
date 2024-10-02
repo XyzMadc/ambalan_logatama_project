@@ -92,10 +92,6 @@ class AdminLogatamaController
                 return $item['value'];
             
             }, $request->options);
-            // $jawaban = array_map(function($item) {
-            //     $item['isAnswered']==1?$a=$item['value']:$a='';
-            //     return $a;
-            // }, $request->options);
             $jawaban = array_column(array_filter($request->options, fn($item) => $item['isAnswered'] == 1), 'value')[0] ?? '';
             if(strlen($jawaban)==0){
                 return redirect()->back()->withErrors(['question'=>'jawaban belum diisi']);
@@ -125,9 +121,6 @@ class AdminLogatamaController
                     'images'=>'/storage/soal/'.$newName,
                     'tingkat' => $tingkat,
                 ]);  
-                Dokumentasi::create([
-                    'path' => '/storage/soal/' . $newName,
-                ]);
                 return redirect('/admin-logatama/daftar-soal/'.$tingkat);
             }else{ 
                 Soal::create([
@@ -166,11 +159,84 @@ class AdminLogatamaController
             //         'images'=>'',
             //         'tingkat' => $tingkat
             //     ]);
-            return $soal->get();
+            // return $soal->;
+            return Inertia::render('Admin/Soal/CreateSoal/index',['soal'=>$soal->first()]);
                 // return redirect()->back();
             }
             return redirect('admin-logatama/daftar-soal/'.$tingkat);
-            // return Inertia::render('Admin/Soal/CreateSoal/index');
+            
+        }
+        return redirect()->back();
+        
+    }
+
+    function updateSoal(Request $request)
+    {
+
+
+        $tingkat = $request->tingkat; 
+        $id = $request->id;
+        // $question = Soal::where('id',$request->id)->where('tingkat',$tingkat)->select('id','pertanyaan','pilihan','jawaban','tingkat','poin')->get();
+        if (in_array($tingkat,['penegak','penggalang'])){
+            $pertanyaan =  $request->question;
+            $pilihan = array_map(function($item) {
+                return $item['value'];
+            
+            }, $request->options);
+            $jawaban = array_column(array_filter($request->options, fn($item) => $item['isAnswered'] == 1), 'value')[0] ?? '';
+            if(strlen($jawaban)==0){
+                return redirect()->back()->withErrors(['question'=>'jawaban belum diisi']);
+            }
+        //     // return Inertia::render('Admin/Soal/CreateSoal/index');
+        
+            $validated = $request->validate([
+                'question' => 'required|string|max:300',
+                'file' => 'image|mimes:jpg,png,jpeg|max:300',
+            ]);
+        
+            if (!$validated || !is_array($request->options)) {
+                // return redirect()->back()->withErrors(['imageFile' => 'File harus berupa gambar!']);
+                return redirect()->back()->withErrors(['options' => 'Pilihan harus diisi!']);
+            }
+            
+            $soal = Soal::where('id',$request->id)->where('tingkat',$tingkat);
+            if($soal->exists()){
+                if ($request->file("imageFile")) {
+                    $image = $request->file("imageFile");
+                    $extension = $image->getClientOriginalExtension();
+                    $newName = "soal_" . $tingkat . rand(99,999) . rand(99,999). now()->format('Y_m_d_H.i.s') . '.' . $extension;
+                    $image->storeAs('soal', $newName, 'public');   
+                    $soal->update([
+                        'pertanyaan'=>$pertanyaan,
+                        'pilihan' => json_encode($pilihan),
+                        'jawaban'=>$jawaban,
+                        'poin'=>2,
+                        'images'=>'/storage/soal/'.$newName,
+                        'tingkat' => $tingkat,
+                    ]);  
+                    return redirect('/admin-logatama/daftar-soal/'.$tingkat);
+                }else{ 
+                    $soal->update([
+                        'pertanyaan'=>$pertanyaan,
+                        'pilihan' => json_encode($pilihan),
+                        'jawaban'=>$jawaban,
+                        'poin'=>2,
+                        'images'=>'',
+                        'tingkat' => $tingkat,
+                    ]);
+                    return redirect('/admin-logatama/daftar-soal/'.$tingkat);
+                }
+                return redirect('admin-logatama/daftar-soal/'.$tingkat);
+            }
+
+            return redirect()->back();
+        }
+
+       
+        if (in_array($tingkat,['penegak','penggalang'])){
+            
+            return redirect('admin-logatama/daftar-soal/'.$tingkat);
+            
         }
         return redirect()->back();
         
