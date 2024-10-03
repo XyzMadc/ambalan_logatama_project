@@ -9,13 +9,25 @@ import {
     AlertDialogOverlay,
     Button,
     useDisclosure,
+    useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
 
 export default function PertanyaanSoal({ data, questionOptions }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = useRef();
+    const { url } = usePage();
+    const toast = useToast();
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        router.delete(url + "/delete/" + data.id, {
+            onSuccess: () => handleSuccess("Berhasil menghapus soal"),
+            onError: () => handleError("Gagal menghapus soal"),
+        });
+    };
     return (
         <>
             <div className="p-5 bg-white rounded text-secondary font-semibold space-y-3 text-xs">
@@ -47,6 +59,15 @@ export default function PertanyaanSoal({ data, questionOptions }) {
                     </div>
                 </div>
                 <p className="mb-2">{data.pertanyaan}</p>
+                {data.images && (
+                    <figure className="rounded-lg w-80 overflow-hidden">
+                        <img
+                            src={data.images}
+                            className="h-full object-contain rounded-lg mx-auto"
+                            alt=""
+                        />
+                    </figure>
+                )}
                 <p className="text-slate-400">Pilihan Jawaban</p>
                 <div className="grid grid-flow-col grid-rows-3 gap-4">
                     {questionOptions.map((pilihan, index) => (
@@ -77,7 +98,11 @@ export default function PertanyaanSoal({ data, questionOptions }) {
                             <Button ref={cancelRef} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme="red" onClick={onClose} ml={3}>
+                            <Button
+                                colorScheme="red"
+                                onClick={handleDelete}
+                                ml={3}
+                            >
                                 Delete
                             </Button>
                         </AlertDialogFooter>

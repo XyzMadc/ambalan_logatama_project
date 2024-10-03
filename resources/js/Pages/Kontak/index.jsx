@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import NavbarAmbalan from "@/Components/Partial/NavbarAmbalan";
 import { City, Envelope, InstagramLogo } from "@phosphor-icons/react";
 import { Head, useForm } from "@inertiajs/react";
-import { Spinner, useToast } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
 
 export default function KontakPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +12,6 @@ export default function KontakPage() {
         email: "",
         message: "",
     });
-    const toast = useToast();
 
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
@@ -21,23 +21,8 @@ export default function KontakPage() {
         e.preventDefault();
         setIsLoading(true);
         post("/kontak/mail", {
-            onSuccess: () => {
-                setIsLoading(false);
-                toast({
-                    title: "Pesan Terkirim",
-                    description: "Terima kasih telah menghubungi kami!",
-                    status: "success",
-                });
-                reset();
-            },
-            onError: () => {
-                setIsLoading(false);
-                toast({
-                    title: "Pesan Gagal Terkirim",
-                    description: "Terjadi kesalahan, silahkan coba lagi.",
-                    status: "error",
-                });
-            },
+            onSuccess: () => handleSuccess("Pesan Terkirim", reset),
+            onError: () => handleError("Pesan Gagal Terkirim"),
         });
     };
 

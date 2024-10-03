@@ -1,16 +1,14 @@
 import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
 import { useForm } from "@inertiajs/react";
-import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Camera } from "@phosphor-icons/react/dist/ssr";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
 
 export default function DokumentasiAdmin() {
     const { data, setData, post, errors, reset } = useForm({
         name_file: "",
         file: null,
     });
-
-    const toast = useToast();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -26,21 +24,8 @@ export default function DokumentasiAdmin() {
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/admin-logatama/dokumentasi", {
-            onSuccess: () => {
-                toast({
-                    title: "Berhasil mengupload file",
-                    description: "Anda berhasil mengupload file.",
-                    status: "success",
-                });
-                reset();
-            },
-            onError: () => {
-                toast({
-                    title: "Gagal mengupload file",
-                    description: "Ada masalah dalam upload file.",
-                    status: "error",
-                });
-            },
+            onSuccess: () => handleSuccess("Berhasil mengupload soal", reset),
+            onError: () => handleError("Gagal mengupload soal"),
         });
     };
 

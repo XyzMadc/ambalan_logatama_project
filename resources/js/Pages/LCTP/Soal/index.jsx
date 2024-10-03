@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
 import { useToast } from "@chakra-ui/react";
+import { handleError, handleWarning } from "@/Utils/toastHandle";
 
 export default function SoalPage() {
     const { props } = usePage();
@@ -54,12 +55,9 @@ export default function SoalPage() {
                     const newCount = leaveTab + 1;
 
                     if (newCount === 3) {
-                        toast({
-                            title: "Peringatan!",
-                            description:
-                                "Anda akan diarahkan ke halaman utama jika keluar dari tab ini lagi.",
-                            status: "error",
-                        });
+                        handleError(
+                            "Anda akan diarahkan ke halaman utama, jika keluar dari tab ini lagi."
+                        );
                     } else if (newCount > 3) {
                         router.post(
                             `/lctp/soal/${team_id}/submit`,
@@ -69,21 +67,14 @@ export default function SoalPage() {
                                 preserveScroll: true,
                                 onError: (errors) => {
                                     setAnswers(answers);
-                                    toast({
-                                        title: `Terjadi Kesalahan`,
-                                        description: errors.kosong,
-                                        status: "error",
-                                    });
+                                    handleError(errors.kosong);
                                 },
                             }
                         );
                     } else {
-                        toast({
-                            title: "Jangan tinggalkan halaman ini!",
-                            description:
-                                "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
-                            status: "warning",
-                        });
+                        handleWarning(
+                            "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal."
+                        );
                     }
                     return newCount;
                 });
@@ -119,15 +110,13 @@ export default function SoalPage() {
             {
                 preserveState: true,
                 preserveScroll: true,
-                onError: (errors) => {
+                onError: () => {
                     setAnswers(prevAnswer);
-                    toast({
-                        title: `Terjadi kesalahan pada nomor ${
+                    handleError(
+                        `Terjadi kesalahan pada nomor ${
                             index + 1
-                        }, ulangi jawaban anda!`,
-                        description: errors.gagal,
-                        status: "error",
-                    });
+                        }, ulangi jawaban anda!`
+                    );
                 },
             }
         );
@@ -142,11 +131,7 @@ export default function SoalPage() {
                 preserveScroll: true,
                 onError: (errors) => {
                     setAnswers(answers);
-                    toast({
-                        title: `Gagal Melakukan Submit`,
-                        description: errors.kosong,
-                        status: "error",
-                    });
+                    handleError("Gagal Melakukan Submit");
                 },
             }
         );

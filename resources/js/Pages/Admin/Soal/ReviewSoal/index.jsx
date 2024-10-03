@@ -1,6 +1,5 @@
 import ContentSoal from "@/Components/Fragments/ContentSoal";
 import HeaderSoal from "@/Components/Fragments/HeaderSoal";
-import { CaretLeft, Check, List, Plus, Trash, X } from "@phosphor-icons/react";
 
 export default function ReviewSoal({ tingkat, data_review_soal }) {
     return (

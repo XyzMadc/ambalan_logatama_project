@@ -1,5 +1,6 @@
 import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
-import { Spinner, useToast } from "@chakra-ui/react";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { Spinner } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -9,29 +10,13 @@ export default function faqAdmin() {
         pertanyaan: "",
         jawaban: "",
     });
-    const toast = useToast();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         post("/admin-logatama/faq", {
-            onSuccess: () => {
-                setIsLoading(false);
-                toast({
-                    title: "FAQ ditambahkan",
-                    description: "FAQ berhasil ditambahkan!",
-                    status: "success",
-                });
-                reset();
-            },
-            onError: () => {
-                setIsLoading(false);
-                toast({
-                    title: "FAQ Gagal Ditambahkan",
-                    description: "Terjadi kesalahan, silahkan coba lagi.",
-                    status: "error",
-                });
-            },
+            onSuccess: () => handleSuccess("Berhasil membuat FAQ", reset),
+            onError: () => handleError("Gagal membuat FAQ"),
         });
     };
 
@@ -52,7 +37,9 @@ export default function faqAdmin() {
                         className="w-full py-2 font-semibold text-base placeholder:text-sm placeholder:text-slate-400 border rounded-md border-slate-300 focus:outline-none"
                     />
                     {errors.pertanyaan && (
-                        <p className="text-red-600 text-sm">{errors.pertanyaan}</p>
+                        <p className="text-red-600 text-sm">
+                            {errors.pertanyaan}
+                        </p>
                     )}
                 </div>
                 <div>
@@ -66,9 +53,7 @@ export default function faqAdmin() {
                         className="w-full py-2 font-semibold text-base placeholder:text-sm placeholder:text-slate-400 border rounded-md border-slate-300 focus:outline-none"
                     />
                     {errors.jawaban && (
-                        <p className="text-red-600 text-sm">
-                            {errors.jawaban}
-                        </p>
+                        <p className="text-red-600 text-sm">{errors.jawaban}</p>
                     )}
                 </div>
                 <button

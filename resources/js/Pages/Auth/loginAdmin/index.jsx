@@ -1,4 +1,5 @@
-import { Spinner, useToast } from "@chakra-ui/react";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { Spinner } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/react";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -10,7 +11,6 @@ export default function loginAdmin() {
         username: "",
         password: "",
     });
-    const toast = useToast();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -20,23 +20,8 @@ export default function loginAdmin() {
         e.preventDefault();
         setIsLoading(true);
         post("/login", {
-            onSuccess: () => {
-                setIsLoading(false);
-                toast({
-                    title: "Login Sukses",
-                    description: "Selamat Datang Admin!",
-                    status: "success",
-                });
-                reset();
-            },
-            onError: () => {
-                setIsLoading(false);
-                toast({
-                    title: "Login Gagal",
-                    description: "Terjadi kesalahan, silahkan coba lagi.",
-                    status: "error",
-                });
-            },
+            onSuccess: () => handleSuccess("Selamat Datang Admin!", reset),
+            onError: () => handleError("Login Gagal"),
         });
     };
 

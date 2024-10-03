@@ -1,44 +1,44 @@
 import Logatama from "../../../../../assets/logatama.png";
 import Galaxy from "../../../../../assets/apen/bg 1.png";
 import { useRef } from "react";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { Spinner } from "@chakra-ui/react";
 import { UploadSimple } from "@phosphor-icons/react";
+import { handleError, handleSuccess } from "@/Utils/toastHandle";
 
 export default function CreateSoal({ soal }) {
-    // console.log(soal);
-    const pilihan = soal?JSON.parse(soal.pilihan):'';
-    const jawaban = soal?soal.jawaban:'';
-    // console.log(jawaban);
-    // console.log(pilihan[2]==jawaban);
-    const { data, setData, post, processing, errors } = useForm({
-        question: soal?soal.pertanyaan:'',
+    const { url } = usePage();
+    const method = url.split("/")[4];
+    const pilihan = soal ? JSON.parse(soal.pilihan) : "";
+    const jawaban = soal ? soal.jawaban : "";
+    const { data, setData, post, patch, processing, errors } = useForm({
+        question: soal ? soal.pertanyaan : "",
         imageFile: null,
-        oldImage: soal?soal.images:null ,
+        oldImage: soal ? soal.images : null,
         options: [
             {
                 value: pilihan[0],
                 isEditing: false,
-                isSelected:  pilihan[0]==jawaban,
-                isAnswered:  pilihan[0]==jawaban,
+                isSelected: pilihan[0] == jawaban,
+                isAnswered: pilihan[0] == jawaban,
             },
             {
                 value: pilihan[1],
                 isEditing: false,
-                isSelected: pilihan[1]==jawaban,
-                isAnswered: pilihan[1]==jawaban,
+                isSelected: pilihan[1] == jawaban,
+                isAnswered: pilihan[1] == jawaban,
             },
             {
                 value: pilihan[2],
                 isEditing: false,
-                isSelected: pilihan[2]==jawaban,
-                isAnswered: pilihan[2]==jawaban,
+                isSelected: pilihan[2] == jawaban,
+                isAnswered: pilihan[2] == jawaban,
             },
             {
                 value: pilihan[3],
                 isEditing: false,
-                isSelected: pilihan[3]==jawaban,
-                isAnswered: pilihan[3]==jawaban,
+                isSelected: pilihan[3] == jawaban,
+                isAnswered: pilihan[3] == jawaban,
             },
         ],
     });
@@ -79,24 +79,17 @@ export default function CreateSoal({ soal }) {
 
     const handleSave = (e) => {
         e.preventDefault();
-        const action = soal.id ? soal.id+"/update" : "create"; 
-        post(action, {
-            onSuccess: () => {
-                toast({
-                    title: "Berhasil membuat soal",
-                    description: "Anda berhasil membuat soal.",
-                    status: "success",
-                });
-                reset();
-            },
-            onError: () => {
-                toast({
-                    title: "Gagal membuat soal",
-                    description: "Ada masalah dalam membuat soal.",
-                    status: "error",
-                });
-            },
-        });
+        if (method === "edit") {
+            patch(url + "/update", {
+                onSuccess: () => handleSuccess("Berhasil mengubah soal"),
+                onError: () => handleError("Gagal mengubah soal"),
+            });
+        } else {
+            post(url, {
+                onSuccess: () => handleSuccess("Berhasil membuat soal"),
+                onError: () => handleError("Gagal membuat soal"),
+            });
+        }
     };
     return (
         <section className="min-h-screen bg-neutral-300">
@@ -166,8 +159,13 @@ export default function CreateSoal({ soal }) {
                         {(data.imageFile || data.oldImage) && (
                             <figure className="p-2 border-2 border-secondary rounded-lg w-[28rem] overflow-hidden">
                                 <img
-                                    // src={URL.createObjectURL(data.imageFile)}
-                                    src={data.imageFile ? URL.createObjectURL(data.imageFile) : soal.images}
+                                    src={
+                                        data.imageFile
+                                            ? URL.createObjectURL(
+                                                  data.imageFile
+                                              )
+                                            : data.oldImage
+                                    }
                                     className="h-full object-contain rounded-lg mx-auto"
                                     alt=""
                                 />
