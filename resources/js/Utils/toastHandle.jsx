@@ -1,8 +1,10 @@
-const { usePage } = require("@inertiajs/react");
+// const { useToast } = require("@inertiajs/react");
+import { useToast } from '@chakra-ui/react'
 
-const toast = usePage();
+
 
 export const handleSuccess = (message, reset) => {
+    const toast = useToast();
     toast({
         title: message,
         status: "success",
@@ -13,6 +15,7 @@ export const handleSuccess = (message, reset) => {
 };
 
 export const handleWarning = (message) => {
+    const toast = useToast();
     toast({
         title: message,
         status: "warning",
@@ -22,6 +25,7 @@ export const handleWarning = (message) => {
 };
 
 export const handleError = (message) => {
+    const toast = useToast();
     toast({
         title: message,
         status: "error",
