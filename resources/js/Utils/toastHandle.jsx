@@ -1,6 +1,7 @@
-const { usePage } = require("@inertiajs/react");
+import { useToast } from "@chakra-ui/react";
 
-const toast = usePage();
+
+const toast = useToast();
 
 export const handleSuccess = (message, reset) => {
     toast({
