@@ -15,6 +15,7 @@ export default function CreateSoal({ soal }) {
         question: soal ? soal.pertanyaan : "",
         imageFile: null,
         oldImage: soal ? soal.images : null,
+        poin: soal ? soal.poin : '',
         options: [
             {
                 value: pilihan[0],
@@ -39,6 +40,12 @@ export default function CreateSoal({ soal }) {
                 isEditing: false,
                 isSelected: pilihan[3] == jawaban,
                 isAnswered: pilihan[3] == jawaban,
+            },
+            {
+                value: pilihan[4],
+                isEditing: false,
+                isSelected: pilihan[4] == jawaban,
+                isAnswered: pilihan[4] == jawaban,
             },
         ],
     });
@@ -80,9 +87,10 @@ export default function CreateSoal({ soal }) {
     };
 
     const handleSave = (e) => {
+        // console.log(data)
         e.preventDefault();
         if (method === "edit") {
-            patch(url + "/update", {
+            post(url + "/update", {
                 onSuccess: () => handleSuccess("Berhasil mengubah soal"),
                 onError: () => handleError("Gagal mengubah soal"),
             });
@@ -179,6 +187,25 @@ export default function CreateSoal({ soal }) {
                             </figure>
                         )}
                     </div>
+                    
+                    <div className="relative space-y-3">
+                        <textarea
+                            className="w-[13vw] h-2 p-4 border-2 border-secondary rounded-lg focus:outline-none focus:border-secondary resize-none text-secondary font-semibold"
+                            value={data.poin}
+                            onChange={(e) =>
+                                setData("poin", e.target.value)
+                            }
+                        />
+                        {errors.poin && (
+                            <p className="text-red-600 text-sm">
+                                {errors.poin}
+                            </p>
+                        )}
+                        <div className="absolute -inset-2  pl-5 flex justify-start items-start pointer-events-none text-slate-400 font-semibold transition-opacity duration-200">
+                            {!data.poin && "Masukkan poin soal ini"}
+                        </div>
+                    </div>
+                    
                     <div className="space-y-3">
                         {data.options.map((option, index) => (
                             <div
