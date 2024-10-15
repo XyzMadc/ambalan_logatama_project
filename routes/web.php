@@ -10,7 +10,7 @@ use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
 use App\Http\Controllers\AdminLctpController;
 
-// URL::forceScheme('https');
+//URL::forceScheme('https');
 Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
