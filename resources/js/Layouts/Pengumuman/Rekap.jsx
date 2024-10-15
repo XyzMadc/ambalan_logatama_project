@@ -194,7 +194,7 @@ export default function Rekapitulasi() {
                     </button>
                 </div>
             </div>
-            <button className="bg-white rounded-2xl py-2 xl:py-3 px-8 text-secondary font-bold text-xs xl:text-sm mt-10">
+            <button className="bg-white rounded-2xl py-2 xl:py-3 px-8 text-secondary font-bold text-xs xl:text-sm mt-10 hover:scale-110 transition-all duration-200">
                 Lihat Rekapitulasi Nilai
             </button>
         </section>

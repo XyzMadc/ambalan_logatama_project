@@ -3,7 +3,7 @@ import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png"
 
 export default function Merchandise() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsToShow = window.innerWidth >= 1280 ? 4 : 2;
+    const itemsToShow = window.innerWidth >= 1280 ? 4 : 1;
     const images = [
         lombaGalangMobile,
         lombaGalangMobile,
@@ -33,7 +33,7 @@ export default function Merchandise() {
     };
 
     return (
-        <section className="h-[50vh] xl:h-auto bg-secondary text-center text-white space-y-10">
+        <section className="bg-secondary text-center text-white space-y-10 py-5 md:py-10">
             <h1 className="font-bold text-2xl">MERCHANDISE</h1>
             <div className="flex justify-center gap-3">
                 <button
@@ -53,14 +53,14 @@ export default function Merchandise() {
                             key={index}
                             className="merchandise bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary px-2 py-1"
                         >
-                            <div className="size-32 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
+                            <div className="size-56 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
                                 <img
                                     className="size-full object-cover hover:scale-125 transition-transform duration-200 ease-in cursor-zoom-in"
                                     src={images[currentIndex + index]}
                                     alt=""
                                 />
                             </div>
-                            <p className="xl:text-2xl xl:font-semibold">
+                            <p className="xl:text-base xl:font-semibold">
                                 {text[currentIndex + index]}
                             </p>
                         </div>
@@ -78,7 +78,7 @@ export default function Merchandise() {
                     &gt;
                 </button>
             </div>
-            <button className="py-2 px-4 bg-white text-sm font-semibold rounded-full text-secondary">
+            <button className="py-2 px-4 bg-white text-sm font-semibold rounded-full text-secondary hover:scale-110 duration-200 ease-out">
                 Pesan Merchandise
             </button>
         </section>

@@ -11,7 +11,10 @@ export default function Pertanyaan() {
             </h1>
             <div className="space-y-4 xl:space-y-2 text-left xl:flex flex-col items-center xl:px-20">
                 {faqs.map((faq) => (
-                    <AccordionPertanyaan question={faq.pertanyaan} answer={faq.jawaban}/>
+                    <AccordionPertanyaan
+                        question={faq.pertanyaan}
+                        answer={faq.jawaban}
+                    />
                 ))}
             </div>
         </section>

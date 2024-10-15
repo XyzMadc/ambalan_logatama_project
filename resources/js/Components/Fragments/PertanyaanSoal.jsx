@@ -9,17 +9,17 @@ import {
     AlertDialogOverlay,
     Button,
     useDisclosure,
-    useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { Link, router, usePage } from "@inertiajs/react";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 
 export default function PertanyaanSoal({ data, questionOptions }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = useRef();
     const { url } = usePage();
-    const toast = useToast();
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const handleDelete = (e) => {
         e.preventDefault();

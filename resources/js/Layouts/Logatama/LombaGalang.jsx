@@ -11,7 +11,7 @@ export default function LombaGalang() {
                 <path d="M0,21 Q50,0 120,25 L0,30 L0,0 Z" fill="#775DD1" />
             </svg>
 
-            <div className="absolute md:hidden top-[12rem] bg-secondary text-white w-[90%] rounded-r-3xl px-10 py-5 text-left space-y-3">
+            <div className="absolute md:hidden top-[12rem] bg-secondary text-white w-[90%] rounded-r-3xl p-10 text-left space-y-3">
                 <h1 className="font-bold text-base">
                     Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
                 </h1>

@@ -2,13 +2,15 @@ import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
 import { useForm } from "@inertiajs/react";
 import { useEffect } from "react";
 import { Camera } from "@phosphor-icons/react/dist/ssr";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 
 export default function DokumentasiAdmin() {
-    const { data, setData, post, errors, reset } = useForm({
+    const { data, setData, post, reset } = useForm({
         name_file: "",
         file: null,
     });
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];

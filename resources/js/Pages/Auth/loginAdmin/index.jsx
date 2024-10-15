@@ -1,4 +1,4 @@
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 import { Spinner } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/react";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
@@ -6,11 +6,12 @@ import { useState } from "react";
 
 export default function loginAdmin() {
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const { data, setData, errors, post, reset } = useForm({
+    const { data, setData, errors, post, reset, processing } = useForm({
         username: "",
         password: "",
     });
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -18,7 +19,6 @@ export default function loginAdmin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
         post("/login", {
             onSuccess: () => handleSuccess("Selamat Datang Admin!", reset),
             onError: () => handleError("Login Gagal"),
@@ -111,7 +111,7 @@ export default function loginAdmin() {
                                 className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
                                 disabled={!!errors.attempt}
                             >
-                                {isLoading ? (
+                                {processing ? (
                                     <Spinner />
                                 ) : (
                                     <p className="text-sm">Masuk</p>

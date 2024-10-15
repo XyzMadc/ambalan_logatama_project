@@ -3,10 +3,10 @@ import backgroundMobile from "../../../assets/panduan/bg-panduan-mobile.png";
 import backgroundDesktop from "../../../assets/panduan/bg-panduan-dekstop.png";
 
 const InfoCard = ({ title, description, buttonText }) => (
-    <div className="space-y-4 p-3 rounded-xl border-primary border-2 bg-[#633FCA] transition-transform duration-500 w-1/2 xl:h-80">
-        <h1 className="font-bold text-base xl:text-2xl">{title}</h1>
-        <p className="text-xs xl:text-base">{description}</p>
-        <button className="border-2 border-primary py-1 px-2 xl:py-2 xl:px-4 rounded-xl shadow-lg text-xs xl:text-base">
+    <div className="space-y-4 p-3 rounded-xl border-primary border-2 bg-[#633FCA] transition-transform duration-500 w-full">
+        <h1 className="font-bold text-lg xl:text-2xl">{title}</h1>
+        <p className="text-sm xl:text-base">{description}</p>
+        <button className="border-2 border-primary py-1 px-5 xl:py-2 xl:px-4 rounded-xl shadow-lg text-sm xl:text-base hover:bg-white hover:text-primary hover:font-semibold transition-all duration-200 ease-in">
             {buttonText}
         </button>
     </div>
@@ -47,7 +47,7 @@ export default function PanduanLayout() {
                         PENEGAK
                     </button>
                 </div>
-                <div className="flex justify-center gap-4 mt-4 transition-transform duration-500 xl:px-40">
+                <div className="grid gap-4 place-items-center mt-4 transition-transform duration-500 xl:px-40">
                     {activeTab === "PENGGALANG" ? (
                         <>
                             <InfoCard

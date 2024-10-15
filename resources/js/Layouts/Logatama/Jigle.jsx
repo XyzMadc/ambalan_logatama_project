@@ -13,7 +13,7 @@ export default function Jigle() {
         setIsPlaying(!isPlaying);
     };
     return (
-        <section className="h-[45vh] bg-secondary p-10">
+        <section className="bg-secondary p-10 md:px-80">
             <div className="bg-gradient-to-t from-secondary from-10% to-[#633FCA] p-5 rounded-xl border border-primary text-white text-center space-y-3">
                 <h2 className="font-semibold tracking-wide">
                     JIGLE OF LOGATAMA

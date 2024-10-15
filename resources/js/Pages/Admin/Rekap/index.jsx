@@ -1,5 +1,5 @@
 import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 import {
     FormControl,
     FormErrorMessage,
@@ -8,21 +8,20 @@ import {
     Spinner,
 } from "@chakra-ui/react";
 import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
 
 export default function rekapAdmin() {
-    const [isLoading, setIsLoading] = useState(false);
-    const { data, setData, post, errors, reset } = useForm({
+    const { data, setData, post, errors, reset, processing } = useForm({
         peringkat: "",
         nama_pangkalan: "",
         skor_nilai: 0,
     });
     const { props } = usePage();
     const { jumlahPeserta, bidang } = props;
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
         post("/admin-logatama/rekap-juara", {
             onSuccess: () => handleSuccess("Rekap ditambahkan", reset),
             onError: () => handleError("Gagal membuat rekap"),
@@ -105,7 +104,11 @@ export default function rekapAdmin() {
                     type="submit"
                     className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg px-10 py-2 text-center"
                 >
-                    {isLoading ? <Spinner /> : <p className="text-sm">Kirim</p>}
+                    {processing ? (
+                        <Spinner />
+                    ) : (
+                        <p className="text-sm">Kirim</p>
+                    )}
                 </button>
             </form>
         </LayoutAdminLogatama>

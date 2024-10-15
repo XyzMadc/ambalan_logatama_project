@@ -17,6 +17,15 @@ export default function PengumumanLayout() {
         return `${day}/${month}/${year}`;
     };
 
+    const handleClick = () => {
+        if (announcements.length > 0) {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: "smooth",
+            });
+        }
+    };
+
     return (
         <section
             className={`${
@@ -51,8 +60,12 @@ export default function PengumumanLayout() {
                     </h1>
                     <div className="flex justify-center">
                         <button
-                            // onClick={handleClick}
-                            className="text-secondary bg-white p-1 rounded-full mt-10 hover:text-primary transition-all duration-300 ease-in-out cursor-pointer"
+                            onClick={handleClick}
+                            className={`text-secondary bg-white p-1 rounded-full mt-10 transition-all duration-300 ease-in-out ${
+                                announcements.length > 0
+                                    ? "cursor-pointer hover:text-primary"
+                                    : "cursor-not-allowed"
+                            }`}
                         >
                             <CaretDown size={35} />
                         </button>
