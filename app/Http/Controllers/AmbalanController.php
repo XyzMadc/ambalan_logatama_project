@@ -7,7 +7,6 @@ use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
-use Illuminate\Support\Facades\Validator;
 
 class AmbalanController
 {

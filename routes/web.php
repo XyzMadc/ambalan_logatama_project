@@ -1,14 +1,11 @@
 <?php
 
 // use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AmbalanController;
 use App\Http\Controllers\LogatamaController;
 use App\Http\Controllers\LctpController;
 use App\Http\Controllers\AdminLogatamaController;
-use App\Http\Controllers\AdminLctpController;
 
 //URL::forceScheme('https');
 Route::controller(AmbalanController::class)
@@ -17,7 +14,7 @@ Route::controller(AmbalanController::class)
         Route::get('/', 'index')->name('beranda');
         Route::get('/tentang', 'tentang');
         Route::get('/kegiatan', 'kegiatan');
-        Route::get('/kontak', 'kontak')->name('kontak');
+        Route::get('/kontak', 'kontak');
         Route::post('/kontak/mail', 'email')->name('contactMail');
     });
 

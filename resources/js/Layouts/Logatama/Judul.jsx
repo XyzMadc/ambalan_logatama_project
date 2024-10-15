@@ -9,10 +9,10 @@ export default function Judul() {
             <img
                 className="w-screen md:block hidden max-h-full"
                 src={galaxy}
-                alt=""
+                alt="backgroundGalaxy"
             />
             <main className="absolute inset-0">
-                <div className="flex flex-col h-full justify-end px-5">
+                <div className="flex flex-col h-full justify-end px-5 md:px-20">
                     <figure className="flex md:justify-end justify-center">
                         <div className="hidden md:block text-white pt-[20vh] space-y-5">
                             <h1 className="font-bold text-3xl">
@@ -20,11 +20,12 @@ export default function Judul() {
                             </h1>
                             <p className="text-xl tracking-wide">
                                 Salam Pramuka! <br />
-                                Halo kakak-kakak dan adik-adik semua, terima kasih
-                                telah mengunjungi website resmi logatama ini.
-                                Logatama XVIII akan segera diadakan jadi bagi yang
-                                berminat serta belum daftar silahkan lihat info
-                                pendaftaran dan segera mendaftar. Ayo Buruan..!
+                                Halo kakak-kakak dan adik-adik semua, terima
+                                kasih telah mengunjungi website resmi logatama
+                                ini. Logatama XVIII akan segera diadakan jadi
+                                bagi yang berminat serta belum daftar silahkan
+                                lihat info pendaftaran dan segera mendaftar. Ayo
+                                Buruan..!
                             </p>
                         </div>
                         <img

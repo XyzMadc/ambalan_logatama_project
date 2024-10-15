@@ -1,35 +1,38 @@
-// const { useToast } = require("@inertiajs/react");
-import { useToast } from '@chakra-ui/react'
+import { useToast } from "@chakra-ui/react";
 
-
-
-export const handleSuccess = (message, reset) => {
+export const useSuccessToast = () => {
     const toast = useToast();
-    toast({
-        title: message,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-    });
-    reset();
+    return (message, reset) => {
+        toast({
+            title: message,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+        });
+        reset();
+    };
 };
 
-export const handleWarning = (message) => {
+export const useWarningToast = () => {
     const toast = useToast();
-    toast({
-        title: message,
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-    });
+    return (message) => {
+        toast({
+            title: message,
+            status: "warning",
+            duration: 3000,
+            isClosable: true,
+        });
+    };
 };
 
-export const handleError = (message) => {
+export const useErrorToast = () => {
     const toast = useToast();
-    toast({
-        title: message,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-    });
+    return (message) => {
+        toast({
+            title: message,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+        });
+    };
 };

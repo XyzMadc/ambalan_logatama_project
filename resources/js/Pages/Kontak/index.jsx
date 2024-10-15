@@ -1,17 +1,17 @@
-import React, { useState } from "react";
 import NavbarAmbalan from "@/Components/Partial/NavbarAmbalan";
 import { City, Envelope, InstagramLogo } from "@phosphor-icons/react";
 import { Head, useForm } from "@inertiajs/react";
 import { Spinner } from "@chakra-ui/react";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 
 export default function KontakPage() {
-    const [isLoading, setIsLoading] = useState(false);
-    const { data, setData, errors, post, reset } = useForm({
+    const { data, setData, errors, post, reset, processing } = useForm({
         name: "",
         email: "",
         message: "",
     });
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
@@ -19,7 +19,6 @@ export default function KontakPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
         post("/kontak/mail", {
             onSuccess: () => handleSuccess("Pesan Terkirim", reset),
             onError: () => handleError("Pesan Gagal Terkirim"),
@@ -30,7 +29,7 @@ export default function KontakPage() {
         <>
             <Head title="Kontak" />
             <NavbarAmbalan />
-            <section className="min-h-[110vh] md:min-h-screen px-5 xl:px-[120px] py-28 xl:py-0 xl:pt-[100px] bg-secondary">
+            <section className="min-h-[125vh] md:min-h-screen px-5 xl:px-[120px] py-28 xl:py-0 xl:pt-[100px] bg-secondary">
                 <div className="relative xl:flex xl:bg-white">
                     <div className="bg-white p-8 pb-20 space-y-3 xl:w-1/2">
                         <h1 className="text-secondary font-bold text-lg md:text-xl xl:text-3xl">
@@ -114,7 +113,7 @@ export default function KontakPage() {
                                 type="submit"
                                 className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg w-full px-5 py-2.5 text-center"
                             >
-                                {isLoading ? (
+                                {processing ? (
                                     <Spinner />
                                 ) : (
                                     <p className="text-sm">Kirim</p>

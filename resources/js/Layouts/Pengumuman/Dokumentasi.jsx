@@ -13,7 +13,7 @@ export default function Dokumentasi() {
                             key={index}
                             direction={index % 2 === 0 ? "right" : "left"}
                             speed={25}
-                            className={`text-4xl xl:text-6xl tracking-wider font-bold ${
+                            className={`text-4xl opacity-30 xl:text-6xl tracking-wider font-bold ${
                                 index % 2 === 0
                                     ? "text-slate-500"
                                     : "text-slate-400"
@@ -44,7 +44,7 @@ export default function Dokumentasi() {
                     ))}
                 </div>
             </div>
-            <button className="bg-white rounded-2xl py-2 px-8 xl:py-3 xl:px-8 text-secondary font-bold text-xs xl:text-sm">
+            <button className="bg-white rounded-2xl py-2 px-8 xl:py-3 xl:px-8 text-secondary font-bold text-xs xl:text-sm hover:scale-110 transition-all duration-200 ease-out">
                 Lihat Dokumentasi
             </button>
         </section>

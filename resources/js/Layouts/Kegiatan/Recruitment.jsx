@@ -49,7 +49,7 @@ export default function Recruitment() {
                     </TextSection>
                 </motion.div>
             </div>
-            <div className="border-2 border-white w-[90vw] xl:w-[95vw] absolute left-4 xl:left-6" />
+            <div className="border-2 border-white w-[90vw] xl:w-[95vw] absolute left-4 xl:left-6 mt-3" />
         </section>
     );
 }

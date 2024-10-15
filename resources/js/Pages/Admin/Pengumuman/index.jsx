@@ -1,18 +1,19 @@
 import LayoutAdminLogatama from "@/Layouts/Admin/Logatama";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 import { Spinner } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/react";
-import { useState } from "react";
 
 export default function pengumumanAdmin() {
-    const [isLoading, setIsLoading] = useState(false);
-    const { data, setData, post, errors, reset } = useForm({
+    const { data, setData, post, errors, reset, processing } = useForm({
         judul: "",
         deskripsi: "",
     });
+
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
         post("/admin-logatama/pengumuman", {
             onSuccess: () => handleSuccess("Pengumuman ditambahkan", reset),
             onError: () => handleError("Pengumuman gagal ditambahkan"),
@@ -59,7 +60,7 @@ export default function pengumumanAdmin() {
                     type="submit"
                     className="text-white bg-secondary hover:bg-primary transition-all duration-200 ease-in focus:ring-2 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg px-10 py-2 text-center"
                 >
-                    {isLoading ? (
+                    {processing ? (
                         <Spinner size="md" />
                     ) : (
                         <p className="text-sm">Kirim</p>

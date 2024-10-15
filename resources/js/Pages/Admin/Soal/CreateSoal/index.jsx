@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import { Spinner } from "@chakra-ui/react";
 import { UploadSimple } from "@phosphor-icons/react";
-import { handleError, handleSuccess } from "@/Utils/toastHandle";
+import { useErrorToast, useSuccessToast } from "@/Utils/toastHandle";
 
 export default function CreateSoal({ soal }) {
     const { url } = usePage();
@@ -42,6 +42,8 @@ export default function CreateSoal({ soal }) {
             },
         ],
     });
+    const handleSuccess = useSuccessToast();
+    const handleError = useErrorToast();
 
     const fileInputRef = useRef(null);
 
