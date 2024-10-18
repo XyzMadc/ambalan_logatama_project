@@ -1,9 +1,9 @@
-import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png";
+import lombaGalangMobile from "../../../assets/logatama/lomba-galang.png";
 
 export default function LombaGalang() {
     return (
-        <section className="overflow-hidden w-full text-center md:h-[90vh] h-[70vh] relative">
-            <figure className="relative">
+        <section className="overflow-hidden w-full text-center md:h-[150vh] h-[60vh] relative bg-white">
+            <figure className="relative xl:top-10">
                 <img className="w-[150vw]" src={lombaGalangMobile} alt="" />
                 <div className="absolute inset-0 bg-primary bg-opacity-30" />
             </figure>
@@ -11,7 +11,7 @@ export default function LombaGalang() {
                 <path d="M0,21 Q50,0 120,25 L0,30 L0,0 Z" fill="#775DD1" />
             </svg>
 
-            <div className="absolute md:hidden top-[12rem] bg-secondary text-white w-[90%] rounded-r-3xl p-10 text-left space-y-3">
+            <div className="absolute md:hidden top-[10rem] bg-secondary text-white w-4/5 rounded-r-3xl p-6 text-left space-y-3">
                 <h1 className="font-bold text-base">
                     Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
                 </h1>

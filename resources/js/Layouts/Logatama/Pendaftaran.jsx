@@ -3,13 +3,13 @@ import { Book, Megaphone, Note } from "@phosphor-icons/react";
 
 export default function Pendaftaran() {
     return (
-        <section className="relative">
-            <div className="absolute hidden md:block -top-[10rem] bg-secondary text-white w-[70%] rounded-r-3xl p-10 text-left space-y-3">
-                <h1 className="font-bold text-2xl md:text-4xl">
+        <section className="relative bg-white -top-px">
+            <div className="absolute hidden md:block -top-[20rem] bg-secondary text-white w-[70%] rounded-r-3xl p-7 text-left space-y-6">
+                <h1 className="font-bold text-2xl md:text-3xl">
                     Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
                 </h1>
                 <div className="border border-white w-full" />
-                <p className="text-md md:text-xl">
+                <p className="text-md md:text-lg">
                     Lomba galang tegak utama adalah Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -18,7 +18,7 @@ export default function Pendaftaran() {
                 </p>
             </div>
 
-            <div className="flex md:flex-row md:py-[15vw] md:pb-0 justify-center md:gap-20 flex-col items-center gap-10">
+            <div className="flex md:flex-row pb-20 justify-center md:gap-20 flex-col items-center gap-10">
                 <Runtime
                     title="Pendaftaran"
                     text="m ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip e."

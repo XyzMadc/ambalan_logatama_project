@@ -3,7 +3,7 @@ import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png"
 
 export default function Teaser() {
     return (
-        <section className="h-[70vh] md:h-screen bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center space-y-5 md:py-10">
+        <section className="h-[70vh] md:h-screen bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center space-y-5 md:py-10 relative -top-3">
             <h1 className="font-semibold">TEASER LOGATAMA</h1>
             <div className="relative">
                 <div className="flex flex-col justify-center space-y-2 z-0">

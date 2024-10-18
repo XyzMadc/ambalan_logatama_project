@@ -79,7 +79,7 @@ export default function Footer() {
                                     className="flex items-center justify-center text-[#e6683c] rounded-full p-1.5 bg-white text-base xl:text-2xl group-hover:bg-gradient-to-r group-hover:from-[#f09433] group-hover:via-[#e6683c] group-hover:to-[#bc1888] group-hover:text-white transition-all duration-200 ease-in-out"
                                     href="#"
                                 >
-                                    <InstagramLogo size={20} />
+                                    <InstagramLogo size={20} weight="duotone" />
                                 </a>
                             </li>
                             <li className="group">
@@ -87,13 +87,6 @@ export default function Footer() {
                                     className="flex items-center justify-center text-[#FF0000] rounded-full p-1.5 bg-white text-base xl:text-2xl group-hover:bg-gradient-to-r group-hover:from-[#FF0000] group-hover:via-[#E52D27] group-hover:to-[#B31217] group-hover:text-white transition-all duration-200 ease-in-out"
                                     href="#"
                                 >
-                                    {/* <svg
-                                        className="w-6 h-6 fill-current text-[#FF0000] group-hover:text-white group-hover:bg-gradient-to-r group-hover:from-[#FF0000] group-hover:via-[#E52D27] group-hover:to-[#B31217] rounded-full p-1 transition-all duration-300 ease-in-out"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 576 512"
-                                    >
-                                        <path d="M549.655 124.083c-6.281-23.652-24.843-42.214-48.495-48.495C457.208 64 288 64 288 64S118.792 64 74.84 75.588c-23.652 6.281-42.214 24.843-48.495 48.495C16 168.037 16 256 16 256s0 87.963 10.345 131.917c6.281 23.652 24.843 42.214 48.495 48.495C118.792 448 288 448 288 448s169.208 0 213.16-11.588c23.652-6.281 42.214-24.843 48.495-48.495C560 343.963 560 256 560 256s0-87.963-10.345-131.917zM232 334.604V177.396L345.082 256 232 334.604z" />
-                                    </svg> */}
                                     <YoutubeLogo size={20} weight="fill" />
                                 </a>
                             </li>
