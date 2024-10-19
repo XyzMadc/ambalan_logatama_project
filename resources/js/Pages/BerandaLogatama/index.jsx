@@ -13,7 +13,7 @@ export default function LogatamaPage() {
     return (
         <>
             <NavbarLogatama />
-            <main className="bg-[#633FCA]">
+            <main className="bg-secondary">
                 <Judul />
                 <LombaGalang />
                 <Pendaftaran />

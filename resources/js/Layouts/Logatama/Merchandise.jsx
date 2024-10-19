@@ -33,7 +33,7 @@ export default function Merchandise() {
     };
 
     return (
-        <section className="bg-secondary text-center text-white space-y-10 py-5 md:py-10 relative -top-px">
+        <section className="bg-secondary text-center text-white space-y-10 py-5 md:py-10">
             <h1 className="font-bold text-2xl">MERCHANDISE</h1>
             <div className="flex justify-center gap-3">
                 <button

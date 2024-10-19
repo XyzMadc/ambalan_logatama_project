@@ -9,7 +9,7 @@ import purpleWave from "../../../assets/logatama/ombak-ungu.png";
 
 export default function Linimasa() {
     return (
-        <section className="h-[90vh] md:h-[130vh] relative bg-white -top-2">
+        <section className="h-[90vh] md:h-[130vh] relative bg-white">
             <img
                 className="absolute -bottom-1 md:bottom-0"
                 src={purpleWave}

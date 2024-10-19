@@ -3,7 +3,7 @@ import { Book, Megaphone, Note } from "@phosphor-icons/react";
 
 export default function Pendaftaran() {
     return (
-        <section className="relative bg-white -top-px">
+        <section className="relative bg-white">
             <div className="absolute hidden md:block -top-[20rem] bg-secondary text-white w-[70%] rounded-r-3xl p-7 text-left space-y-6">
                 <h1 className="font-bold text-2xl md:text-3xl">
                     Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
