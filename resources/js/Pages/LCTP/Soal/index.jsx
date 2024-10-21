@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 import QuestionList from "@/Components/Fragments/QuestionList";
 import { useToast } from "@chakra-ui/react";
-import { handleError, handleWarning } from "@/Utils/toastHandle";
 
 export default function SoalPage() {
     const { props } = usePage();
@@ -55,9 +54,12 @@ export default function SoalPage() {
                     const newCount = leaveTab + 1;
 
                     if (newCount === 3) {
-                        handleError(
-                            "Anda akan diarahkan ke halaman utama, jika keluar dari tab ini lagi."
-                        );
+                        toast({
+                            title: "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
+                            status: "error",
+                            duration: 3000,
+                            isClosable: true,
+                        });
                     } else if (newCount > 3) {
                         router.post(
                             `/lctp/soal/${team_id}/submit`,
@@ -67,14 +69,23 @@ export default function SoalPage() {
                                 preserveScroll: true,
                                 onError: (errors) => {
                                     setAnswers(answers);
-                                    handleError(errors.kosong);
+                                    toast({
+                                        title: "Gagal mengerjakan soal",
+                                        description: errors,
+                                        status: "error",
+                                        duration: 3000,
+                                        isClosable: true,
+                                    });
                                 },
                             }
                         );
                     } else {
-                        handleWarning(
-                            "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal."
-                        );
+                        toast({
+                            title: "Anda tidak diizinkan untuk berpindah tab selama mengerjakan soal.",
+                            status: "warning",
+                            duration: 3000,
+                            isClosable: true,
+                        });
                     }
                     return newCount;
                 });

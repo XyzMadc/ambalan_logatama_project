@@ -3,7 +3,7 @@ import syaratAdministrasi from "../../Services/syaratAdministrasi.json";
 
 export default function Administrasi() {
     return (
-        <section className="h-[90vh] xl:h-[170vh] bg-gradient-to-b from-tertiary from-10% via-secondary to-[#2B1577]">
+        <section className="bg-gradient-to-b from-tertiary from-10% via-secondary to-[#2B1577] pb-20 relative -top-2">
             <svg viewBox="0 0 100 25" className="rotate-180">
                 <path d="M0,25 Q50,0 100,25 L100,50 L0,50 Z" fill="#fff" />
             </svg>

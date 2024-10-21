@@ -10,20 +10,22 @@ import Pendaftaran from "@/Layouts/Logatama/Pendaftaran";
 import Teaser from "@/Layouts/Logatama/Teaser";
 
 export default function LogatamaPage() {
-  return (
-    <>
-      <NavbarLogatama />
-      <Judul />
-      <LombaGalang />
-      <Pendaftaran />
-      <Linimasa />
-      <Jenjang />
-      <Merchandise />
-      <Jigle />
-      <Teaser />
-      <footer className="bg-[#633FCA]">
-        <Footer />
-      </footer>
-    </>
-  );
+    return (
+        <>
+            <NavbarLogatama />
+            <main className="bg-secondary">
+                <Judul />
+                <LombaGalang />
+                <Pendaftaran />
+                <Linimasa />
+                <Jenjang />
+                <Merchandise />
+                <Jigle />
+                <Teaser />
+            </main>
+            <footer className="bg-[#633FCA]">
+                <Footer />
+            </footer>
+        </>
+    );
 }

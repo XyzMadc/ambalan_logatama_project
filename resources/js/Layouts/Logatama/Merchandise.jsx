@@ -51,7 +51,7 @@ export default function Merchandise() {
                     {Array.from({ length: itemsToShow }).map((_, index) => (
                         <div
                             key={index}
-                            className="merchandise bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary px-2 py-1"
+                            className="merchandise bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary p-4 pb-0"
                         >
                             <div className="size-56 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
                                 <img
@@ -60,9 +60,11 @@ export default function Merchandise() {
                                     alt=""
                                 />
                             </div>
-                            <p className="xl:text-base xl:font-semibold">
-                                {text[currentIndex + index]}
-                            </p>
+                            <div className="py-2">
+                                <p className="xl:text-base xl:font-semibold">
+                                    {text[currentIndex + index]}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>
