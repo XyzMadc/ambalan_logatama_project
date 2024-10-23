@@ -85,6 +85,7 @@ class AdminLogatamaController
     function postSoal(Request $request)
     {
         $tingkat = $request->tingkat;
+        // return $request;
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
             $pertanyaan =  $request->question;
             $pilihan = array_map(function ($item) {
@@ -99,6 +100,7 @@ class AdminLogatamaController
             $validated = $request->validate([
                 'question' => 'required|string|max:300',
                 'file' => 'image|mimes:jpg,png,jpeg|max:300',
+                'poin' => 'required|integer',
             ]);
 
             if (!$validated || !is_array($request->options)) {
@@ -115,7 +117,7 @@ class AdminLogatamaController
                     'pertanyaan' => $pertanyaan,
                     'pilihan' => json_encode($pilihan),
                     'jawaban' => $jawaban,
-                    'poin' => 2,
+                    'poin' => $request->poin,
                     'images' => '/storage/soal/' . $newName,
                     'tingkat' => $tingkat,
                 ]);
@@ -125,7 +127,7 @@ class AdminLogatamaController
                     'pertanyaan' => $pertanyaan,
                     'pilihan' => json_encode($pilihan),
                     'jawaban' => $jawaban,
-                    'poin' => 2,
+                    'poin' => $request->poin,
                     'images' => '',
                     'tingkat' => $tingkat,
                 ]);
@@ -170,8 +172,10 @@ class AdminLogatamaController
 
         $tingkat = $request->tingkat;
         $id = $request->id;
+        // return $request;
         // $question = Soal::where('id',$request->id)->where('tingkat',$tingkat)->select('id','pertanyaan','pilihan','jawaban','tingkat','poin')->get();
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
+            
             $pertanyaan =  $request->question;
             $pilihan = array_map(function ($item) {
                 return $item['value'];
@@ -185,6 +189,7 @@ class AdminLogatamaController
             $validated = $request->validate([
                 'question' => 'required|string|max:300',
                 'file' => 'image|mimes:jpg,png,jpeg|max:300',
+                'poin' => 'required|integer',
             ]);
 
             if (!$validated || !is_array($request->options)) {
@@ -203,7 +208,7 @@ class AdminLogatamaController
                         'pertanyaan' => $pertanyaan,
                         'pilihan' => json_encode($pilihan),
                         'jawaban' => $jawaban,
-                        'poin' => 2,
+                        'poin' => $request->poin,
                         'images' => '/storage/soal/' . $newName,
                         'tingkat' => $tingkat,
                     ]);
@@ -213,7 +218,7 @@ class AdminLogatamaController
                         'pertanyaan' => $pertanyaan,
                         'pilihan' => json_encode($pilihan),
                         'jawaban' => $jawaban,
-                        'poin' => 2,
+                        'poin' => $request->poin,
                         'images' => '',
                         'tingkat' => $tingkat,
                     ]);
