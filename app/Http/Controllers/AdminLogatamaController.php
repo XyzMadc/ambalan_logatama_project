@@ -28,17 +28,18 @@ class AdminLogatamaController
             'semuaBidang' => $all_bidang,
         ]);
     }
+
     function pengumuman()
     {
         return Inertia::render('Admin/Pengumuman/index');
     }
+
     function createPengumuman(Request $request)
     {
 
         $validated = $request->validate([
             'judul' => 'required|string|max:300',
             'deskripsi' => 'required|string|max:1000',
-            // 'tanggal' => 'required|string|max:50',
         ]);
 
         if ($validated) {
@@ -59,14 +60,6 @@ class AdminLogatamaController
         $tingkat = $request->tingkat;
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
             $question = Soal::where('tingkat', $tingkat)->select('id', 'pertanyaan', 'pilihan', 'jawaban', 'tingkat', 'poin', 'images')->get();
-            // $questions = [
-            //     // 'id' => $userTestData->team_id,
-            //     'soal' => $question,
-            //     'tingkat' => $tingkat,
-            //     // 'remainingTime'=>$sisa_waktu,
-            //     // 'storedAnswers' => $storedAnswers
-            // ];
-            // return $question;
             return Inertia::render('Admin/Soal/ReviewSoal/index', ['tingkat' => $tingkat, 'data_review_soal' => $question]);
         }
         return redirect()->back();
@@ -76,7 +69,6 @@ class AdminLogatamaController
     {
         $tingkat = $request->tingkat;
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
-            // return $request;
             return Inertia::render('Admin/Soal/CreateSoal/index');
         }
         return redirect()->back();
@@ -85,7 +77,6 @@ class AdminLogatamaController
     function postSoal(Request $request)
     {
         $tingkat = $request->tingkat;
-        // return $request;
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
             $pertanyaan =  $request->question;
             $pilihan = array_map(function ($item) {
@@ -95,8 +86,6 @@ class AdminLogatamaController
             if (strlen($jawaban) == 0) {
                 return redirect()->back()->withErrors(['question' => 'jawaban belum diisi']);
             }
-            //     // return Inertia::render('Admin/Soal/CreateSoal/index');
-
             $validated = $request->validate([
                 'question' => 'required|string|max:300',
                 'file' => 'image|mimes:jpg,png,jpeg|max:300',
@@ -104,7 +93,6 @@ class AdminLogatamaController
             ]);
 
             if (!$validated || !is_array($request->options)) {
-                // return redirect()->back()->withErrors(['imageFile' => 'File harus berupa gambar!']);
                 return redirect()->back()->withErrors(['options' => 'Pilihan harus diisi!']);
             }
 
@@ -149,17 +137,7 @@ class AdminLogatamaController
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
             $soal = Soal::where('id', $request->id)->where('tingkat', $tingkat);
             if ($soal->exists()) {
-                //     $soal->update([
-                //         'pertanyaan'=>$pertanyaan,
-                //         'pilihan' => json_encode($pilihan),
-                //         'jawaban'=>$jawaban,
-                //         'poin'=>2,
-                //         'images'=>'',
-                //         'tingkat' => $tingkat
-                //     ]);
-                // return $soal->;
                 return Inertia::render('Admin/Soal/CreateSoal/index', ['soal' => $soal->first()]);
-                // return redirect()->back();
             }
             return redirect('admin-logatama/daftar-soal/' . $tingkat);
         }
@@ -168,12 +146,8 @@ class AdminLogatamaController
 
     function updateSoal(Request $request)
     {
-
-
         $tingkat = $request->tingkat;
         $id = $request->id;
-        // return $request;
-        // $question = Soal::where('id',$request->id)->where('tingkat',$tingkat)->select('id','pertanyaan','pilihan','jawaban','tingkat','poin')->get();
         if (in_array($tingkat, ['penegak', 'penggalang'])) {
             
             $pertanyaan =  $request->question;
@@ -184,8 +158,6 @@ class AdminLogatamaController
             if (strlen($jawaban) == 0) {
                 return redirect()->back()->withErrors(['question' => 'jawaban belum diisi']);
             }
-            //     // return Inertia::render('Admin/Soal/CreateSoal/index');
-
             $validated = $request->validate([
                 'question' => 'required|string|max:300',
                 'file' => 'image|mimes:jpg,png,jpeg|max:300',
@@ -193,7 +165,6 @@ class AdminLogatamaController
             ]);
 
             if (!$validated || !is_array($request->options)) {
-                // return redirect()->back()->withErrors(['imageFile' => 'File harus berupa gambar!']);
                 return redirect()->back()->withErrors(['options' => 'Pilihan harus diisi!']);
             }
 
@@ -249,7 +220,6 @@ class AdminLogatamaController
                 return redirect()->back();
             }
             return redirect('admin-logatama/daftar-soal/' . $tingkat);
-            // return Inertia::render('Admin/Soal/CreateSoal/index');
         }
         return redirect()->back();
     }
@@ -263,9 +233,9 @@ class AdminLogatamaController
             ->where('table_name', 'pesertas')
             ->whereNotIn('column_name', ["id", "team_id", "pangkalan", "username", "password", "role", "tingkat", "kategori", "email", "created_at", "updated_at"])
             ->pluck('COLUMN_NAME');
-        // return $pangkalan;
         return Inertia::render('Admin/Rekap/index', ['jumlahPeserta' => $pangkalan, 'bidang' => $bidang]);
     }
+
     function createRekap(Request $request)
     {
         $team_id = $request->nama_pangkalan;
@@ -294,10 +264,12 @@ class AdminLogatamaController
         }
         return redirect()->back();
     }
+
     function faq()
     {
         return Inertia::render('Admin/FAQ/index');
     }
+
     function createFaq(Request $request)
     {
         $validated = $request->validate([
@@ -313,14 +285,15 @@ class AdminLogatamaController
         }
         return redirect()->back();
     }
+
     function dokumentasi()
     {
         return Inertia::render('Admin/Dokumentasi/index');
     }
+
     function createDokumentasi(Request $request)
     {
         $validated = $request->validate([
-            'name_file' => 'required|string|max:30',
             'file' => 'required|image|mimes:jpg,png,jpeg|max:300',
         ]);
 
@@ -337,7 +310,6 @@ class AdminLogatamaController
                 'path' => '/storage/dokumentasi/' . $newName,
             ]);
         }
-
         return redirect()->back();
     }
 }

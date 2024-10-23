@@ -18,11 +18,13 @@ class LogatamaController
     {
         return Inertia::render('BerandaLogatama/index');
     }
+
     function panduan()
     {
         $faq = Faq::select('pertanyaan','jawaban')->get();
         return Inertia::render('Panduan/index',['faqs'=>$faq]);
     }
+
     function pengumuman(Request $request)
     {
         $announcements = Pengumuman::all();
@@ -31,10 +33,7 @@ class LogatamaController
             ->where('table_name', 'pesertas')
             ->whereNotIn('column_name', ["id", "team_id", "pangkalan", "username", "password", "role", "tingkat", "kategori", "email", "created_at", "updated_at"])
             ->pluck('COLUMN_NAME');
-        // ->select('column_name')->get();
-
         $bidang = $request->input('bidang');
-        // return $bidang;
         if (!Schema::hasColumn('pesertas', $bidang)) {
             $bidang = 'lctp';
         }
@@ -61,25 +60,25 @@ class LogatamaController
                 });
 
             $juara = ['bidang' => $bidang, 'penggalang' => $penggalang, 'penegak' => $penegak];
-            // return $juara;
         } else {
             $default = array_map(fn () => ['pangkalan' => 'Coming Soon', $bidang => 'xxx'], [1, 2, 3]);
             $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
-            // return $juara;
         }
         return Inertia::render('Pengumuman/index', ['bidangList' => $bidangList, 'announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
     }
+
     function loginsoal()
     {
         return Inertia::render('Auth/loginSoal/index');
     }
+    
     function loginadmin()
     {
         return Inertia::render('Auth/loginAdmin/index');
     }
+
     function auth(Request $request)
     {
-        //authenticate
         $request->validate(
             [
                 'username' => 'required',
@@ -118,6 +117,7 @@ class LogatamaController
             ])
             ->onlyInput('username');
     }
+    
     function logout()
     {
         if (Auth::guard('peserta')->check()) {

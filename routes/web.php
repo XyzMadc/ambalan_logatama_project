@@ -70,13 +70,4 @@ Route::prefix('/admin-logatama')
     });
 
 
-// Route::controller(AdminLctpController::class)
-//     ->prefix('/admin-lctp')
-//     ->group(function () {
-//         Route::middleware('admin.auth')->group(function () {
-//             Route::get('/dashboard', 'index');
-//             Route::get('/soal', 'soal');
-//         });
-//     });
-
 require __DIR__ . '/auth.php';
