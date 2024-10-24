@@ -35,10 +35,16 @@ export default function Dokumentasi() {
                             speed={25}
                         >
                             {Array.from({ length: 7 }).map((_, index) => (
-                                <div
+                                <figure
                                     key={index}
-                                    className="item bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] size-28 xl:size-36 rounded-xl border border-primary mr-4 xl:mr-20"
-                                ></div>
+                                    className="item bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] size-28 xl:size-36 rounded-xl border border-primary mr-4 xl:mr-20 overflow-hidden"
+                                >
+                                    <img
+                                        className="w-full object-cover"
+                                        src="https://placehold.co/112x112"
+                                        alt="diisi ya alt ne kocak!"
+                                    />
+                                </figure>
                             ))}
                         </Marquee>
                     ))}

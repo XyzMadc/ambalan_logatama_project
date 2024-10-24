@@ -9,7 +9,7 @@ import { Head } from "@inertiajs/react";
 export default function TentangPage() {
     return (
         <>
-            <Head title="About" />
+            <Head title="Tentang" />
             <NavbarAmbalan />
             <HeroSection />
             <History />

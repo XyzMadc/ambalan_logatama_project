@@ -5,10 +5,12 @@ import DenahLayout from "@/Layouts/Panduan/Denah";
 import PanduanLayout from "@/Layouts/Panduan/Panduan";
 import Pertanyaan from "@/Layouts/Panduan/Pertanyaan";
 import Syarat from "@/Layouts/Panduan/Syarat";
+import { Head } from "@inertiajs/react";
 
 export default function PanduanPage() {
     return (
         <>
+            <Head title="Panduan" />
             <header>
                 <NavbarLogatama />
             </header>
