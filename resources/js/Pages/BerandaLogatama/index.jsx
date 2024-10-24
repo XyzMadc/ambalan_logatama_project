@@ -8,10 +8,12 @@ import LombaGalang from "@/Layouts/Logatama/LombaGalang";
 import Merchandise from "@/Layouts/Logatama/Merchandise";
 import Pendaftaran from "@/Layouts/Logatama/Pendaftaran";
 import Teaser from "@/Layouts/Logatama/Teaser";
+import { Head } from "@inertiajs/react";
 
 export default function LogatamaPage() {
     return (
         <>
+            <Head title="Beranda" />
             <NavbarLogatama />
             <main className="bg-secondary">
                 <Judul />
