@@ -22,9 +22,18 @@ return new class extends Migration
             $table->string('kategori');
             $table->string('email')->unique();
             $table->integer('lctp')->nullable()->default(0);
-            $table->integer('pbb')->nullable()->default(0);
-            $table->integer('cerdas_cermat')->nullable()->default(0);
+            // $table->integer('pbb')->nullable()->default(0);
+            // $table->integer('cerdas_cermat')->nullable()->default(0);
             $table->timestamps();
+        });
+
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
         });
     }
 

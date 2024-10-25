@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengumuman;
+use App\Models\Dokumentasi;
 use App\Models\Faq;
 use App\Models\Peserta;
 use Illuminate\Support\Facades\Schema;
@@ -28,6 +29,7 @@ class LogatamaController
     function pengumuman(Request $request)
     {
         $announcements = Pengumuman::all();
+        $dokumentasi = Dokumentasi::select('path')->get();
         $bidangList = DB::table('information_schema.columns')
             ->where('table_schema', env('DB_DATABASE'))
             ->where('table_name', 'pesertas')
@@ -64,7 +66,7 @@ class LogatamaController
             $default = array_map(fn () => ['pangkalan' => 'Coming Soon', $bidang => 'xxx'], [1, 2, 3]);
             $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
         }
-        return Inertia::render('Pengumuman/index', ['bidangList' => $bidangList, 'announcements' => $announcements, 'pesertaRekapitulasi' => $juara]);
+        return Inertia::render('Pengumuman/index', ['bidangList' => $bidangList, 'announcements' => $announcements, 'pesertaRekapitulasi' => $juara,'dokumentasi'=>$dokumentasi]);
     }
 
     function loginsoal()

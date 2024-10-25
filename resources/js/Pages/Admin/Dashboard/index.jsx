@@ -17,7 +17,7 @@ export default function dashboardAdmin() {
                                 Total Peserta Penggalang
                             </h3>
                             <h2 className="text-3xl font-semibold text-white">
-                                999999
+                                {semuaPeserta.penggalang.length}
                             </h2>
                         </div>
                         <div className="bg-[#2B1577] w-1/2 py-8 rounded-lg flex flex-col items-center justify-center gap-4">
@@ -25,7 +25,7 @@ export default function dashboardAdmin() {
                                 Total Peserta Penegak
                             </h3>
                             <h2 className="text-3xl font-semibold text-white">
-                                999999
+                                {semuaPeserta.penegak.length}
                             </h2>
                         </div>
                     </div>

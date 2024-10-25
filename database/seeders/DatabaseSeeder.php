@@ -20,49 +20,51 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // Peserta::factory(10)->create(['tingkat' =>'penegak']);
+        foreach (range(1, 20) as $i) {
+            Peserta::factory()
+                ->state(function (array $attributes) use ($i) {
+                    $school = rand(1, 50);
+                    $kategori = ['putra', 'putri'];
+                    $tingkat = 'penggalang';
+                    $tingkatsekolah = 'SMP';
+                    return [
+                        'pangkalan' => "$tingkatsekolah $school Semarang",
+                        'username' => "PENGGALANG_$i",
+                        'role' => 'peserta',
+                        'tingkat' => $tingkat,
+                        'kategori' => $kategori[intval(rand(0, 1))],
+                        // 'pbb' => null,
+                        // 'cerdas_cermat' => null,
+                    ];
+                })
+                ->create();
+        }
+
+        foreach (range(1, 20) as $i) {
+            Peserta::factory()
+                ->state(function (array $attributes) use ($i) {
+                    $school = rand(1, 50);
+                    $kategori = ['putra', 'putri'];
+                    $tingkat = 'penegak';
+                    $tingkatsekolah = 'SMA';
+                    return [
+                        'pangkalan' => "$tingkatsekolah $school Semarang",
+                        'username' => "PENEGAK_$i",
+                        'role' => 'peserta',
+                        'tingkat' => $tingkat,
+                        'kategori' => $kategori[intval(rand(0, 1))],
+                        // 'pbb' => null,
+                        // 'cerdas_cermat' => null,
+                    ];
+                })
+                ->create();
+        }
+
 
         // Soal::factory(2)->create(['tingkat'=>'penggalang']);
         // Soal::factory(50)->create(['tingkat'=>'penegak']);
-        Peserta::factory()
-            ->count(15)
-            ->state(function (array $attributes) {
-                $school = rand(1, 50);
-                $kategori = ['putra', 'putri'];
-                $tingkat = 'penegak';
-                $tingkatsekolah = 'SMA';
-                return [
-                    'pangkalan' => "$tingkatsekolah $school Semarang",
-                    // 'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
-                    'username'=> "PESERTA_" . $school,
-                    'role' => 'peserta',
-                    'tingkat' => $tingkat,
-                    'kategori' => $kategori[intval(rand(0, 1))],
-                    'pbb'=> rand(0, 100),
-                    'cerdas_cermat'=> rand(0, 100),
-
-                ];
-            })
-            ->create();
-        //     Peserta::factory()
-        //     ->count(15)
-        //     ->state(function (array $attributes) {
-        //         $school = rand(1, 50);
-        //         $kategori = ['putra', 'putri'];
-        //         $tingkat = 'penggalang';
-        //         $tingkatsekolah = 'SMP';
-        //         return [
-        //             'pangkalan' => "$tingkatsekolah $school Semarang",
-        //             'username' => $tingkatsekolah . "_" . $school . "_SEMARANG",
-        //             'role' => 'peserta',
-        //             'tingkat' => $tingkat,
-        //             'kategori' => $kategori[intval(rand(0, 1))],
-        //             'pbb'=> rand(0, 100),
-        //             'cerdas_cermat'=> rand(0, 100),
-
-        //         ];
-        //     })
-        //     ->create();
+       
+        
 
         Peserta::factory()->create([
             'team_id' => Str::uuid(),

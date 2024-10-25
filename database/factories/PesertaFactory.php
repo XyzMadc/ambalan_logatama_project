@@ -37,9 +37,9 @@ class PesertaFactory extends Factory
             'role' => 'peserta',
             // 'tingkat' => $tingkat,
             // 'kategori' => $kategori[intval(rand(0, 1))],
-            'lctp' => 0,
-            'pbb' => 0,
-            'cerdas_cermat' => 0,
+            // 'lctp' => 0,
+            // 'pbb' => 0,
+            // 'cerdas_cermat' => 0,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
         ];

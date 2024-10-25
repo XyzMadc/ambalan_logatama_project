@@ -1,6 +1,9 @@
 import Marquee from "react-fast-marquee";
+import { usePage } from "@inertiajs/react";
 
 export default function Dokumentasi() {
+    const { props } = usePage();
+    const { dokumentasi } = props;
     return (
         <section className="xl:h-[120vh] bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center xl:space-y-10 py-20">
             <h1 className="font-semibold xl:text-3xl">
@@ -34,15 +37,15 @@ export default function Dokumentasi() {
                             direction={index % 2 === 0 ? "left" : "right"}
                             speed={25}
                         >
-                            {Array.from({ length: 7 }).map((_, index) => (
+                            {dokumentasi.map((path, index) => (
                                 <figure
                                     key={index}
                                     className="item bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] size-28 xl:size-36 rounded-xl border border-primary mr-4 xl:mr-20 overflow-hidden"
                                 >
                                     <img
                                         className="w-full object-cover"
-                                        src="https://placehold.co/112x112"
-                                        alt="diisi ya alt ne kocak!"
+                                        src={path.path}
+                                        alt={index}
                                     />
                                 </figure>
                             ))}

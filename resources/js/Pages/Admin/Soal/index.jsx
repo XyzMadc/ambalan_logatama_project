@@ -17,7 +17,7 @@ export default function SoalAdmin() {
                         </h1>
                         <div className="flex justify-center gap-16 text-white">
                             <Link
-                                href="/admin-logatama/daftar-soal/penggalang"
+                                href="daftar-soal/penggalang"
                                 className="bg-red-800 w-1/2 h-36 rounded-lg flex flex-col justify-center items-center gap-3 hover:bg-red-700 transition-colors duration-200 ease-in-out"
                             >
                                 <h3 className="text-2xl font-semibold">
@@ -28,7 +28,7 @@ export default function SoalAdmin() {
                                 </h5>
                             </Link>
                             <Link
-                                href="/admin-logatama/daftar-soal/penegak"
+                                href="daftar-soal/penegak"
                                 className="bg-yellow-500 w-1/2 h-36 rounded-lg flex flex-col justify-center items-center gap-3 hover:bg-yellow-400 transition-colors duration-200 ease-in-out"
                             >
                                 <h3 className="text-2xl font-semibold">
@@ -65,7 +65,7 @@ export default function SoalAdmin() {
                                             Hasil
                                         </button>
                                         <Link
-                                            href="admin-logatama/daftar-soal/penggalang"
+                                            href="daftar-soal/penggalang"
                                             className="bg-white px-5 py-[6px] rounded-lg text-sm font-bold text-secondary"
                                         >
                                             Edit
@@ -92,7 +92,7 @@ export default function SoalAdmin() {
                                             Hasil
                                         </button>
                                         <Link
-                                            href="admin-logatama/daftar-soal/penegak"
+                                            href="daftar-soal/penegak"
                                             className="bg-white px-5 py-[6px] rounded-lg text-sm font-bold text-secondary"
                                         >
                                             Edit
