@@ -14,35 +14,37 @@ export default function HeroSection() {
         threshold: 0.5,
     });
 
-    const judul = "AMBALAN Ir. SOEKARNO - FATMAWATI";
-    const [text, setText] = useState("");
-    const [index, setIndex] = useState(0);
+    const title = "AMBALAN Ir. SOEKARNO - FATMAWATI";
+    const [displayedText, setDisplayedText] = useState("");
+    const [charIndex, setCharIndex] = useState(0);
 
     useEffect(() => {
         let interval;
-        if (index < judul.length) {
+        if (charIndex < title.length) {
             interval = setInterval(() => {
-                setText((prev) => prev + judul[index]);
-                setIndex((prev) => prev + 1);
+                setDisplayedText((prev) => prev + title[charIndex]);
+                setCharIndex((prev) => prev + 1);
             }, 100);
         } else {
             interval = setTimeout(() => {
-                setText("");
-                setIndex(0);
+                setDisplayedText("");
+                setCharIndex(0);
             }, 10000);
         }
-        return () => {
-            clearInterval(interval);
-            clearTimeout(interval);
-        };
-    }, [index, judul]);
+        return () => clearInterval(interval);
+    }, [charIndex, title]);
+
+    const animationVariants = {
+        hidden: { opacity: 0, y: 100 },
+        visible: { opacity: 1, y: 0 },
+    };
 
     return (
         <section
             ref={ref}
-            className="xl:min-h-screen -z-[999] overflow-hidden xl:flex xl:items-center bg-gradient-to-t from-primary via-secondary to-tertiary relative"
+            className="xl:min-h-screen overflow-hidden xl:flex xl:items-center bg-gradient-to-t from-primary via-secondary to-tertiary relative"
         >
-            <div className="absolute -z-[1]">
+            <div className="absolute">
                 <img
                     className="w-screen md:block hidden max-h-full"
                     src={galaxy}
@@ -67,26 +69,20 @@ export default function HeroSection() {
             <div className="flex flex-col md:flex-row justify-end md:items-center xl:items-center xl:w-full h-[70vh] md:h-[50vh] xl:h-screen">
                 <div className="flex justify-center gap-4 md:w-[35%] xl:w-2/5 md:order-2 md:relative md:h-[20vh] xl:h-[65vh]">
                     <motion.img
-                        initial={{ opacity: 0 }}
+                        initial="hidden"
                         animate={inView ? "visible" : "hidden"}
-                        variants={{
-                            hidden: { opacity: 0, y: 100 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
+                        variants={animationVariants}
                         transition={{ duration: 1 }}
-                        className="w-28 md:w-40 xl:w-72 md:absolute order-2 -bottom-0 right-16 md:bottom-0 md:right-10 xl:bottom-0"
+                        className="w-28 md:w-40 xl:w-72 md:absolute order-2 -bottom-0 right-16 md:bottom-0 md:right-10 xl:right-20 xl:bottom-2"
                         src={logoFatmawati}
                         alt=""
                     />
                     <motion.img
-                        initial={{ opacity: 0 }}
+                        initial="hidden"
                         animate={inView ? "visible" : "hidden"}
-                        variants={{
-                            hidden: { opacity: 0, y: 100 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
+                        variants={animationVariants}
                         transition={{ duration: 1 }}
-                        className="w-28 md:w-40 xl:w-72 md:absolute order-1 top-0 left-16 md:left-2 md:top-0 xl:bottom-0"
+                        className="w-28 md:w-40 xl:w-72 md:absolute order-1 top-0 left-16 md:left-2 md:top-0 xl:left-7 xl:bottom-0"
                         src={logoSoekarno}
                         alt=""
                     />
@@ -95,23 +91,17 @@ export default function HeroSection() {
                     <motion.h1
                         initial="hidden"
                         animate={inView ? "visible" : "hidden"}
-                        variants={{
-                            hidden: { opacity: 0, y: 100 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
+                        variants={animationVariants}
                         transition={{ duration: 1 }}
                         className="font-semibold xl:font-bold text-lg md:text-2xl xl:text-4xl"
                     >
-                        {text}
+                        {displayedText}
                         <span className="blinking-cursor">|</span>
                     </motion.h1>
                     <motion.p
                         initial="hidden"
                         animate={inView ? "visible" : "hidden"}
-                        variants={{
-                            hidden: { opacity: 0, y: 100 },
-                            visible: { opacity: 1, y: 0 },
-                        }}
+                        variants={animationVariants}
                         transition={{ duration: 1 }}
                         className="text-[13px] md:text-lg xl:text-[20px]"
                     >

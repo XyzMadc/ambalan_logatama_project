@@ -25,7 +25,7 @@ export default function Pasukan14() {
                 >
                     <ImageSection
                         src={pasukan14}
-                        className="md:-left-4 xl:left-[114px] md:-bottom-10 xl:bottom-[-58px] border-white md:size-[15rem] xl:size-[290px]"
+                        className="md:-left-4 xl:-left-8 md:-bottom-10 xl:-bottom-20 border-white md:size-[15rem] xl:size-[290px]"
                     />
                 </motion.div>
                 <motion.div

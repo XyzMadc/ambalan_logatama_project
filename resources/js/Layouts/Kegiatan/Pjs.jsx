@@ -25,7 +25,11 @@ export default function Pjs() {
                     <button
                         onClick={handlePrev}
                         disabled={currentIndex === 0}
-                        className="text-secondary hover:text-indigo-400 transition-all duration-300 ease-in"
+                        className={`text-secondary transition-all duration-300 ease-in ${
+                            currentIndex === 0
+                                ? "cursor-not-allowed"
+                                : "cursor-pointer hover:text-indigo-400"
+                        }`}
                     >
                         <CaretLeft size={36} />
                     </button>
@@ -37,7 +41,11 @@ export default function Pjs() {
                     <button
                         onClick={handleNext}
                         disabled={currentIndex === images.length - 1}
-                        className="text-secondary hover:text-indigo-400 transition-all duration-300 ease-in"
+                        className={`text-secondary transition-all duration-300 ease-in ${
+                            currentIndex === images.length - 1
+                                ? "cursor-not-allowed"
+                                : "cursor-pointer hover:text-indigo-400"
+                        }`}
                     >
                         <CaretRight size={36} />
                     </button>

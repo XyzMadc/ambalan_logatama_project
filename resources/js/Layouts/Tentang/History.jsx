@@ -20,10 +20,10 @@ export default function History() {
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="order-2 md:w-1/2 xl:w-[45%] md:flex justify-end md:relative">
+                <div className="order-2 md:w-1/2 xl:w-[45%] md:flex justify-end">
                     <ImageSection
                         src={sejarah}
-                        className="md:left-6 md:top-48 xl:left-[114px] xl:bottom-[-58px] border-white xl:size-[290px] md:size-56"
+                        className="left-6 top-48 xl:-left-8 border-white xl:size-72 size-56"
                     />
                 </div>
                 <div className="text-white md:text-secondary order-1 md:w-1/2 xl:w-[55%] md:px-5 xl:px-20 md:flex items-center">

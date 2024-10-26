@@ -18,10 +18,14 @@ class LogatamaController
     {
         return Inertia::render('BerandaLogatama/index');
     }
+    function tentangLogatama()
+    {
+        return Inertia::render('TentangLogatama/index');
+    }
     function panduan()
     {
-        $faq = Faq::select('pertanyaan','jawaban')->get();
-        return Inertia::render('Panduan/index',['faqs'=>$faq]);
+        $faq = Faq::select('pertanyaan', 'jawaban')->get();
+        return Inertia::render('Panduan/index', ['faqs' => $faq]);
     }
     function pengumuman(Request $request)
     {
@@ -63,7 +67,7 @@ class LogatamaController
             $juara = ['bidang' => $bidang, 'penggalang' => $penggalang, 'penegak' => $penegak];
             // return $juara;
         } else {
-            $default = array_map(fn () => ['pangkalan' => 'Coming Soon', $bidang => 'xxx'], [1, 2, 3]);
+            $default = array_map(fn() => ['pangkalan' => 'Coming Soon', $bidang => 'xxx'], [1, 2, 3]);
             $juara = ['bidang' => $bidang, 'penggalang' => ['putra' => $default, 'putri' => $default], 'penegak' => ['putra' => $default, 'putri' => $default]];
             // return $juara;
         }

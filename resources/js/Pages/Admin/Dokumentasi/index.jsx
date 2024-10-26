@@ -53,17 +53,6 @@ export default function DokumentasiAdmin() {
                             <label className="text-xl font-medium text-center text-white bg-secondary py-2 px-4 rounded-md">
                                 Foto ( Image Upload )
                             </label>
-                            {/* preview
-                        {data.file && (
-                            <div className="size-60 rounded-xl mx-auto overflow-hidden relative">
-                                <img
-                                    className="object-cover size-full"
-                                    src={data.file}
-                                    alt="preview"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary" />
-                            </div>
-                        )} */}
                         </div>
                         <div className="space-y-4">
                             <div className="size-60 flex justify-center items-center rounded-md relative overflow-hidden hover:cursor-pointer hover:opacity-90 transition-opacity duration-200 ease-in">

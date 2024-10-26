@@ -2,50 +2,49 @@ import Marquee from "react-fast-marquee";
 
 export default function Dokumentasi() {
     return (
-        <section className="xl:h-[120vh] bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center xl:space-y-10 py-20">
+        <section className="bg-gradient-to-b from-secondary from-10% to-[#633FCA] text-white text-center xl:space-y-10 py-20">
             <h1 className="font-semibold xl:text-3xl">
                 DOKUMENTASI PERLOMBAAN
             </h1>
-            <div className="relative h-[70vh] xl:h-[80vh] overflow-hidden z-0">
-                <div className="absolute inset-0 flex flex-col justify-center space-y-2">
-                    {Array.from({ length: 9 }).map((_, index) => (
+            <div className="relative overflow-hidden">
+                <div className="flex flex-col justify-center space-y-1 xl:space-y-3">
+                    {Array.from({ length: 15 }).map((_, index) => (
                         <Marquee
                             key={index}
                             direction={index % 2 === 0 ? "right" : "left"}
                             speed={25}
+                            gradient={false}
                             className={`text-4xl opacity-30 xl:text-6xl tracking-wider font-bold ${
                                 index % 2 === 0
                                     ? "text-slate-500"
                                     : "text-slate-400"
                             }`}
                         >
-                            <span>DOKUMENTASIPERLOMBAAN</span>
-                            <span>DOKUMENTASIPERLOMBAAN</span>
-                            <span className="hidden md:block">
-                                DOKUMENTASIPERLOMBAAN
+                            <span>
+                                DOKUMENTASIPERLOMBAANDOKUMENTASIPERLOMBAAN
                             </span>
                         </Marquee>
                     ))}
                 </div>
-                <div className="absolute inset-0 py-[60px] xl:py-5 space-y-8 xl:space-y-10">
+                <div className="absolute inset-0 flex flex-col justify-around">
                     {Array.from({ length: 3 }).map((_, index) => (
                         <Marquee
                             key={index}
                             direction={index % 2 === 0 ? "left" : "right"}
                             speed={25}
                         >
-                            {Array.from({ length: 7 }).map((_, index) => (
+                            {/* {dataDokumentasi.map((img, index) => (
                                 <figure
                                     key={index}
-                                    className="item bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] size-28 xl:size-36 rounded-xl border border-primary mr-4 xl:mr-20 overflow-hidden"
+                                    className="item bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] h-44 xl:h-72 rounded-xl border border-primary mr-4 xl:mr-20 overflow-hidden"
                                 >
                                     <img
-                                        className="w-full object-cover"
-                                        src="https://placehold.co/112x112"
-                                        alt="diisi ya alt ne kocak!"
+                                        className="h-full object-cover"
+                                        src={img}
+                                        alt="descriptive alt text here"
                                     />
                                 </figure>
-                            ))}
+                            ))} */}
                         </Marquee>
                     ))}
                 </div>

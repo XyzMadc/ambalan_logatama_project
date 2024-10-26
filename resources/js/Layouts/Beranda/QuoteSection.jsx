@@ -20,12 +20,12 @@ export default function QuoteSection() {
                     <img
                         className="absolute hidden md:block md:top-[24rem] md:left-40 xl:top-[35rem] xl:left-60 md:w-32 xl:w-40"
                         src={meteor}
-                        alt=""
+                        alt="meteor"
                     />
                     <img
                         className="absolute hidden md:block md:top-[22rem] md:right-20 xl:top-[26rem] xl:right-72 md:w-28 xl:w-40"
                         src={meteor}
-                        alt=""
+                        alt="meteor"
                     />
                     <div className="relative flex justify-center md:w-2/5 md:h-[20rem] xl:w-1/3">
                         <motion.img
@@ -38,7 +38,7 @@ export default function QuoteSection() {
                             transition={{ duration: 0.5 }}
                             className="absolute w-48 md:w-full xl:w-[410px] -bottom-3 md:-bottom-5 md:-left-6 xl:-left-9"
                             src={objekKardusBiru}
-                            alt=""
+                            alt="objekKardusBiru"
                         />
                         <motion.img
                             initial={{ opacity: 0 }}
@@ -50,7 +50,7 @@ export default function QuoteSection() {
                             transition={{ duration: 0.5, delay: 0.5 }}
                             className="w-40 md:w-72 xl:w-[375px] xl:absolute xl:-top-[105px] xl:right-10 z-0"
                             src={BadenPowell}
-                            alt=""
+                            alt="BadenPowell"
                         />
                         <motion.img
                             initial={{ opacity: 0 }}
@@ -62,7 +62,7 @@ export default function QuoteSection() {
                             transition={{ duration: 0.5, delay: 1 }}
                             className="absolute w-[110px] md:w-40 xl:w-[235px] -bottom-14 md:-bottom-20 xl:top-[200px] right-[122px] md:right-24 xl:right-32"
                             src={objekKardusOren}
-                            alt=""
+                            alt="objekKardusOren"
                         />
                     </div>
                     <motion.div
@@ -78,7 +78,7 @@ export default function QuoteSection() {
                         <span className="text-5xl md:text-6xl font-bold text-white">
                             “
                         </span>
-                        <div className="text-white space-y-1 xl:space-y-5 absolute top-7 md:top-[120px] px-5 xl:px-8">
+                        <div className="text-white space-y-1 xl:space-y-5 absolute top-7 md:top-[120px] xl:top-10 px-5 xl:px-8">
                             <h1 className="text-sm md:text-lg xl:text-3xl font-bold">
                                 Semakin besar tanggung jawab yang diberikan
                                 Pembina Pramuka kepada pemimpin patrolinya,
