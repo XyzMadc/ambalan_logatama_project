@@ -11,40 +11,40 @@ export default function Footer() {
     return (
         <section className="bg-footer text-white rounded-tl-[70px] xl:rounded-tl-[170px]">
             <div className="py-10 px-[60px] xl:px-24 xl:py-20 xl:flex xl:justify-between">
-                <div className="xl:w-1/3 space-y-3">
+                <div className="xl:w-2/5 space-y-3">
                     <div className="flex gap-1 xl:gap-2">
                         <img
-                            className="w-14 xl:w-16"
+                            className="w-14 xl:w-20"
                             src={logoSoekarno}
                             alt=""
                         />
                         <img
-                            className="w-14 xl:w-16"
+                            className="w-14 xl:w-20"
                             src={logoFatmawati}
                             alt=""
                         />
                     </div>
                     <div className="space-y-3">
-                        <h2 className="font-semibold text-xs xl:text-xl xl:font-bold">
+                        <h2 className="font-semibold text-xs xl:text-2xl xl:font-bold">
                             AMBALAN Ir. SOEKARNO - FATMAWATI
                         </h2>
                         <div className="border border-white" />
-                        <p className="text-[11px] xl:text-xs tracking-wide">
+                        <p className="text-[11px] xl:text-sm tracking-wide">
                             Ambalan Ir. Soekarno - Fatmawati atau yang biasa
                             disebut dengan Ambalan SOEKMA. Gugusdepan 11-089 -
                             11-090 Pangkalan SMK Negeri 7 Semarang.
                         </p>
-                        <h3 className="text-orange-200 font-bold text-xs xl:text-[13px]">
+                        <h3 className="text-orange-200 font-bold text-xs xl:text-sm">
                             WE ARE SCOUT, WE ARE PROUD!
                         </h3>
                     </div>
                 </div>
                 <div className="mt-3 xl:w-1/3">
                     <div className="space-y-1">
-                        <h1 className="text-xs xl:text-base font-semibold">
+                        <h1 className="text-xs xl:text-lg font-semibold">
                             Kontak Kami
                         </h1>
-                        <div className="border border-white w-[90px] xl:w-[104px]" />
+                        <div className="border border-white w-[90px] xl:w-32" />
                     </div>
                     <div className="mt-3">
                         <form className="justify-start items-center gap-4 inline-flex">

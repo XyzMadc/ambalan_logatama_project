@@ -60,7 +60,7 @@ export default function PengumumanLayout() {
                 />
                 <div className="absolute bottom-12 xl:bottom-40">
                     <h1 className="font-bold text-lg xl:text-5xl text-center">
-                        PENGUMUMAN <br /> LOGATAMA XVII
+                        PENGUMUMAN <br /> LOGATAMA XVIII
                     </h1>
                     <div className="flex justify-center">
                         <button

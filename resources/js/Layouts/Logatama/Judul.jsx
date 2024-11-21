@@ -15,10 +15,10 @@ export default function Judul() {
                 <div className="flex flex-col h-full justify-end px-5 md:px-20">
                     <figure className="flex md:justify-end justify-center">
                         <div className="hidden md:block text-white pt-[20vh] space-y-5">
-                            <h1 className="font-bold text-3xl">
+                            <h1 className="font-bold text-3xl xl:text-4xl">
                                 Lomba Galang Tegak Utama <br /> (LOGATAMA) XVIII
                             </h1>
-                            <p className="text-xl tracking-wide">
+                            <p className="text-xl xl:text-2xl tracking-wide">
                                 Salam Pramuka! <br />
                                 Halo kakak-kakak dan adik-adik semua, terima
                                 kasih telah mengunjungi website resmi logatama

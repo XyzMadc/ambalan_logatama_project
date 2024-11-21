@@ -5,7 +5,7 @@ export default function TechnicalMeeting() {
     const { announcements } = props;
 
     return (
-        <section className="xl:h-[90vh] px-5 py-14 xl:p-20">
+        <section className="px-5 py-14 xl:py-20 xl:px-60">
             <div className="space-y-3 xl:space-y-8 bg-gradient-to-t from-[#32108E] via-[#532FB6] to-[#633FCA] rounded-3xl px-8 py-8 xl:p-20 text-white text-center">
                 <h1 className="font-bold text-base xl:text-4xl">
                     TECHNICAL MEETING - LOGATAMA XVIII

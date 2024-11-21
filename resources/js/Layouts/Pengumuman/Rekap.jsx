@@ -66,39 +66,41 @@ export default function Rekapitulasi() {
                 <h1 className="font-semibold text-lg xl:text-3xl uppercase">
                     Rekapitulasi Kejuaraan
                 </h1>
-                <div className="p-1 rounded-lg bg-white text-sm w-60 xl:w-[20rem] mx-auto flex justify-between">
-                    <button
-                        className={`font-bold py-1 w-1/2 rounded-md transition-colors duration-300 ${
-                            activeTab === "PENGGALANG"
-                                ? "bg-primary text-white"
-                                : "bg-white text-primary"
-                        }`}
-                        onClick={() => handleClick("PENGGALANG")}
-                    >
-                        PENGGALANG
-                    </button>
-                    <button
-                        className={`font-bold py-1 w-1/2 rounded-md transition-colors duration-300 ${
-                            activeTab === "PENEGAK"
-                                ? "bg-primary text-white"
-                                : "bg-white text-primary"
-                        }`}
-                        onClick={() => handleClick("PENEGAK")}
-                    >
-                        PENEGAK
-                    </button>
+                <div className="space-y-10">
+                    <div className="p-1 rounded-lg bg-white text-sm w-60 xl:w-80 mx-auto flex justify-between">
+                        <button
+                            className={`font-bold py-1 w-1/2 rounded-md transition-colors duration-300 ${
+                                activeTab === "PENGGALANG"
+                                    ? "bg-primary text-white"
+                                    : "bg-white text-primary"
+                            }`}
+                            onClick={() => handleClick("PENGGALANG")}
+                        >
+                            PENGGALANG
+                        </button>
+                        <button
+                            className={`font-bold py-1 w-1/2 rounded-md transition-colors duration-300 ${
+                                activeTab === "PENEGAK"
+                                    ? "bg-primary text-white"
+                                    : "bg-white text-primary"
+                            }`}
+                            onClick={() => handleClick("PENEGAK")}
+                        >
+                            PENEGAK
+                        </button>
+                    </div>
+                    <h3 className="font-semibold uppercase text-lg xl:text-2xl text-slate-300">
+                        {activeTab === "PENGGALANG"
+                            ? "BIDANG " +
+                              formatBidangName(currentBidang) +
+                              " PENGGALANG"
+                            : "BIDANG " +
+                              formatBidangName(currentBidang) +
+                              " PENEGAK"}
+                    </h3>
                 </div>
-                <h3 className="font-semibold uppercase text-lg xl:text-2xl text-slate-300">
-                    {activeTab === "PENGGALANG"
-                        ? "BIDANG " +
-                          formatBidangName(currentBidang) +
-                          " PENGGALANG"
-                        : "BIDANG " +
-                          formatBidangName(currentBidang) +
-                          " PENEGAK"}
-                </h3>
             </div>
-            <div className="flex justify-center px-2 xl:px-20 gap-1 xl:gap-5">
+            <div className="flex justify-center px-2 xl:px-20 gap-1 xl:gap-5 mt-5">
                 <div className="my-auto">
                     <button
                         className={`text-4xl xl:text-6xl text-white font-bold p-1 ${

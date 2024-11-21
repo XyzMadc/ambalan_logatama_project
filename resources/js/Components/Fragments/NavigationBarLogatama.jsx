@@ -12,7 +12,7 @@ export default function NavigationBarLogatama() {
                         className="flex items-center"
                     >
                         <img
-                            className="object-cover w-10 md:w-[200px]"
+                            className="object-cover w-10 md:w-32"
                             src={Logo}
                             alt="Logo"
                         />

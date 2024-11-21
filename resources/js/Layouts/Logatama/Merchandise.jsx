@@ -3,7 +3,7 @@ import lombaGalangMobile from "../../../assets/logatama/lomba-galang-mobile.png"
 
 export default function Merchandise() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemsToShow = window.innerWidth >= 1280 ? 4 : 1;
+    const itemsToShow = window.innerWidth >= 1280 ? 2 : 1;
     const images = [
         lombaGalangMobile,
         lombaGalangMobile,
@@ -39,10 +39,8 @@ export default function Merchandise() {
                 <button
                     onClick={handlePrev}
                     disabled={currentIndex === 0}
-                    className={`text-4xl xl:text-7xl transition-all duration-200 ease-in-out ${
-                        currentIndex === 0
-                            ? "cursor-not-allowed"
-                            : "hover:text-primary"
+                    className={`text-7xl transition-all duration-200 ease-in-out ${
+                        currentIndex === 0 ? "opacity-0" : "hover:text-primary"
                     }`}
                 >
                     &lt;
@@ -53,7 +51,7 @@ export default function Merchandise() {
                             key={index}
                             className="merchandise bg-gradient-to-r from-secondary from-10% to-[#633FCA] rounded-xl border-2 border-primary p-4 pb-0"
                         >
-                            <div className="size-56 xl:size-56 rounded-xl overflow-hidden border-2 border-primary">
+                            <div className="size-56 xl:size-72 rounded-xl overflow-hidden border-2 border-primary">
                                 <img
                                     className="size-full object-cover hover:scale-125 transition-transform duration-200 ease-in cursor-zoom-in"
                                     src={images[currentIndex + index]}
@@ -71,9 +69,9 @@ export default function Merchandise() {
                 <button
                     onClick={handleNext}
                     disabled={currentIndex >= images.length - itemsToShow}
-                    className={`text-4xl xl:text-7xl transition-all duration-200 ease-in-out ${
+                    className={`text-7xl transition-all duration-200 ease-in-out ${
                         currentIndex >= images.length - itemsToShow
-                            ? "cursor-not-allowed"
+                            ? "opacity-0"
                             : "hover:text-primary"
                     }`}
                 >
