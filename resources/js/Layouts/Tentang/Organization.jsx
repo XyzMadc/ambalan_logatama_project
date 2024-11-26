@@ -10,7 +10,10 @@ export default function Organization() {
         threshold: 0.5,
     });
     return (
-        <section ref={ref} className="relative min-h-screen md:min-h-[35rem] xl:min-h-screen md:flex">
+        <section
+            ref={ref}
+            className="relative min-h-screen md:min-h-[35rem] xl:min-h-screen md:flex"
+        >
             <div className="bg-secondary h-[25%] w-full absolute -top-px md:hidden" />
             <motion.div
                 className="xl:w-[45%] md:w-1/2 relative flex justify-center md:justify-start md:items-start items-center p-10 md:p-0"
@@ -20,7 +23,7 @@ export default function Organization() {
             >
                 <ImageSection
                     src={sejarah}
-                    className="xl:size-[290px] md:size-60 md:right-0 md:bottom-40 xl:right-[88px] xl:bottom-14 border-white"
+                    className="xl:size-[290px] md:size-60 md:right-0 md:bottom-40 xl:-right-14 xl:-bottom-20 border-white"
                 />
             </motion.div>
             <motion.div

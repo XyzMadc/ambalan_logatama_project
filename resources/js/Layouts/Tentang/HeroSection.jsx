@@ -71,7 +71,7 @@ export default function HeroSection() {
                             </h1>
                             <div className="border border-white w-[38vw] md:w-40 xl:w-[360px] xl:border-2" />
                         </div>
-                        <p className="text-[13px] md:text-sm xl:text-[20px] mt-2 xl:mt-10">
+                        <p className="text-xs md:text-sm xl:text-xl mt-2 xl:mt-10">
                             Organisasi yang bergerak di bidang Pramuka dan
                             dikenal dengan nama Pramuka Simpang Lima. Ambalan
                             Ir. Soekarno - Fatmawati ini memiliki jargon “WE ARE

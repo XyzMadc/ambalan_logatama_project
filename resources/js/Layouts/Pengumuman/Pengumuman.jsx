@@ -3,10 +3,12 @@ import { CaretDown } from "@phosphor-icons/react";
 import asetPutra from "../../../assets/pengumuman/aset-pramuka-putra-vr.png";
 import asetPutri from "../../../assets/pengumuman/aset-pramuka-putri-vr.png";
 import Background from "../../../assets/pengumuman/bg-beranda.png";
+import { useErrorToast } from "@/Utils/toastHandle";
 
 export default function PengumumanLayout() {
     const { props } = usePage();
     const { announcements } = props;
+    const errorToast = useErrorToast();
 
     const formatDate = (isoString) => {
         const date = new Date(isoString);
@@ -23,6 +25,8 @@ export default function PengumumanLayout() {
                 top: window.innerHeight,
                 behavior: "smooth",
             });
+        } else {
+            errorToast("Tidak ada pengumuman!");
         }
     };
 
@@ -56,16 +60,12 @@ export default function PengumumanLayout() {
                 />
                 <div className="absolute bottom-12 xl:bottom-40">
                     <h1 className="font-bold text-lg xl:text-5xl text-center">
-                        PENGUMUMAN <br /> LOGATAMA XVII
+                        PENGUMUMAN <br /> LOGATAMA XVIII
                     </h1>
                     <div className="flex justify-center">
                         <button
                             onClick={handleClick}
-                            className={`text-secondary bg-white p-1 rounded-full mt-10 transition-all duration-300 ease-in-out ${
-                                announcements.length > 0
-                                    ? "cursor-pointer hover:text-primary"
-                                    : "cursor-not-allowed"
-                            }`}
+                            className="text-secondary bg-white p-1 rounded-full mt-10 hover:text-primary transition-all duration-300 ease-in-out"
                         >
                             <CaretDown size={35} />
                         </button>

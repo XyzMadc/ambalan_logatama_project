@@ -9,42 +9,42 @@ import {
 
 export default function Footer() {
     return (
-        <section className="">
-            <div className="bg-footer text-white py-10 px-[60px] xl:px-24 xl:py-20 rounded-tl-[70px] xl:rounded-tl-[170px] xl:flex xl:justify-between">
-                <div className="xl:w-1/3 space-y-3">
+        <section className="bg-footer text-white rounded-tl-[70px] xl:rounded-tl-[170px]">
+            <div className="py-10 px-[60px] xl:px-24 xl:py-20 xl:flex xl:justify-between">
+                <div className="xl:w-2/5 space-y-3">
                     <div className="flex gap-1 xl:gap-2">
                         <img
-                            className="w-14 xl:w-16"
+                            className="w-14 xl:w-20"
                             src={logoSoekarno}
                             alt=""
                         />
                         <img
-                            className="w-14 xl:w-16"
+                            className="w-14 xl:w-20"
                             src={logoFatmawati}
                             alt=""
                         />
                     </div>
                     <div className="space-y-3">
-                        <h2 className="font-semibold text-xs xl:text-xl xl:font-bold">
+                        <h2 className="font-semibold text-xs xl:text-2xl xl:font-bold">
                             AMBALAN Ir. SOEKARNO - FATMAWATI
                         </h2>
                         <div className="border border-white" />
-                        <p className="text-[11px] xl:text-xs tracking-wide">
+                        <p className="text-[11px] xl:text-sm tracking-wide">
                             Ambalan Ir. Soekarno - Fatmawati atau yang biasa
                             disebut dengan Ambalan SOEKMA. Gugusdepan 11-089 -
                             11-090 Pangkalan SMK Negeri 7 Semarang.
                         </p>
-                        <h3 className="text-orange-200 font-bold text-xs xl:text-[13px]">
+                        <h3 className="text-orange-200 font-bold text-xs xl:text-sm">
                             WE ARE SCOUT, WE ARE PROUD!
                         </h3>
                     </div>
                 </div>
                 <div className="mt-3 xl:w-1/3">
                     <div className="space-y-1">
-                        <h1 className="text-xs xl:text-base font-semibold">
+                        <h1 className="text-xs xl:text-lg font-semibold">
                             Kontak Kami
                         </h1>
-                        <div className="border border-white w-[90px] xl:w-[104px]" />
+                        <div className="border border-white w-[90px] xl:w-32" />
                     </div>
                     <div className="mt-3">
                         <form className="justify-start items-center gap-4 inline-flex">
@@ -74,7 +74,7 @@ export default function Footer() {
                             </div>
                         </form>
                         <ul className="flex gap-2 xl:gap-4 py-4">
-                            <li className="group">
+                            <li className="group z-50">
                                 <a
                                     className="flex items-center justify-center text-[#e6683c] rounded-full p-1.5 bg-white text-base xl:text-2xl group-hover:bg-gradient-to-r group-hover:from-[#f09433] group-hover:via-[#e6683c] group-hover:to-[#bc1888] group-hover:text-white transition-all duration-200 ease-in-out"
                                     href="#"
@@ -82,7 +82,7 @@ export default function Footer() {
                                     <InstagramLogo size={20} weight="duotone" />
                                 </a>
                             </li>
-                            <li className="group">
+                            <li className="group z-50">
                                 <a
                                     className="flex items-center justify-center text-[#FF0000] rounded-full p-1.5 bg-white text-base xl:text-2xl group-hover:bg-gradient-to-r group-hover:from-[#FF0000] group-hover:via-[#E52D27] group-hover:to-[#B31217] group-hover:text-white transition-all duration-200 ease-in-out"
                                     href="#"
@@ -95,7 +95,7 @@ export default function Footer() {
                 </div>
             </div>
             <hr />
-            <div className="bg-footer text-white py-4 text-center xl:flex text-[10px] xl:text-xs xl:justify-center xl:gap-1">
+            <div className="py-4 text-center xl:flex text-[10px] xl:text-xs xl:justify-center xl:gap-1">
                 <h4>Copyright @2024 Ambalan Ir. Soekarno - Fatmawati.</h4>
                 <h4>All rights reserved.</h4>
             </div>

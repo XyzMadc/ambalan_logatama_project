@@ -12,7 +12,7 @@ Route::controller(AmbalanController::class)
     ->prefix('/')
     ->group(function () {
         Route::get('/', 'index')->name('beranda');
-        Route::get('/tentang', 'tentang');
+        Route::get('/tentang', 'tentangAmbalan');
         Route::get('/kegiatan', 'kegiatan');
         Route::get('/kontak', 'kontak');
         Route::post('/kontak/mail', 'email')->name('contactMail');
@@ -23,8 +23,9 @@ Route::controller(LogatamaController::class)
     ->prefix('/')
     ->group(function () {
         Route::get('/logatama', 'index')->name('logatama');
-        Route::get('/panduan', 'panduan');
-        Route::get('/pengumuman', 'pengumuman');
+        Route::get('/logatama/panduan', 'panduan');
+        Route::get('/logatama/tentang', 'tentangLogatama');
+        Route::get('/logatama/pengumuman', 'pengumuman');
         Route::middleware('guest')->group(function () {
             Route::get('/login-soal', 'loginsoal');
             Route::get('/login-admin', 'loginadmin');

@@ -3,7 +3,7 @@ import syaratAdministrasi from "../../Services/syaratAdministrasi.json";
 
 export default function Administrasi() {
     return (
-        <section className="bg-gradient-to-b from-tertiary from-10% via-secondary to-[#2B1577] pb-20 relative -top-2">
+        <section className="bg-gradient-to-b from-tertiary from-10% via-secondary to-[#2B1577] pb-20 xl:pb-60">
             <svg viewBox="0 0 100 25" className="rotate-180">
                 <path d="M0,25 Q50,0 100,25 L100,50 L0,50 Z" fill="#fff" />
             </svg>
@@ -25,12 +25,12 @@ export default function Administrasi() {
                 </div>
                 <div className="flex xl:flex-col xl:items-center justify-center flex-wrap w-full gap-5">
                     {downloadFile.map((file, index) => (
-                        <div
+                        <button
                             key={index}
-                            className="border-2 border-primary rounded-xl text-white py-2 px-4 xl:w-[25rem]"
+                            className="ring-2 ring-primary rounded-xl text-white py-2 px-4 xl:px-10 hover:bg-primary hover:font-semibold transition-all duration-200 ease-in"
                         >
-                            <h4 className="text-[.75rem]">{file.text}</h4>
-                        </div>
+                            <h4 className="text-xs">{file.text}</h4>
+                        </button>
                     ))}
                 </div>
             </div>

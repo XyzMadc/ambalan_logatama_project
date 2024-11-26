@@ -15,9 +15,9 @@ class AmbalanController
         return Inertia::render('BerandaAmbalan/index');
     }
 
-    function tentang()
+    function tentangAmbalan()
     {
-        return Inertia::render('Tentang/index');
+        return Inertia::render('TentangAmbalan/index');
     }
 
     function kontak()

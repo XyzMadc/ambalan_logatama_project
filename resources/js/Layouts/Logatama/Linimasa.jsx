@@ -16,7 +16,7 @@ export default function Linimasa() {
                 alt=""
             />
             <img
-                className="absolute -bottom-4 md:-bottom-6"
+                className="absolute -bottom-2 md:-bottom-6"
                 src={blueWave}
                 alt=""
             />

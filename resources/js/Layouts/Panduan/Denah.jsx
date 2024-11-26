@@ -1,5 +1,5 @@
+import { MapPin } from "@phosphor-icons/react";
 import Denah from "../../../assets/panduan/denah.png";
-import Map from "../../../assets/panduan/map.png";
 
 export default function DenahLayout() {
     return (
@@ -11,9 +11,7 @@ export default function DenahLayout() {
                     </h1>
                     <div className="border-2 w-full xl:w-[30rem] xl:mx-auto border-white" />
                     <div className="flex items-center justify-center gap-4">
-                        <span>
-                            <img src={Map} alt="" />
-                        </span>
+                        <MapPin size={24} weight="fill" />
                         <h3 className="xl:text-lg">SMK Negeri 7 Semarang</h3>
                     </div>
                     <figure className="flex justify-center">

@@ -12,16 +12,16 @@ export default function NavigationBarLogatama() {
                         className="flex items-center"
                     >
                         <img
-                            className="object-cover w-10 md:w-[200px]"
+                            className="object-cover w-10 md:w-32"
                             src={Logo}
                             alt="Logo"
                         />
                     </a>
                     <ul className="flex gap-10 items-center font-medium text-white">
                         <List path="/logatama" label="Beranda" />
-                        <List path="/tentang" label="Tentang" />
-                        <List path="/panduan" label="Panduan" />
-                        <List path="/pengumuman" label="Pengumuman" />
+                        <List path="/logatama/tentang" label="Tentang" />
+                        <List path="/logatama/panduan" label="Panduan" />
+                        <List path="/logatama/pengumuman" label="Pengumuman" />
                         <li className="bg-gradient-to-r from-navbar_primary via-navbar_secondary to-navbar_tertiary px-4 py-2 xl:px-5 xl:py-1 rounded-full">
                             <a className="font-semibold" href="#">
                                 DAFTAR

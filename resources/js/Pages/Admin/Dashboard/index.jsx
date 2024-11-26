@@ -100,33 +100,6 @@ export default function dashboardAdmin() {
                                 </div>
                             </div>
                         ))}
-                        {/* <div
-                        id="lctp"
-                        className="space-y-4 rounded-lg p-6 font-semibold text-[#2B1577] snap-center"
-                    >
-                        <h1 className="text-lg">
-                            REKAPITULASI NILAI LCTP PENEGAK
-                        </h1>
-                        <div className="w-full border bg-[#2B1577]" />
-                        <div className="space-y-3 px-5 py-1">
-                            {Array.from({ length: 5 }).map((_, index) => (
-                                <div
-                                    key={index}
-                                    className="flex justify-between items-center py-2 px-4 rounded-lg shadow-login-admin-atas text-sm"
-                                >
-                                    <span>Peserta</span>
-                                    <div className="flex gap-4 items-center">
-                                        <div className="rounded-lg py-1 px-8 border border-[#2B1577]">
-                                            <span>000.000</span>
-                                        </div>
-                                        <button className="bg-[#2B1577] text-white rounded-lg py-1 px-10">
-                                            Detail
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div> */}
                     </div>
                 </div>
             </section>

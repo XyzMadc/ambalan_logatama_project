@@ -33,9 +33,9 @@ export default function DrawerLayoutLogatama({
                 <DrawerBody pt="72px" bg={"#1e1b4b"}>
                     <ul className="space-y-10 text-white bg-indigo-950 p-5">
                         <List path="/logatama" label="Logatama" />
-                        <List path="/tentang" label="Tentang" />
-                        <List path="/panduan" label="Panduan" />
-                        <List path="/pengumuman" label="Pengumuman" />
+                        <List path="/logatama/tentang" label="Tentang" />
+                        <List path="/logatama/panduan" label="Panduan" />
+                        <List path="/logatama/pengumuman" label="Pengumuman" />
                         <li className="text-center">
                             <a
                                 className="text-xl tracking-wide bg-gradient-to-r from-navbar_primary via-navbar_secondary to-navbar_tertiary rounded-full py-1 px-16"

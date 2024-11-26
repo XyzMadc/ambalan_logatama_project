@@ -10,7 +10,10 @@ export default function LatihanRutin() {
         threshold: 0.5,
     });
     return (
-        <section ref={ref} className="h-[95vh] md:h-[50vh] xl:h-[95vh] bg-secondary relative -top-px">
+        <section
+            ref={ref}
+            className="bg-secondary relative -top-px pb-10 pt-5 xl:pb-32 xl:pt-10"
+        >
             <div className="px-10 md:px-0 md:flex">
                 <motion.div
                     className="relative flex justify-end items-center bottom-10 pt-10 order-2 md:w-1/2 xl:w-1/2"
@@ -22,7 +25,7 @@ export default function LatihanRutin() {
                 >
                     <ImageSection
                         src={pasukan14}
-                        className="left-24 -bottom-16 md:left-0 md:size-56 xl:bottom-[-105px] xl:left-40 border-secondary"
+                        className="size-72 xl:-bottom-20 xl:-left-8 border-secondary"
                     />
                 </motion.div>
                 <motion.div
@@ -33,7 +36,11 @@ export default function LatihanRutin() {
                     }
                     transition={{ duration: 0.5 }}
                 >
-                    <TextSection title="LATIHAN RUTIN" line="white" className="md:w-60 xl:w-full">
+                    <TextSection
+                        title="LATIHAN RUTIN"
+                        line="white"
+                        className="md:w-60 xl:w-full"
+                    >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
