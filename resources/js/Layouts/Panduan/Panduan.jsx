@@ -3,9 +3,11 @@ import backgroundMobile from "../../../assets/panduan/bg-panduan-mobile.png";
 import backgroundDesktop from "../../../assets/panduan/bg-panduan-dekstop.png";
 
 const InfoCard = ({ title, description, buttonText }) => (
-    <div className="space-y-4 p-3 rounded-xl border-primary border-2 bg-[#633FCA] transition-transform duration-500 w-full">
-        <h1 className="font-bold text-lg xl:text-2xl">{title}</h1>
-        <p className="text-sm xl:text-base">{description}</p>
+    <div className="flex flex-col justify-between space-y-4 p-3 rounded-xl border-primary border-2 bg-[#633FCA] transition-transform duration-500 w-full">
+        <div>
+            <h1 className="font-bold text-lg xl:text-2xl">{title}</h1>
+            <p className="text-sm xl:text-base">{description}</p>
+        </div>
         <button className="border-2 border-primary py-1 px-5 xl:py-2 xl:px-4 rounded-xl shadow-lg text-sm xl:text-base hover:bg-white hover:text-primary hover:font-semibold transition-all duration-200 ease-in">
             {buttonText}
         </button>
@@ -47,7 +49,7 @@ export default function PanduanLayout() {
                         PENEGAK
                     </button>
                 </div>
-                <div className="grid gap-4 place-items-center mt-4 transition-transform duration-500 xl:px-40">
+                {/* <div className="grid gap-4 place-items-center mt-4 transition-transform duration-500 xl:px-40">
                     {activeTab === "PENGGALANG" ? (
                         <>
                             <InfoCard
@@ -75,7 +77,39 @@ export default function PanduanLayout() {
                             />
                         </>
                     )}
+                </div> */}
+                <div className="grid gap-4 place-items-center mt-4 transition-transform duration-500 xl:px-40">
+                    {activeTab === "PENGGALANG" ? (
+                        <div className="flex flex-row gap-4">
+                           
+                                <InfoCard
+                                    title="PETUNJUK PELAKSANAAN"
+                                    description="Petunjuk pelaksanaan PENGGALANG."
+                                    buttonText="Lihat File Juklak"
+                                />
+                                <InfoCard
+                                    title="PETUNJUK TEKNIS"
+                                    description="Petunjuk Teknis PENGGALANG."
+                                    buttonText="Lihat File Juknis"
+                                />
+                  
+                        </div>
+                    ) : (
+                        <div className="flex flex-row gap-4">
+                            <InfoCard
+                                title="PETUNJUK PELAKSANAAN"
+                                description="Petunjuk pelaksanaan PENEGAK."
+                                buttonText="Lihat File Juklak"
+                            />
+                            <InfoCard
+                                title="PETUNJUK TEKNIS"
+                                description="Petunjuk Teknis PENEGAK."
+                                buttonText="Lihat File Juknis"
+                            />
+                        </div>
+                    )}
                 </div>
+
             </div>
         </section>
     );

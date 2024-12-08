@@ -153,7 +153,7 @@ export default function CreateSoal({ soal }) {
                                     {!data.question &&
                                         "Ketik pertanyaan disini"}
                                 </div>
-                                <div className="absolute bottom-4 right-4">
+                                <div className="absolute -bottom-12 right-4">
                                     <button
                                         className="bg-secondary text-white py-2 px-4 rounded-lg flex items-center gap-2 hover:bg-primary hover:scale-105 transition-all duration-500 ease-in-out"
                                         onClick={handleUpload}
